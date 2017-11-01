@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+let mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -11,10 +11,13 @@ let mix = require('laravel-mix');
  |
  */
 
-// mix.js('resources/assets/js/app.js', 'public/js')
-//    .sass('resources/assets/sass/app.scss', 'public/css')
 mix.sass('resources/assets/sass/app.scss', 'public/css', {
   includePaths: [
-    'node_modules/foundation-sites/scss'
+    'node_modules/font-awesome/scss'
   ]
-}).js('resources/assets/js/app.js', 'public/js/app.js')
+})
+  .copy('node_modules/semantic-ui-css/semantic.min.css', 'public/css/semantic.min.css')
+  .copy('node_modules/semantic-ui-css/semantic.min.js', 'public/js/semantic.min.js')
+  .js('resources/assets/js/app.js', 'public/js/app.js')
+
+mix.inProduction() ? mix.version() : mix.browserSync({ proxy: 'localhost:8000' })

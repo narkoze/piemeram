@@ -6,6 +6,6 @@
  */
 try {
   window.$ = window.jQuery = require('jquery')
-  require('foundation-sites')
-  window.$(document).foundation()
+
+  require('jquery-ujs')
 } catch (e) {}

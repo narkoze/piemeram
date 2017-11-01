@@ -3,7 +3,7 @@ cd "$(dirname $0)/.."
 ./bin/cleanup.sh
 
 composer install
-npm install
+yarn
 npm run dev
 
 cd -

@@ -1,4 +1,4 @@
 @extends('layout')
 @section('content')
-<h1>@lang('menu.title')</h1>
+<h1>@lang('about.title')</h1>
 @endsection
