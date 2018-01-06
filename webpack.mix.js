@@ -13,11 +13,11 @@ let mix = require('laravel-mix')
 
 mix.sass('resources/assets/sass/app.scss', 'public/css', {
   includePaths: [
-    'node_modules/font-awesome/scss'
+    'node_modules/font-awesome/scss',
+    'node_modules/semantic-ui-sass/scss'
   ]
 })
-  .copy('node_modules/semantic-ui-css/semantic.min.css', 'public/css/semantic.min.css')
-  .copy('node_modules/semantic-ui-css/semantic.min.js', 'public/js/semantic.min.js')
   .js('resources/assets/js/app.js', 'public/js/app.js')
+  .js('node_modules/semantic-ui-sass/semantic-ui.js', 'public/js/app.js')
 
 mix.inProduction() ? mix.version() : mix.browserSync({ proxy: 'localhost:8000' })

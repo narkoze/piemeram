@@ -4,6 +4,6 @@ cd "$(dirname $0)/.."
 
 composer install
 yarn
-npm run dev
+./artisan serve & npm run watch
 
 cd -

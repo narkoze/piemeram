@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'title' => 'Sākums',
     'home' => 'Sākums',
     'project' => 'Projekti',
     'about' => 'Par',

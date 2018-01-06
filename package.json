@@ -28,7 +28,7 @@
     "jquery-ujs": "^1.2.2",
     "laravel-mix": "^1.5.1",
     "lodash": "^4.17.4",
-    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-sass": "^2.2.11",
     "vue": "^2.5.2"
   }
 }

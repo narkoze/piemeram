@@ -10,7 +10,6 @@
     <meta name="csrf-param" content="_token">
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
-    <link rel="stylesheet" href="{{ mix('css/semantic.min.css') }}" />
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
   </head>
   <body>
@@ -20,7 +19,6 @@
     </div>
 
     <script src="{{ mix('js/app.js') }}"></script>
-    <script src="{{ mix('js/semantic.min.js') }}"></script>
     @stack('scripts')
   </body>
 </html>
