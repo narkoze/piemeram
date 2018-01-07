@@ -17,7 +17,10 @@ mix.sass('resources/assets/sass/app.scss', 'public/css', {
     'node_modules/semantic-ui-sass/scss'
   ]
 })
-  .js('resources/assets/js/app.js', 'public/js/app.js')
-  .js('node_modules/semantic-ui-sass/semantic-ui.js', 'public/js/app.js')
+
+mix.copy('resources/assets/css/font-awesome-animation.min.css', 'public/css/font-awesome-animation.min.css')
+
+mix.js('resources/assets/js/app.js', 'public/js/app.js')
+mix.js('node_modules/semantic-ui-sass/semantic-ui.js', 'public/js/app.js')
 
 mix.inProduction() ? mix.version() : mix.browserSync({ proxy: 'localhost:8000' })

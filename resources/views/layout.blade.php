@@ -11,13 +11,14 @@
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}" />
   </head>
   <body>
     <div class="ui container">
       @include('menu')
       @yield('content')
     </div>
-
+    @include('github')
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')
   </body>

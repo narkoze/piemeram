@@ -9,3 +9,16 @@ $font-family: Helvetica, Arial, sans-serif;
 @import 'modules/all';
 @import 'elements/all';
 @import 'collections/all';
+
+.github {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  a {
+    color: #000000;
+  }
+}
+.github:hover {
+  opacity: .8;
+}
