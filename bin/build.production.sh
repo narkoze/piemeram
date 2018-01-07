@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 cd "$(dirname $0)/.."
+
 ./bin/cleanup.sh
 
 composer install --no-dev
@@ -13,5 +14,12 @@ php artisan config:clear
 php artisan route:cache
 php artisan route:clear
 php artisan optimize
+
+# Manipulations scpfor shared hosting
+if [ -d public ]; then
+  mv public public_html
+  sed -i '/\workaround/s/^\/\///g' app/Providers/AppServiceProvider.php
+fi
+tar -zcvf piem.tgz .
 
 cd -
