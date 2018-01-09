@@ -15,7 +15,9 @@ php artisan route:cache
 php artisan route:clear
 php artisan optimize
 
-# Manipulations scpfor shared hosting
+cp -rf ../.env .
+
+# Manipulations for shared hosting
 if [ -d public ]; then
   mv public public_html
   sed -i '/\workaround/s/^\/\///g' app/Providers/AppServiceProvider.php
