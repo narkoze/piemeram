@@ -1,4 +1,4 @@
-# piemeram
+# www.piemeram.lv
 
 ## Deployment steps for shared hostings
 1.	Run ./bin/build.production.sh
