@@ -10,9 +10,12 @@ $font-family: Helvetica, Arial, sans-serif;
 @import 'elements/all';
 @import 'collections/all';
 
+$red: #DB2828;
+$teal: #00b5ad;
+$black: #1b1c1d;
+
 .github {
-  display: inline-block;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   a {
@@ -21,4 +24,13 @@ $font-family: Helvetica, Arial, sans-serif;
 }
 .github:hover {
   opacity: .8;
+}
+
+a {
+  color: $red;
+
+}
+
+a:hover {
+  color: black;
 }
