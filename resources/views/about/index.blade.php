@@ -14,7 +14,7 @@
     <br>
     Dzīvoju es <b>Liepājā</b>
     <br>
-    Sazināties ar mani var <a href="mailto:ev@aepartner.lv">ev@aepartner.lv</a>
+    Sazināties ar mani var <a href="mailto:ev@piemeram.lv">ev@piemeram.lv</a>
   </p>
   <br><br><br><br><br>
 </div>
