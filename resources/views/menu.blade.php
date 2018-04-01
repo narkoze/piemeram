@@ -69,8 +69,8 @@
   </div>
 </div>
 
-@push('scripts')
+@section('scripts')
   <script>
     window.$('.ui.dropdown').dropdown()
   </script>
-@endpush
+@endsection

@@ -23,4 +23,7 @@ mix.copy('resources/assets/css/font-awesome-animation.min.css', 'public/css/font
 mix.js('resources/assets/js/app.js', 'public/js/app.js')
 mix.js('node_modules/semantic-ui-sass/semantic-ui.js', 'public/js/app.js')
 
+mix.js('resources/assets/js/vue.js', 'public/js/vue.js')
+mix.js('resources/assets/js/components/example/example.js', 'public/js/components/example/example.js')
+
 mix.inProduction() ? mix.version() : mix.browserSync({ proxy: 'localhost:8000' })

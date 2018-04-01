@@ -1,12 +1,15 @@
 {
   "env": {
-      "browser": true,
-      "commonjs": true,
-      "es6": true,
-      "node": true
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
   },
   "parserOptions": {
-      "sourceType": "module"
+    "sourceType": "module"
   },
-  "extends": "standard"
+  "extends": "standard",
+  "plugins": [
+    "vue"
+  ]
 }

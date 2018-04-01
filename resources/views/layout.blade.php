@@ -20,6 +20,7 @@
     </div>
     @include('github')
     <script src="{{ mix('js/app.js') }}"></script>
-    @stack('scripts')
+    <script src="{{ mix('js/vue.js') }}"></script>
+    @yield('scripts')
   </body>
 </html>
