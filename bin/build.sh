@@ -5,7 +5,7 @@ cd "$(dirname $0)/.."
 composer install
 yarn
 
-cp -rf ../.env .
+cp -rf ../piem.env .env
 
 ./artisan serve & npm run watch
 
