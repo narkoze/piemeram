@@ -1,4 +1,12 @@
 {
+    "/js/components/login/login.js": "/js/components/login/login.js",
+    "/js/components/login/register/register.js": "/js/components/login/register/register.js",
+    "/js/components/login/forgotpassword/forgotpassword.js": "/js/components/login/forgotpassword/forgotpassword.js",
+    "/js/axios.js": "/js/axios.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/js/vue.js": "/js/vue.js",
+    "/css/app.css": "/css/app.css",
+    "/js/components/modal/modal.js": "/js/components/modal/modal.js",
+    "/css/font-awesome-animation.min.css": "/css/font-awesome-animation.min.css",
+    "/js/libs.js": "/js/libs.js"
 }

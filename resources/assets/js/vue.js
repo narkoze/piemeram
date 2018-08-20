@@ -5,4 +5,14 @@
  */
 
 import Vue from 'vue'
+import VueInternationalization from 'vue-i18n'
+import lang from './vue-i18n-locales.generated'
+
+Vue.use(VueInternationalization)
+
+window.i18n = new VueInternationalization({
+  locale: window.Laravel.locale,
+  messages: lang
+})
+
 window.Vue = Vue

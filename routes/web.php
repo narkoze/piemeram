@@ -11,7 +11,9 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', 'HomeController@index');
-Route::get('/project', 'ProjectController@index');
-Route::get('/about', 'AboutController@index');
+Route::get('project', 'ProjectController@index');
+Route::get('about', 'AboutController@index')->name('about');
 Route::post('locale/{locale}', 'LocaleController@setLocale');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Piemeram\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $tab = null;
+    protected $tab = '';
 
     public function __construct()
     {

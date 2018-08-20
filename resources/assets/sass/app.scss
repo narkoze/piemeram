@@ -12,25 +12,41 @@ $font-family: Helvetica, Arial, sans-serif;
 
 $red: #DB2828;
 $teal: #00b5ad;
+$gray: #A0A0A0;
 $black: #1b1c1d;
+$error: #9F3A38;
 
 .github {
   position: fixed;
   bottom: 0;
   right: 0;
   a {
-    color: #000000;
+    color: $black;
   }
-}
-.github:hover {
-  opacity: .8;
+  &:hover {
+    opacity: .8;
+  }
 }
 
 a {
   color: $red;
-
+  &:hover {
+    color: $black;
+  }
 }
 
-a:hover {
-  color: black;
+
+a.ui.secondary {
+  color: $gray;
+  &:hover {
+    color: $black;
+  }
+}
+
+small.error {
+  color: $error;
+}
+
+.ui.form .field.error > label {
+  margin-bottom: 0;
 }

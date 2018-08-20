@@ -22,7 +22,7 @@
     "eslint-plugin-vue": "^4.4.0"
   },
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.17.1",
     "cross-env": "^5.1.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
@@ -30,6 +30,7 @@
     "laravel-mix": "^1.5.1",
     "lodash": "^4.17.4",
     "semantic-ui-sass": "^2.2.11",
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-i18n": "^8.0.0"
   }
 }
