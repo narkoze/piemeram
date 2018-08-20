@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'title' => 'Projekti',
-    'torrentfinder' => [
-        'title' => 'Torrentu meklētājs',
-    ],
+  'title' => 'Projekti',
+  'torrentfinder' => [
+    'title' => 'Torrentu meklētājs',
+  ],
 ];

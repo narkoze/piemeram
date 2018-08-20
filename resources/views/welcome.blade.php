@@ -14,21 +14,4 @@
     </div>
   </div>
 </div>
-
-<div id="appElement">
-  <piemeram-example
-    text="Vue"
-  >
-  </piemeram-example>
-</div>
-@endsection
-
-@section('scripts')
-  <script src="{{ mix('js/components/example/example.js') }}"></script>
-
-  <script>
-    new Vue({
-      el: '#appElement'
-    })
-  </script>
 @endsection

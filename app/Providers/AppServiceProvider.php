@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Piemeram\Providers;
 
 use Blade;
 use Illuminate\Support\ServiceProvider;

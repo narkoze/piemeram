@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'download' => 'Download',
+  'download' => 'Download',
+  'reset' => 'Reset',
 ];

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Piemeram'),
+    'name' => env('APP_NAME', 'Piemeram.lv'),
 
     /*
     |--------------------------------------------------------------------------
@@ -164,6 +164,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        // Generates a vue-i18n compatible include file from your Laravel translations
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -171,11 +174,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Piemeram\Providers\AppServiceProvider::class,
+        Piemeram\Providers\AuthServiceProvider::class,
+        // Piemeram\Providers\BroadcastServiceProvider::class,
+        Piemeram\Providers\EventServiceProvider::class,
+        Piemeram\Providers\RouteServiceProvider::class,
 
     ],
 

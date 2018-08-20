@@ -3,13 +3,13 @@
     class="ui red label header item"
     href="{{ action('HomeController@index') }}"
   >
-    {{ config('app.name') }}
+    Piemeram
   </a>
 
   <a
     class="
       item
-      @if ($tab == 'home')
+      @if (isset($tab) and $tab == 'home')
         active
       @endif
     "
@@ -21,7 +21,7 @@
   <a
     class="
       item
-      @if ($tab == 'project')
+      @if (isset($tab) and $tab == 'project')
         active
       @endif
     "
@@ -33,7 +33,7 @@
   <a
     class="
       item
-      @if ($tab == 'about')
+      @if (isset($tab) and $tab ==  'about')
         active
       @endif
     "
@@ -42,35 +42,84 @@
     @lang('menu.about')
   </a>
 
-  <div class="right menu">
-    <div class="borderless item">
-      @lang('menu.greetings')
-    </div>
-    <div class="ui dropdown item">
-      <i class="fa fa-language"></i>&nbsp;{{ strtoupper(app()->getLocale()) }}
-      <div class="menu">
-        @foreach([
-          'lv' => 'LV',
-          'en' => 'EN',
-        ] as $key => $label)
-          @unless (app()->getLocale() == $key)
+    <div class="right menu">
+      <div class="item borderless">
+        <div id="appElement">
+          @guest
             <a
-              class="item"
-              href="{{ action('LocaleController@setLocale', $key) }}"
-              data-method="post"
-              data-remote="true"
+              href=""
+              @click.prevent="showLogin = true"
             >
-              {{ $label }}
+              @lang('menu.login')
             </a>
-          @endunless
-        @endforeach
+            <piemeram-modal
+              :show="showLogin"
+              @close="showLogin = false"
+              size="tiny"
+            >
+              <piemeram-login @loggedin="refresh" @close="showLogin = false"></piemeram-login>
+            </piemeram-modal>
+          @endguest
+        </div>
+        @auth
+          <div>
+            @lang('menu.greeting')
+            <div class="ui dropdown">
+              <a href="">{{ auth()->user()->name }}</a>
+              <div class="menu">
+                  <a
+                    class="item"
+                    href="{{ route('logout') }}"
+                    data-method="post"
+                  >
+                    @lang('menu.logout')
+                  </a>
+              </div>
+            </div>
+          </div>
+        @endauth
+      </div>
+
+      <div class="ui dropdown item">
+        <i class="fa fa-language"></i>&nbsp;{{ strtoupper(app()->getLocale()) }}
+        <div class="menu">
+          @foreach([
+            'lv' => 'LV',
+            'en' => 'EN',
+          ] as $key => $label)
+            @unless (app()->getLocale() == $key)
+              <a
+                class="item"
+                href="{{ action('LocaleController@setLocale', $key) }}"
+                data-method="post"
+                data-remote="true"
+              >
+                {{ $label }}
+              </a>
+            @endunless
+          @endforeach
+        </div>
       </div>
     </div>
-  </div>
 </div>
 
-@section('scripts')
+@push('scripts')
+  <script src="{{ mix('js/components/modal/modal.js') }}"></script>
+  <script src="{{ mix('js/components/login/login.js') }}"></script>
+
   <script>
     window.$('.ui.dropdown').dropdown()
+
+    new Vue({
+      el: '#appElement',
+      data: {
+        showLogin: false
+      },
+      methods: {
+        refresh: function () {
+          window.location.reload()
+        }
+      }
+    })
   </script>
-@endsection
+@endpush

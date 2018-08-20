@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'download' => 'Lejuplādēt',
+  'download' => 'Lejuplādēt',
+  'reset' => 'Atiestatīt',
 ];

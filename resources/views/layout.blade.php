@@ -9,6 +9,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token">
 
+    <script>
+      window.Laravel = @json([
+        'csrfToken' => csrf_token(),
+        'locale' => Lang::locale()
+      ])
+    </script>
+
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}" />
@@ -19,8 +26,10 @@
       @yield('content')
     </div>
     @include('github')
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/libs.js') }}"></script>
     <script src="{{ mix('js/vue.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     @yield('scripts')
+    @stack('scripts')
   </body>
 </html>
