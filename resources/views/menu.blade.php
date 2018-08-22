@@ -1,7 +1,7 @@
 <div class="ui pointing stackable menu">
   <a
     class="ui red label header item"
-    href="{{ action('HomeController@index') }}"
+    href="{{ route('home') }}"
   >
     Piemeram
   </a>
@@ -13,7 +13,7 @@
         active
       @endif
     "
-    href="{{ action('HomeController@index') }}"
+    href="{{ route('home') }}"
   >
     @lang('menu.home')
   </a>
@@ -25,7 +25,7 @@
         active
       @endif
     "
-    href="{{ action('ProjectController@index') }}"
+    href="{{ route('project') }}"
   >
     @lang('menu.project')
   </a>
@@ -37,7 +37,7 @@
         active
       @endif
     "
-    href="{{ action('AboutController@index') }}"
+    href="{{ route('about') }}"
   >
     @lang('menu.about')
   </a>
@@ -90,7 +90,7 @@
             @unless (app()->getLocale() == $key)
               <a
                 class="item"
-                href="{{ action('LocaleController@setLocale', $key) }}"
+                href="{{ route('setLocale', $key) }}"
                 data-method="post"
                 data-remote="true"
               >

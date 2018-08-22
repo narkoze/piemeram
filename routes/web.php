@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('project', 'ProjectController@index');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('project', 'ProjectController@index')->name('project');
 Route::get('about', 'AboutController@index')->name('about');
-Route::post('locale/{locale}', 'LocaleController@setLocale');
+Route::post('locale/{locale}', 'LocaleController@setLocale')->name('setLocale');
