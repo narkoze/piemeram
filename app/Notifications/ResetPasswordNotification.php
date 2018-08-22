@@ -4,7 +4,6 @@ namespace Piemeram\Notifications;
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Lang;
 
 class ResetPasswordNotification extends Notification
 {
@@ -72,7 +71,6 @@ class ResetPasswordNotification extends Notification
             ->markdown('message.resetpassword', [
                 'token' => $this->token,
                 'email' => $notifiable->email,
-                'locale' => Lang::locale()
             ]);
     }
 }

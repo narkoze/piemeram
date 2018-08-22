@@ -3,7 +3,7 @@
 return [
   'home' => 'Sākums',
   'project' => 'Projekti',
-  'about' => 'Par',
+  'about' => 'Par mani',
   'greeting' => 'Sveiks',
   'login' => 'Ienākt',
   'logout' => 'Iziet',

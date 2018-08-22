@@ -14,6 +14,7 @@ $red: #DB2828;
 $teal: #00b5ad;
 $gray: #A0A0A0;
 $black: #1b1c1d;
+$brown: #a5673f;
 $error: #9F3A38;
 
 .github {
@@ -49,4 +50,17 @@ small.error {
 
 .ui.form .field.error > label {
   margin-bottom: 0;
+}
+
+.social:hover {
+  opacity: .8;
+}
+
+table > thead.left > h1, h2, h3, h4, h5, h6 {
+  text-align: left;
+}
+
+.ui.grid > .column:not(.row) {
+  padding-top: 0;
+  padding-bottom: 0;
 }

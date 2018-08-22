@@ -17,7 +17,14 @@ class AboutController extends Controller
     public function index()
     {
         $age = Carbon::createFromDate(1989, 4, 11)->age;
+        $driving = Carbon::createFromDate(2008, 4, 11)->diff(Carbon::now())->y;
 
-        return view('about.index', compact('age'));
+        return view(
+            'about.index',
+            compact(
+                'age',
+                'driving'
+            )
+        );
     }
 }
