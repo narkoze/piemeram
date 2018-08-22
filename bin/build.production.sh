@@ -14,7 +14,7 @@ php artisan config:clear
 php artisan route:cache
 php artisan route:clear
 
-cp -rf ../.env .
+cp -rf ../piem_prod.env .env
 
 # Manipulations for shared hosting
 if [ -d public ]; then
