@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'subject' => 'Piemeram.lv paroles atiestatīšanas ziņojums',
+  'subject' => 'Paroles atiestatīšanas ziņojums',
 ];

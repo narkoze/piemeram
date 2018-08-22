@@ -1,10 +1,10 @@
 @extends('layout')
 @section('content')
+  <h1>@lang('auth.passwords.reset.title')</h1>
+
   <div class="ui segment">
     <div class="ui stackable three column grid">
       <div class="column">
-        <h1>@lang('auth.passwords.reset.title')</h1>
-
         <form
           action="{{ route('password.request') }}"
           method="post"

@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'subject' => 'Piemeram.lv reset password notification',
+  'subject' => 'Reset password notification',
 ];

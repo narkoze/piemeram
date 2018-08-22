@@ -1,8 +1,8 @@
 <?php
 
 return [
-  'title' => 'Projects',
-  'torrentfinder' => [
-    'title' => 'Torrent finder',
+  'index' => [
+    'title' => 'Projects',
+    'torrentfindertitle' => 'Torrent finder',
   ],
 ];

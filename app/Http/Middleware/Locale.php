@@ -3,6 +3,7 @@
 namespace Piemeram\Http\Middleware;
 
 use Closure;
+use Carbon\Carbon;
 
 class Locale
 {
@@ -22,6 +23,8 @@ class Locale
                 ? $session->get('locale')
                 : config('app.locale')
         );
+
+        Carbon::setLocale(config('app.locale'));
 
         return $next($request);
     }

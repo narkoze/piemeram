@@ -1,11 +1,11 @@
 @component('mail::message')
 
-# @lang('message.greeting'),
+  # @lang('message.greeting'),
 
-@yield('content')
+  @yield('content')
 
-@lang('message.layout.salutation'),
-<br>
-{{ config('app.name') }}
+  @lang('message.layout.salutation'),
+  <br>
+  {{ config('app.name') }}
 
 @endcomponent
