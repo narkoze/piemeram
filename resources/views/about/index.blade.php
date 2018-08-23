@@ -80,8 +80,8 @@
                 >
                   <img
                     class="social"
-                    width="14"
                     src="{{ asset('img/facebook.jpg') }}"
+                    width="14"
                   >
                 </a>
                 <a
@@ -91,8 +91,8 @@
                 >
                   <img
                     class="social"
-                    width="14"
                     src="{{ asset('img/cv.jpg') }}"
+                    width="14"
                   >
                 </a>
               </div>
@@ -342,5 +342,13 @@
     </div>
 
     <br><br>
+
+    <a
+      class="ui button red"
+      href="{{ route('about', ['pdf' => 'show']) }}"
+      target="pdf"
+    >
+      @lang('system.openaspdf')
+    </a>
   </div>
 @endsection
