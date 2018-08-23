@@ -12,13 +12,13 @@
         font-family: 'Roboto';
         font-weight: normal;
         font-style: normal;
-        src: url("{{ public_path('fonts/Roboto/Roboto-Regular.ttf') }}") format('truetype');
+        src: url("{{ public_path('pdf_fonts/Roboto/Roboto-Regular.ttf') }}") format('truetype');
       }
       @font-face {
         font-family: 'Roboto';
         font-weight: bold;
         font-style: normal;
-        src: url("{{ public_path('fonts/Roboto/Roboto-Bold.ttf') }}") format('truetype');
+        src: url("{{ public_path('pdf_fonts/Roboto/Roboto-Bold.ttf') }}") format('truetype');
       }
       body {
         font-family:"Roboto";
