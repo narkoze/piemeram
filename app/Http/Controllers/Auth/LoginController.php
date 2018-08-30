@@ -48,7 +48,7 @@ class LoginController extends Controller
     {
         if ($request->ajax()) {
             return response()->json([
-                'auth' => $user->first([
+                'auth' => $user->only([
                     'name',
                     'email',
                 ]),
@@ -77,6 +77,16 @@ class LoginController extends Controller
             ]);
         }
 
+        return redirect('/');
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
         return redirect('/');
     }
 }

@@ -136,6 +136,8 @@
         axios
           .post('logout')
           .then(response => {
+            this.disabledLogout = false
+
             axios.defaults.headers.common['X-CSRF-TOKEN'] = response.data.csrf_token
 
             this.$emit('loggedout')
