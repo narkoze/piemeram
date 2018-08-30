@@ -110,7 +110,9 @@
         <b>2016/06 @lang('about.index.tilltoday')</b>
       </div>
       <div class="four wide column">
-        <b>"SIA AE Partner"</b>
+        <a href="http://company.lursoft.lv/en/ae-partner/52103031051">
+          "SIA AE Partner"
+        </a>
       </div>
       <div class="seven wide column">
         <b>@lang('about.index.position')</b>
@@ -142,7 +144,9 @@
         <b>2008/12 - 2015/08</b>
       </div>
       <div class="four wide column">
-        <b>"SIA BALTIK IT"</b>
+        <a href="https://company.lursoft.lv/baltik-it/40003999164">
+          "SIA BALTIK IT"
+        </a>
       </div>
       <div class="seven wide column">
         <b>@lang('about.index.dataentryoperator')</b>

@@ -24,7 +24,7 @@ return [
     'programmingit' => 'Programmēšana, IT atbalsts',
     'companydata' => 'Uzņēmuma dati',
     'companydescription' => [
-      '0' => 'Starptautisks uzņēmums, virs 400 darbinieki',
+      '0' => 'Elektroenerģijas sadales un kontroles iekārtu ražošana',
       '1' => 'Starptautisks uzņēmums, virs 100 darbinieki',
     ],
     'dataentryoperator' => 'Datu ievades operators',

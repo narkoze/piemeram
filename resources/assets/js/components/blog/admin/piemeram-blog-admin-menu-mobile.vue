@@ -1,0 +1,52 @@
+<template>
+  <div :class="['dropdown', 'blog-dropdown', { 'is-active': isAdminDropdownOpen }]">
+    <div class="blog-dropdown-trigger">
+      <a
+        @click="isAdminDropdownOpen = !isAdminDropdownOpen"
+        class="button"
+      >
+        <span class="icon is-small">
+          <i v-if="isAdminDropdownOpen" class="fas fa-times"></i>
+          <i v-else class="fas fa-bars"></i>
+        </span>
+        <span>
+          {{ $t('blog.admin.blog-admin-menu.title') }}
+        </span>
+      </a>
+    </div>
+
+    <div class="dropdown-menu blog-dropdown-menu">
+      <a
+        @click="posts(); isAdminDropdownOpen = false"
+        class="dropdown-item"
+      >
+        {{ $t('blog.admin.blog-admin-menu.posts') }}
+      </a>
+      <a
+        @click="post(); isAdminDropdownOpen = false"
+        class="dropdown-item"
+      >
+        <i class="fas fa-plus"></i>
+        {{ $t('blog.admin.blog-admin-menu.post') }}
+      </a>
+    </div>
+  </div>
+</template>
+
+<script>
+  import Methods from './blog-admin-menu'
+
+  export default {
+    mixins: [
+      Methods,
+    ],
+    data: () => ({
+      isAdminDropdownOpen: false
+    }),
+    created () {
+      window.blogBus.$on('showAdmin', showAdmin => {
+        this.showAdmin = showAdmin
+      })
+    }
+  }
+</script>

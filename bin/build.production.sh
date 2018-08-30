@@ -9,6 +9,7 @@ yarn --production
 
 npm run production
 
+php artisan vue-i18n:generate
 php artisan config:cache
 php artisan config:clear
 php artisan route:cache

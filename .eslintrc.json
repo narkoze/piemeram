@@ -11,5 +11,10 @@
   "extends": "standard",
   "plugins": [
     "vue"
-  ]
+  ],
+  "rules": {
+    "comma-dangle": ["error", {
+        "arrays": "only-multiline"
+    }]
+  }
 }

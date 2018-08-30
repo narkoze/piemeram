@@ -1,19 +1,192 @@
 export default {
     "en": {
         "about": {
-            "title": "About"
+            "index": {
+                "title": "About me",
+                "personaldata": "Personal data",
+                "age": "Age",
+                "birthday": "Birthday",
+                "april": "april",
+                "address": "Address",
+                "latvia": "Latvia",
+                "email": "E-mail",
+                "educationlevel": "Education level",
+                "secondaryeducation": "Secondary education",
+                "currentpositionstate": "Current position status",
+                "working": "Working",
+                "links": "Links",
+                "facebookprofile": "Facebook.com profile",
+                "cv": "Cv.lv CV",
+                "workexperience": "Work Experience",
+                "tilltoday": "to this day",
+                "position": "Programmer - computer system technician",
+                "responsabilitiestasks": "Responsibilities \/tasks",
+                "programmingit": "Programming, IT support",
+                "companydata": "Company data",
+                "companydescription": [
+                    "Manufacture of electricity distribution and control apparatus",
+                    "An international company with over 100 employees"
+                ],
+                "dataentryoperator": "Data entry operator",
+                "dataentryapps": "Data input, application development",
+                "languageknowledge": "Language knowledge",
+                "nativelanguage": "Native language",
+                "latvian": "Latvian",
+                "dialog": "Dialogs",
+                "monologue": "Monologue",
+                "reading": "Reading",
+                "listening": "Listening",
+                "writing": "Writing",
+                "english": "English",
+                "russian": "Russian",
+                "b1": "B1 adv. Low",
+                "b2": "B2 adv. Mid",
+                "c1": "C1 adv. High",
+                "a2": "A2 intermediate",
+                "computerknowledge": "Computer knowledge",
+                "basiclevel": "Basic level",
+                "mediumlevel": "Medium level",
+                "addinfocomputerskills": "Additional information on computer knowledge",
+                "basicinfo": "Mostly I have been working with ERP, CRM, Intranet optimization \/maintenance",
+                "activeinfo": "Actively use Visual Studio Code, Postico",
+                "passiveinfo": "Passive work with AD, O365 administration, Windows Sysprep, OS cloning",
+                "workorganization": "Use Trello, Slack, Thunderbird \/Outlook for work organization",
+                "futureworkrequirements": "Future job requirements",
+                "desiredworkingtime": "Desired working time",
+                "fulltime": "Full-time",
+                "location": "Location",
+                "canstartwork": "Can start work",
+                "byagreement": "by agreement",
+                "monthlysalary": "Monthly salary (net pay)",
+                "aboutsalary": "{euro} €, according to work duties and environment",
+                "drivinglicense": "Driving license",
+                "category": "Category",
+                "years": "years",
+                "addinfo": "Additional Information",
+                "personalcharacteristics": "Personal characteristics",
+                "aboutpersonalcharacteristics": "Punctual, A little bit pedantic, Approachable, Understanding, Friendly",
+                "pluses": "Pluses",
+                "aboutpluses": "Loyal",
+                "flaws": "Flaws",
+                "aboutflaws": "Little experience",
+                "interestshobbies": "Interests, hobbies",
+                "aboutinterestshobbies": "Gym, Cycling, Running"
+            }
         },
         "auth": {
             "failed": "These credentials do not match our records.",
-            "throttle": "Too many login attempts. Please try again in '{seconds}' seconds."
+            "throttle": "Too many login attempts. Please try again in '{seconds}' seconds.",
+            "passwords": {
+                "reset": {
+                    "title": "Reset the password",
+                    "email": "E-mail",
+                    "password": "Password",
+                    "passwordagain": "Password again"
+                }
+            }
+        },
+        "blog": {
+            "admin": {
+                "blog-admin-menu": {
+                    "title": "Posts",
+                    "posts": "All posts",
+                    "post": "New post"
+                },
+                "views": {
+                    "blog-admin-view-post": {
+                        "title": {
+                            "new": "Add new post",
+                            "edit": "Edit post"
+                        },
+                        "posttitle": "Enter title here",
+                        "publish": "Publish",
+                        "published": "Post \"{title}\" successfully published",
+                        "update": "Update",
+                        "updated": "Post \"{title}\" successfully updated",
+                        "delete": "Delete",
+                        "deleted": "Post successfully deleted",
+                        "save": "Save as draft",
+                        "saved": "Post \"{title}\" successfully saved as draft",
+                        "confirm": "Delete \"{title}\"?",
+                        "infocard": {
+                            "title": "Information",
+                            "published_at": "Published",
+                            "updated_at": "Modified",
+                            "author": "Author"
+                        },
+                        "view": "View",
+                        "preview": "Preview"
+                    },
+                    "blog-admin-view-posts": {
+                        "title": "Posts",
+                        "posttitle": "Title",
+                        "author": "Author",
+                        "date": "Date",
+                        "published": "Published",
+                        "saved": "Last modified",
+                        "edit": "Edit",
+                        "view": "View",
+                        "preview": "Preview"
+                    }
+                }
+            },
+            "blog-login": {
+                "title": "Login",
+                "email": "E-mail",
+                "password": "Password",
+                "login": "Login"
+            },
+            "blog-menu": {
+                "title": "Blog",
+                "posts": "All posts",
+                "login": "Login",
+                "logout": "Logout",
+                "language": "Language",
+                "greeting": "Hello {name}",
+                "admin": "Administrator"
+            },
+            "layout": {
+                "title": "Piemeram.lv - Blog"
+            },
+            "public": {
+                "blog-public": {
+                    "title": "THE DEMO BLOG",
+                    "subtitle": "Simply created with Laravel, Vue and Bulma"
+                },
+                "views": {
+                    "blog-public-view-post": {
+                        "edit": "Edit"
+                    },
+                    "blog-public-view-posts": {
+                        "edit": "Edit"
+                    }
+                }
+            }
+        },
+        "github": {
+            "title": "Github code"
         },
         "menu": {
             "home": "Home",
             "project": "Projects",
-            "about": "About",
+            "about": "About me",
             "greeting": "Hello",
             "login": "Login",
             "logout": "Logout"
+        },
+        "message": {
+            "greeting": "Hello",
+            "layout": {
+                "salutation": "Regards"
+            },
+            "resetpassword": {
+                "content": "You are receiving this email because we received a password reset request for your account",
+                "resetbutton": "Reset password",
+                "info": "If you did not request a password reset, no further action is required"
+            }
+        },
+        "notifications": {
+            "subject": "Reset password notification"
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -35,7 +208,6 @@ export default {
             "title": "Login",
             "email": "E-mail",
             "password": "Password",
-            "remember": "Remember me",
             "forgotpassword": "Forgot the password?",
             "login": "Login",
             "register": "Register"
@@ -49,13 +221,15 @@ export default {
             "register": "Register"
         },
         "project": {
-            "title": "Projects",
-            "torrentfinder": {
-                "title": "Torrent finder"
+            "index": {
+                "title": "Projects",
+                "torrentfindertitle": "Torrent finder"
             }
         },
         "system": {
-            "download": "Download"
+            "download": "Download",
+            "reset": "Reset",
+            "openaspdf": "Open as PDF"
         },
         "validation": {
             "accepted": "The '{attribute}' must be accepted.",
@@ -140,28 +314,197 @@ export default {
             "attributes": []
         },
         "welcome": {
-            "title": "Home",
-            "programming": {
-                "title": "Programming",
-                "0": "Try to look from the other side"
-            }
+            "title": "Home"
         }
     },
     "lv": {
         "about": {
-            "title": "Par"
+            "index": {
+                "title": "Par mani",
+                "personaldata": "Personas dati",
+                "age": "Vecums",
+                "birthday": "Dzimšanas datums",
+                "april": "aprīlis",
+                "address": "Adrese",
+                "latvia": "Latvija",
+                "email": "E-pasts",
+                "educationlevel": "Izglītības līmenis",
+                "secondaryeducation": "Vidējā izglītība",
+                "currentpositionstate": "Pašreizējais amata statuss",
+                "working": "Strādāju",
+                "links": "Saites",
+                "facebookprofile": "Facebook.com profils",
+                "cv": "Cv.lv CV",
+                "workexperience": "Darba pieredze",
+                "tilltoday": "līdz šodienai",
+                "position": "Programmētājs - datorsistēmu tehniķis",
+                "responsabilitiestasks": "Pienākumi \/uzdevumi",
+                "programmingit": "Programmēšana, IT atbalsts",
+                "companydata": "Uzņēmuma dati",
+                "companydescription": [
+                    "Elektroenerģijas sadales un kontroles iekārtu ražošana",
+                    "Starptautisks uzņēmums, virs 100 darbinieki"
+                ],
+                "dataentryoperator": "Datu ievades operators",
+                "dataentryapps": "Datu ievade, aplikāciju izstrāde",
+                "languageknowledge": "Valodas zināšanas",
+                "nativelanguage": "Dzimtā valoda",
+                "latvian": "Latviešu",
+                "dialog": "Dialogs",
+                "monologue": "Monologs",
+                "reading": "Lasīšana",
+                "listening": "Klausīšanās",
+                "writing": "Rakstīšana",
+                "english": "Angļu",
+                "russian": "Krievu",
+                "b1": "B1 vidēji",
+                "b2": "B2 labi",
+                "c1": "C1 ļoti labi",
+                "a2": "A2 pamatzināšanas",
+                "computerknowledge": "Datorzināšanas",
+                "basiclevel": "Pamata līmenis",
+                "mediumlevel": "Vidējs līmenis",
+                "addinfocomputerskills": "Papildu informācija par datorzināšanām",
+                "basicinfo": "Galvenokārt esmu strādājis ar ERP, CRM, Intranet pilnveidošanu \/uzturēšanu",
+                "activeinfo": "Aktīvi izmantoju Visual Studio Code, Postico",
+                "passiveinfo": "Pasīvi darbojos ar AD, O365 administrēšanu, Windows Sysprep, OS klonēšanu",
+                "workorganization": "Darba organizācijai izmantoju Trello, Slack, Thunderbird \/Outlook",
+                "futureworkrequirements": "Nākotnes darba prasības",
+                "desiredworkingtime": "Vēlamais darba laiks",
+                "fulltime": "Pilna slodze",
+                "location": "Atrašanās vieta",
+                "canstartwork": "Varu uzsākt darbu",
+                "byagreement": "vienojoties",
+                "monthlysalary": "Mēnešalga (neto)",
+                "aboutsalary": "{euro} €, attiecīgi veicamajiem pienākumiem un apstākļiem",
+                "drivinglicense": "Vadītāja apliecība",
+                "category": "Kategorija",
+                "years": "gadi",
+                "addinfo": "Papildu informācija",
+                "personalcharacteristics": "Personas īpašības",
+                "aboutpersonalcharacteristics": "Punktuāls, Mazliet pedantisks, Saprotošs, Atsaucīgs, Draudzīgs",
+                "pluses": "Plusi",
+                "aboutpluses": "Lojāls",
+                "flaws": "Trūkumi",
+                "aboutflaws": "Neliela pieredze",
+                "interestshobbies": "Intereses, hobiji",
+                "aboutinterestshobbies": "Trenažieru zāle, Velobraukšana, Skriešana"
+            }
         },
         "auth": {
             "failed": "Šie akreditācijas dati neatbilst mūsu reģistriem",
-            "throttle": "Pārāk daudz ienākšanas mēģinājumi. Lūdzu mēģini vēlreiz pēc {seconds} sekundēm."
+            "throttle": "Pārāk daudz ienākšanas mēģinājumi. Lūdzu mēģini vēlreiz pēc {seconds} sekundēm.",
+            "passwords": {
+                "reset": {
+                    "title": "Atiestatīt paroli",
+                    "email": "E-pasts",
+                    "password": "Parole",
+                    "passwordagain": "Parole vēlreiz"
+                }
+            }
+        },
+        "blog": {
+            "admin": {
+                "blog-admin-menu": {
+                    "title": "Ziņas",
+                    "posts": "Visas ziņas",
+                    "post": "Jauna ziņa"
+                },
+                "views": {
+                    "blog-admin-view-post": {
+                        "title": {
+                            "new": "Pievienot jaunu ziņu",
+                            "edit": "Labot ziņu"
+                        },
+                        "posttitle": "Ievadiet nosaukumu šeit",
+                        "publish": "Publicēt",
+                        "published": "Ziņa \"{title}\" veiksmīgi publicēta",
+                        "update": "Atjaunot",
+                        "updated": "Ziņa \"{title}\" veiksmīgi atjaunota",
+                        "delete": "Dzēst",
+                        "deleted": "Ziņa veiksmīgi izdzēsta",
+                        "save": "Saglabāt melnrakstu",
+                        "saved": "Ziņa \"{title}\" veiksmīgi saglabāta kā melnraksts",
+                        "confirm": "Dzēst \"{title}\"?",
+                        "infocard": {
+                            "title": "Informācija",
+                            "published_at": "Publicēts",
+                            "updated_at": "Labots",
+                            "author": "Autors"
+                        },
+                        "view": "Skatīt",
+                        "preview": "Priekšskatīt"
+                    },
+                    "blog-admin-view-posts": {
+                        "title": "Ziņas",
+                        "posttitle": "Nosaukums",
+                        "author": "Autors",
+                        "date": "Datums",
+                        "published": "Publicēts",
+                        "saved": "Pēdējo reizi labots",
+                        "edit": "Labot",
+                        "view": "Skatīt",
+                        "preview": "Priekšskatīt"
+                    }
+                }
+            },
+            "blog-login": {
+                "title": "Ienākt",
+                "email": "E-pasts",
+                "password": "Parole",
+                "login": "Ienākt"
+            },
+            "blog-menu": {
+                "title": "Emuārs",
+                "posts": "Visas ziņas",
+                "login": "Ienākt",
+                "logout": "Iziet",
+                "language": "Valoda",
+                "greeting": "Sveiks {name}",
+                "admin": "Administrators"
+            },
+            "layout": {
+                "title": "Piemeram.lv - Emuārs"
+            },
+            "public": {
+                "blog-public": {
+                    "title": "DEMO EMUĀRS",
+                    "subtitle": "Vienkārši uztaisīts ar Laravel, Vue un Bulma"
+                },
+                "views": {
+                    "blog-public-view-post": {
+                        "edit": "Labot"
+                    },
+                    "blog-public-view-posts": {
+                        "edit": "Labot"
+                    }
+                }
+            }
+        },
+        "github": {
+            "title": "Github kods"
         },
         "menu": {
             "home": "Sākums",
             "project": "Projekti",
-            "about": "Par",
+            "about": "Par mani",
             "greeting": "Sveiks",
             "login": "Ienākt",
             "logout": "Iziet"
+        },
+        "message": {
+            "greeting": "Sveiki",
+            "layout": {
+                "salutation": "Sveicieni"
+            },
+            "resetpassword": {
+                "content": "Jūs saņēmāt šo e-pastu, jo mēs saņēmām paroles atiestatīšanas pieprasījumu jūsu kontam",
+                "resetbutton": "Atiestatīt paroli",
+                "info": "Ja jūs nepieprasījāt paroles atiestatīšanu, tad nekādās tālākās darbības nav nepieciešamas"
+            }
+        },
+        "notifications": {
+            "subject": "Paroles atiestatīšanas ziņojums"
         },
         "pagination": {
             "previous": "&laquo; Iepriekšējā",
@@ -183,7 +526,6 @@ export default {
             "title": "Ienākt",
             "email": "E-pasts",
             "password": "Parole",
-            "remember": "Atcerēties mani",
             "forgotpassword": "Aizmirsi paroli?",
             "login": "Ienākt",
             "register": "Reģistrēties"
@@ -203,7 +545,9 @@ export default {
             }
         },
         "system": {
-            "download": "Lejuplādēt"
+            "download": "Lejuplādēt",
+            "reset": "Atiestatīt",
+            "openaspdf": "Atvērt kā PDF"
         },
         "validation": {
             "accepted": "'{attribute}' ir jābūt apstiprinātam.",
@@ -288,11 +632,7 @@ export default {
             "attributes": []
         },
         "welcome": {
-            "title": "Sākums",
-            "programming": {
-                "title": "Programmēšana",
-                "0": "Mēģini paskatīties no otras puses"
-            }
+            "title": "Sākums"
         }
     }
 }

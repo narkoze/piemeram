@@ -19,16 +19,21 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.4.0"
+    "eslint-plugin-vue": "^4.4.0",
+    "sass-loader": "^7.1.0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "axios": "^0.17.1",
+    "bulma": "^0.7.1",
     "cross-env": "^5.1.0",
+    "flag-icon-css": "^3.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-ujs": "^1.2.2",
     "laravel-mix": "^1.5.1",
     "lodash": "^4.17.4",
+    "moment": "^2.22.2",
     "semantic-ui-sass": "^2.2.11",
     "vue": "^2.5.2",
     "vue-i18n": "^8.0.0"
