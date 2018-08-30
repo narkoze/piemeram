@@ -167,6 +167,9 @@ return [
         // Generates a vue-i18n compatible include file from your Laravel translations
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
 
+        // Laravel 5 IDE Helper Generator
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

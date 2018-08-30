@@ -24,7 +24,7 @@ return [
     'programmingit' => 'Programming, IT support',
     'companydata' => 'Company data',
     'companydescription' => [
-      '0' => 'An international company with over 400 employees',
+      '0' => 'Manufacture of electricity distribution and control apparatus',
       '1' => 'An international company with over 100 employees',
     ],
     'dataentryoperator' => 'Data entry operator',

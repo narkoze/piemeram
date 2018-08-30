@@ -1,0 +1,205 @@
+@import "utilities/initial-variables";
+@import "utilities/functions";
+@import "utilities/derived-variables";
+@import "utilities/animations";
+@import "utilities/mixins";
+@import "utilities/controls";
+
+@import "base/generic";
+html {
+  overflow-y: auto;
+}
+
+@import "base/helpers";
+@import "base/minireset";
+
+@import "layout/hero";
+.hero-body {
+  background-image: url('/img/blog/public.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+}
+
+@import "layout/section";
+@import "layout/footer";
+@import "components/breadcrumb";
+@import "components/card";
+
+$dropdown-content-radius: 0;
+@import "components/dropdown";
+.blog-dropdown {
+  z-index: 1;
+}
+.blog-dropdown-trigger a {
+  display: block;
+  position: fixed;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 0;
+  background: $grey-dark;
+  color: $white;
+  min-height: 42px;
+
+  &:active,
+  &:hover {
+    color: $white;
+  }
+
+  span {
+    vertical-align: middle;
+  }
+}
+.blog-dropdown-menu {
+  position: fixed;
+  top: 5.9rem;
+  left: 0;
+  z-index: 20;
+  background: $white;
+}
+
+@import "components/level";
+@import "components/media";
+
+$menu-label-color: $grey-lighter;
+$menu-item-color: $white;
+$menu-item-active-background-color: $white;
+$menu-item-active-color: $black;
+$menu-item-hover-background-color: $grey-darker;
+$menu-item-hover-color: $white;
+@import "components/menu";
+.menu-label:not(:last-child) {
+  margin-bottom: 1em;
+  margin-left: .5em;
+}
+aside.menu {
+  position: fixed;
+  width: inherit;
+  background: $grey-dark;
+  padding-top: 1em;
+}
+
+
+@import "components/message";
+@import "components/modal";
+
+$navbar-burger-color: red;
+@import "components/navbar";
+.navbar.is-grey-dark {
+  background-color: $grey-dark;
+}
+.is-fullheight {
+  height: calc(100vh - (#{$navbar-height}));
+}
+
+@import "components/pagination";
+@import "components/panel";
+@import "components/tabs";
+@import "elements/box";
+@import "elements/button";
+@import "elements/container";
+@import "elements/content";
+@import "elements/form";
+@import "elements/icon";
+@import "elements/image";
+@import "elements/notification";
+.blog-notification {
+  min-height: 52px;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  border-radius: 0;
+  padding: 0.8rem 1.25rem 0 1.25rem;
+
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -ms-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+@import "elements/progress";
+@import "elements/table";
+@import "elements/tag";
+@import "elements/title";
+@import "elements/other";
+@import "grid/columns";
+@import "grid/tiles";
+
+
+@import "fontawesome";
+@import "brands";
+@import "regular";
+@import "solid";
+
+i.fas {
+  margin-right: 0.1875em;
+  margin-top: 0.1075em;
+}
+
+@import "flag-icon";
+
+span.flag-icon {
+  margin-right: 0.1875em;
+}
+
+.right {
+  float: right;
+}
+
+[title].hover {
+  border-bottom: 1px dotted $grey;
+  cursor: alias;
+}
+
+.articles {
+  margin: 5rem 0;
+  margin-top: -200px;
+}
+.article {
+  margin-top: 4rem;
+}
+.article-title {
+  font-size: 2rem;
+  font-weight: lighter;
+  line-height: 2;
+}
+.article-subtitle {
+  margin-bottom: 3rem;
+  margin-top: -1.25rem;
+  font-size: 1rem;
+  > span {
+    color: $grey;
+  }
+}
+.article-body {
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+.article-body-margin {
+  margin: 0 3rem;
+}
+
+.public {
+  background: #F9FAF5;
+  height: fit-content;
+}
+
+a {
+  color: $cyan;
+}
+
+a.is-link-reversed {
+  color: $black-ter;
+  &:hover {
+    color: $cyan;
+  }
+}
+
+.link-divider {
+  color: #ddd;
+  font-size: 13px;
+  line-height: 1.5em;
+}

@@ -2,28 +2,65 @@
 @section('content')
   <h1>@lang('project.index.title')</h1>
 
-  <div class="ui card">
-    <div class="content">
-      <div class="header">
-        {{ title_case(trans('project.index.torrentfindertitle')) }}
-      </div>
-      <div class="meta">1.0.0.26</div>
-      <div class="description">
-        Ar šo aplikāciju jūs varat meklēt torrentus vienlaicīgi trīs trakeros.
-        Galvenā sadaļā ir izvēlne Šodienas, kur var meklēt šodien pievienotos torrentus.
-        Filmas sadaļā ir iespēja atlasīt sev tīkamu žanru vai kādu konkrētu gadu. Spēles sadaļā varam izvēlēties sev vajadzīgo platformu.
-        Kā arī pats meklētājs, kur varam meklēt, kas vien ienāk prātā un arī iespēja atlasīt konkrētu kategoriju.
-        Interesentiem vajadzēs reģistrēties trakeru mājaslapās.
-        Izstrādātājs ir sagatavojis lietotājus eksperimentālos nolūkos, lai būtu iespēja iepazīties ar aplikāciju pilnvērtīgi.
+  <div class="ui items">
+    <div class="item">
+      <a
+        href="{{ route('blog') }}"
+        class="image"
+        target="_blank"
+      >
+        <img src="{{ asset('img/project/blog.jpg') }}">
+      </a>
+      <div class="content">
+        <a
+          href="{{ route('blog') }}"
+          class="header"
+          target="_blank"
+        >
+          @lang('project.index.blog.title')
+        </a>
+        <div class="meta">
+          <span>
+            @lang('project.index.blog.description')
+          </span>
+        </div>
+        <div class="description">
+          <p></p>
+        </div>
+        <div class="extra">
+          @lang('project.index.blog.extra')
+        </div>
       </div>
     </div>
-    <div class="extra content">
+
+    <div class="item">
       <a
-        class="ui button"
-        href="{{ asset('piemeram.lv/TM2/TM2.application') }}"
+        href="{{ asset('img/project/tm.jpg') }}"
+        class="image"
+        target="_blank"
       >
-        @lang('system.download')
+        <img src="{{ asset('img/project/tm.jpg') }}">
       </a>
+      <div class="content">
+        <a
+          href="{{ asset('piemeram.lv/TM2/TM2.application') }}"
+          class="header"
+          target="_blank"
+        >
+          @lang('project.index.tm.title')
+        </a>
+        <div class="meta">
+          <span>
+            @lang('project.index.tm.description')
+          </span>
+        </div>
+        <div class="description">
+          <p></p>
+        </div>
+        <div class="extra">
+          @lang('project.index.tm.extra')
+        </div>
+      </div>
     </div>
   </div>
 @endsection
