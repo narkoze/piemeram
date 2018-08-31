@@ -47,19 +47,8 @@ mix.sass('resources/assets/sass/blog.scss', 'public/css', {
   ]
 })
 
-// mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/fonts/@fortawesome/fontawesome-free/webfonts')
-
 mix.js('resources/assets/js/components/blog/blog.js', 'public/js/components/blog/blog.js')
 mix.js('resources/assets/js/components/blog/admin/admin.js', 'public/js/components/blog/admin/admin.js')
-
-/**
- * Table
- */
-mix.sass('resources/assets/sass/table.scss', 'public/css', {
-  includePaths: [
-    'node_modules/materialize-css/sass'
-  ]
-})
 
 /**
  * Shared
