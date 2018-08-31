@@ -25,7 +25,9 @@
           </span>
         </div>
         <div class="description">
-          <p></p>
+          <p>
+            @lang('project.index.blog.conclusion')
+          </p>
         </div>
         <div class="extra">
           @lang('project.index.blog.extra')
@@ -55,7 +57,9 @@
           </span>
         </div>
         <div class="description">
-          <p></p>
+          <p>
+            @lang('project.index.tm.conclusion')
+          </p>
         </div>
         <div class="extra">
           @lang('project.index.tm.extra')
