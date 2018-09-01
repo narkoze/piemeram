@@ -12,6 +12,7 @@
           {{ $t('blog.admin.blog-admin-menu.posts') }}
         </a>
       </li>
+
       <li>
         <a
           @click="post"
@@ -19,6 +20,15 @@
         >
           <i class="fas fa-plus"></i>
           {{ $t('blog.admin.blog-admin-menu.post') }}
+        </a>
+      </li>
+
+      <li>
+        <a
+          @click="categories"
+          :class="{ 'is-active': showAdmin === 'admin-view-categories' }"
+        >
+          {{ $t('blog.admin.blog-admin-menu.categories') }}
         </a>
       </li>
     </ul>

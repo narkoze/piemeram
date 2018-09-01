@@ -15,6 +15,7 @@ Route::group([
     'prefix' => 'api/admin'
 ], function () {
     Route::resources([
+        'category' => 'Api\Admin\CategoryController',
         'post' => 'Api\Admin\PostController',
     ]);
 });

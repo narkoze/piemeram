@@ -23,4 +23,7 @@ return [
   ],
   'view' => 'View',
   'preview' => 'Preview',
+  'categories' => [
+    'title' => 'Categories',
+  ],
 ];

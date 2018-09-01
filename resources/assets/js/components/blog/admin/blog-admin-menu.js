@@ -20,6 +20,13 @@ export default {
         this.showAdmin = 'admin-view-post'
         window.blogBus.$emit('showAdmin', 'admin-view-post')
       })
+    },
+    categories () {
+      this.reset()
+      this.$nextTick(() => {
+        this.showAdmin = 'admin-view-categories'
+        window.blogBus.$emit('showAdmin', 'admin-view-categories')
+      })
     }
   }
 }

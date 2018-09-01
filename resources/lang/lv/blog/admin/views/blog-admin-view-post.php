@@ -5,7 +5,7 @@ return [
     'new' => 'Pievienot jaunu ziņu',
     'edit' => 'Labot ziņu',
   ],
-  'posttitle' => 'Ievadiet nosaukumu šeit',
+  'posttitle' => 'Ievadiet virsrakstu šeit',
   'publish' => 'Publicēt',
   'published' => 'Ziņa ":title" veiksmīgi publicēta',
   'update' => 'Atjaunot',
@@ -23,4 +23,7 @@ return [
   ],
   'view' => 'Skatīt',
   'preview' => 'Priekšskatīt',
+  'categories' => [
+    'title' => 'Kategorijas',
+  ],
 ];

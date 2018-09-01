@@ -34,18 +34,33 @@
             <p>{{ post.content }}</p>
           </div>
 
-          <a
+
+          <div class="article additional">
+            <span
+              v-for="(category, index) in post.categories"
+              :key="category.id"
+              class="categories"
+            >
+              {{ category.name }}<span v-if="post.categories.length - index !== 1">,</span>
+            </span>
+          </div>
+
+          <div
             v-if="authenticated"
-            @click="$emit('editAdminPost', post)"
-            class="button is-info"
+            class="article actions"
           >
-            <span class="icon">
-              <i class="fas fa-pencil-alt"></i>
-            </span>
-            <span>
-              {{ $t('blog.public.views.blog-public-view-post.edit') }}
-            </span>
-          </a>
+            <a
+              @click="$emit('editAdminPost', post)"
+              class="button is-info"
+            >
+              <span class="icon">
+                <i class="fas fa-pencil-alt"></i>
+              </span>
+              <span>
+                {{ $t('blog.public.views.blog-public-view-post.edit') }}
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

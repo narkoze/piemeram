@@ -90,9 +90,23 @@ export default {
                 "blog-admin-menu": {
                     "title": "Posts",
                     "posts": "All posts",
-                    "post": "New post"
+                    "post": "New post",
+                    "categories": "Categories"
                 },
                 "views": {
+                    "blog-admin-view-categories": {
+                        "title": "Categories",
+                        "name": "Enter name here",
+                        "add": "Add",
+                        "added": "Category \"{category}\" successfully added",
+                        "category": "Category",
+                        "edit": "Edit",
+                        "edited": "Category \"{category}\" successfully edited",
+                        "delete": "Delete",
+                        "deleted": "Category successfully deleted",
+                        "confirm": "Delete \"{name}\"?",
+                        "postcount": "Posts \/ Drafts"
+                    },
                     "blog-admin-view-post": {
                         "title": {
                             "new": "Add new post",
@@ -115,7 +129,10 @@ export default {
                             "author": "Author"
                         },
                         "view": "View",
-                        "preview": "Preview"
+                        "preview": "Preview",
+                        "categories": {
+                            "title": "Categories"
+                        }
                     },
                     "blog-admin-view-posts": {
                         "title": "Posts",
@@ -126,7 +143,8 @@ export default {
                         "saved": "Last modified",
                         "edit": "Edit",
                         "view": "View",
-                        "preview": "Preview"
+                        "preview": "Preview",
+                        "categories": "Categories"
                     }
                 }
             },
@@ -223,7 +241,18 @@ export default {
         "project": {
             "index": {
                 "title": "Projects",
-                "torrentfindertitle": "Torrent finder"
+                "blog": {
+                    "title": "Blog",
+                    "description": "Simple blog",
+                    "conclusion": "As soon as i had need for EventBus, I realized that the project is too messy and the correct solution would be VueX",
+                    "extra": "Frameworks: Laravel, VueJs, Bulma"
+                },
+                "tm": {
+                    "title": "Torrent finder",
+                    "description": "My first maze project",
+                    "conclusion": "A quick and dirty project to explore C# and .NET capabilities",
+                    "extra": "Frameworks: .NET 4.5 (C#)"
+                }
             }
         },
         "system": {
@@ -408,15 +437,29 @@ export default {
                 "blog-admin-menu": {
                     "title": "Ziņas",
                     "posts": "Visas ziņas",
-                    "post": "Jauna ziņa"
+                    "post": "Jauna ziņa",
+                    "categories": "Kategorijas"
                 },
                 "views": {
+                    "blog-admin-view-categories": {
+                        "title": "Kategorijas",
+                        "name": "Ievadiet nosaukumu šeit",
+                        "add": "Pievienot",
+                        "added": "Kategorija \"{category}\" veiksmīgi pievienota",
+                        "category": "Kategorija",
+                        "edit": "Labot",
+                        "edited": "Kategorija \"{category}\" veiksmīgi izlabota",
+                        "delete": "Dzēst",
+                        "deleted": "Kategorija veiksmīgi izdzēsta",
+                        "confirm": "Dzēst \"{name}\"?",
+                        "postcount": "Ziņas \/ Melnraksti"
+                    },
                     "blog-admin-view-post": {
                         "title": {
                             "new": "Pievienot jaunu ziņu",
                             "edit": "Labot ziņu"
                         },
-                        "posttitle": "Ievadiet nosaukumu šeit",
+                        "posttitle": "Ievadiet virsrakstu šeit",
                         "publish": "Publicēt",
                         "published": "Ziņa \"{title}\" veiksmīgi publicēta",
                         "update": "Atjaunot",
@@ -433,18 +476,22 @@ export default {
                             "author": "Autors"
                         },
                         "view": "Skatīt",
-                        "preview": "Priekšskatīt"
+                        "preview": "Priekšskatīt",
+                        "categories": {
+                            "title": "Kategorijas"
+                        }
                     },
                     "blog-admin-view-posts": {
                         "title": "Ziņas",
-                        "posttitle": "Nosaukums",
+                        "posttitle": "Virsraksts",
                         "author": "Autors",
                         "date": "Datums",
                         "published": "Publicēts",
                         "saved": "Pēdējo reizi labots",
                         "edit": "Labot",
                         "view": "Skatīt",
-                        "preview": "Priekšskatīt"
+                        "preview": "Priekšskatīt",
+                        "categories": "Kategorijas"
                     }
                 }
             },
@@ -539,9 +586,20 @@ export default {
             "register": "Reģistrēties"
         },
         "project": {
-            "title": "Projekti",
-            "torrentfinder": {
-                "title": "Torrentu meklētājs"
+            "index": {
+                "title": "Projekti",
+                "blog": {
+                    "title": "Emuārs",
+                    "description": "Vienkārš emuārs",
+                    "conclusion": "Tiklīdz man rādās vajadzība pēc EventBus es sapratu, ka projekts ir sapinķerēts un pareizais risinājums būtu VueX",
+                    "extra": "Ietvari: Laravel, VueJs, Bulma"
+                },
+                "tm": {
+                    "title": "Torrentu meklētājs",
+                    "description": "Mans pirmais labirinta projekts",
+                    "conclusion": "Ātrs un netīrs projekts, lai apzinātu C# un .NET iespējas",
+                    "extra": "Ietvari: .NET 4.5 (C#)"
+                }
             }
         },
         "system": {

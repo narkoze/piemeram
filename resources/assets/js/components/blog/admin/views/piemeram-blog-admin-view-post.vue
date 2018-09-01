@@ -76,11 +76,11 @@
         </div>
       </div>
 
-      <div
-        v-if="post.id"
-        class="column is-4"
-      >
-        <div class="card">
+      <div class="column is-4">
+        <div
+          v-if="post.id"
+          class="card card-margin"
+        >
           <header class="card-header">
             <p class="card-header-title">
               {{ $t('blog.admin.views.blog-admin-view-post.infocard.title') }}
@@ -128,6 +128,42 @@
             </div>
           </div>
         </div>
+
+        <div class="card card-margin">
+          <header class="card-header">
+            <p class="card-header-title">
+              {{ $t('blog.admin.views.blog-admin-view-post.categories.title') }}
+              &nbsp;
+              <i
+                v-if="categoriesLoading"
+                class="fas fa-spinner fa-spin"
+              >
+              </i>
+            </p>
+          </header>
+          <div class="card-content card-content-nopadding">
+            <div class="content">
+              <div class="select is-multiple select-is-fullwidth">
+
+                <select
+                  v-model="selectedCategories"
+                  class="select-is-fullwidth"
+                  :size="categories.length > 8 ? 8 : categories.length"
+                  :disabled="disabled"
+                  multiple
+                >
+                  <option
+                    v-for="category in categories"
+                    :key="category.id"
+                    :value="category.id"
+                  >
+                    {{ category.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -148,13 +184,21 @@
       return {
         post: this.editPost || {
           title: null,
-          content: null
+          content: null,
+          categories: []
         },
         publishing: false,
         updating: false,
         saving: false,
-        deleting: false
+        deleting: false,
+        categories: [],
+        selectedCategories: [],
+        categoriesLoading: false
       }
+    },
+    created () {
+      this.loadCategories()
+      this.setCategories()
     },
     mounted () {
       this.$refs.title.focus()
@@ -177,7 +221,8 @@
 
         axios[method](route, {
           ...this.post,
-          draft: draft
+          ...{draft},
+          categories: this.selectedCategories
         })
           .then(response => {
             let notify = 'updated'
@@ -224,6 +269,23 @@
             })
           })
           .catch(this.handleAxiosError)
+      },
+      loadCategories () {
+        this.categoriesLoading = true
+
+        axios
+          .get('blog/api/admin/category')
+          .then(response => {
+            this.categoriesLoading = false
+            this.categories = response.data
+          })
+          .catch(error => {
+            this.categoriesLoading = false
+            this.handleAxiosError(error)
+          })
+      },
+      setCategories () {
+        this.selectedCategories = this.post.categories.map(({ id }) => id)
       }
     }
   }

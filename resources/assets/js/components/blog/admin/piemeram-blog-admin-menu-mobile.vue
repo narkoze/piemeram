@@ -22,12 +22,20 @@
       >
         {{ $t('blog.admin.blog-admin-menu.posts') }}
       </a>
+
       <a
         @click="post(); isAdminDropdownOpen = false"
         class="dropdown-item"
       >
         <i class="fas fa-plus"></i>
         {{ $t('blog.admin.blog-admin-menu.post') }}
+      </a>
+
+      <a
+        @click="categories(); isAdminDropdownOpen = false"
+        class="dropdown-item"
+      >
+        {{ $t('blog.admin.blog-admin-menu.categories') }}
       </a>
     </div>
   </div>

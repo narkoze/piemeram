@@ -35,6 +35,14 @@ class Post extends Model
         return $this->belongsTo(\Piemeram\User::class, 'author_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function json()
     {
         $post = $this->only([

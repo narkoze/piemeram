@@ -18,8 +18,11 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('author:id,name')
-            ->orderByRaw('COALESCE(published_at, updated_at) DESC')
+        $posts = Post::orderByRaw('COALESCE(published_at, updated_at) DESC')
+            ->with([
+                'author:id,name',
+                'categories:id,name'
+            ])
             ->get([
                 'id',
                 'title',
@@ -71,5 +74,7 @@ class PostController extends Controller
         $post->published_at = $request->draft ? null :  Carbon::now();
 
         $post->save();
+
+        $post->categories()->sync($request->categories);
     }
 }

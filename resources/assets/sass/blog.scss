@@ -26,6 +26,13 @@ html {
 @import "layout/footer";
 @import "components/breadcrumb";
 @import "components/card";
+.card-margin {
+  margin-bottom: 0.75rem;
+}
+
+.card-content-nopadding {
+  padding: 0;
+}
 
 $dropdown-content-radius: 0;
 @import "components/dropdown";
@@ -181,6 +188,12 @@ span.flag-icon {
 .article-body-margin {
   margin: 0 3rem;
 }
+.article.additional {
+  margin: 0 3rem 0 3rem;
+}
+.article.actions {
+  margin: 2rem 3rem 0 3rem;
+}
 
 .public {
   background: #F9FAF5;
@@ -202,4 +215,23 @@ a.is-link-reversed {
   color: #ddd;
   font-size: 13px;
   line-height: 1.5em;
+}
+
+.select.is-multiple.select-is-fullwidth {
+  display: block;
+}
+
+.select select[multiple].select-is-fullwidth {
+  width: 100%;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  &:hover {
+    border-color: #dbdbdb;
+  }
+}
+
+.categories {
+  font-style: italic;
+  color: $grey;
 }

@@ -10,4 +10,5 @@ return [
   'edit' => 'Edit',
   'view' => 'View',
   'preview' => 'Preview',
+  'categories' => 'Categories',
 ];

@@ -6,6 +6,7 @@
       <thead>
         <tr>
           <th>{{ $t('blog.admin.views.blog-admin-view-posts.posttitle') }}</th>
+          <th>{{ $t('blog.admin.views.blog-admin-view-posts.categories') }}</th>
           <th>{{ $t('blog.admin.views.blog-admin-view-posts.author') }}</th>
           <th>{{ $t('blog.admin.views.blog-admin-view-posts.date') }}</th>
         </tr>
@@ -41,7 +42,18 @@
               </a>
             </div>
           </td>
+
+          <td>
+            <span
+              v-for="(category, index) in post.categories"
+              :key="category.id"
+            >
+              {{ category.name }}<span v-if="post.categories.length - index !== 1">,</span>
+            </span>
+          </td>
+
           <td>{{ post.author.name }}</td>
+
           <td>
             <div v-if="post.published_at">
               {{ $t('blog.admin.views.blog-admin-view-posts.published') }}
@@ -79,7 +91,7 @@
       AxiosErrorHandler,
     ],
     data: () => ({
-      posts: {},
+      posts: [],
       mouseover: null
     }),
     created () {

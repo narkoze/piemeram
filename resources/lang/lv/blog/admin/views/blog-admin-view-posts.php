@@ -2,7 +2,7 @@
 
 return [
   'title' => 'Ziņas',
-  'posttitle' => 'Nosaukums',
+  'posttitle' => 'Virsraksts',
   'author' => 'Autors',
   'date' => 'Datums',
   'published' => 'Publicēts',
@@ -10,4 +10,5 @@ return [
   'edit' => 'Labot',
   'view' => 'Skatīt',
   'preview' => 'Priekšskatīt',
+  'categories' => 'Kategorijas',
 ];

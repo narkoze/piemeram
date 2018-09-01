@@ -9,8 +9,11 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('author:id,name')
-            ->whereNotNull('published_at')
+        $posts = Post::whereNotNull('published_at')
+            ->with([
+                'author:id,name',
+                'categories:id,name',
+            ])
             ->orderBy('published_at', 'desc')
             ->get([
                 'id',
