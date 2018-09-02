@@ -57,7 +57,7 @@
 
           <a
             v-if="post.id"
-            @click="$emit('showPublicPost', post)"
+            @click="$root.showView = 'public-view-post'; $root.post = post"
             class="button"
             :disabled="disabled"
           >
@@ -177,36 +177,27 @@
     mixins: [
       AxiosErrorHandler,
     ],
-    props: [
-      'editPost',
-    ],
-    data: function () {
-      return {
-        post: this.editPost || {
-          title: null,
-          content: null,
-          categories: []
-        },
-        publishing: false,
-        updating: false,
-        saving: false,
-        deleting: false,
-        categories: [],
-        selectedCategories: [],
-        categoriesLoading: false
-      }
-    },
+    data: () => ({
+      post: {},
+      publishing: false,
+      updating: false,
+      saving: false,
+      deleting: false,
+      categories: [],
+      selectedCategories: [],
+      categoriesLoading: false
+    }),
     created () {
+      this.post = this.$root.post || {
+        title: null,
+        content: null,
+        categories: []
+      }
+
       this.loadCategories()
-      this.setCategories()
     },
     mounted () {
       this.$refs.title.focus()
-    },
-    watch: {
-      editPost () {
-        this.post = this.editPost
-      }
     },
     methods: {
       publish (draft = false) {
@@ -216,8 +207,8 @@
 
         let method = this.post.id ? 'put' : 'post'
         let route = this.post.id
-          ? `blog/api/admin/post/${this.post.id}`
-          : 'blog/api/admin/post'
+          ? `blog/api/admin/postx/${this.post.id}`
+          : 'blog/api/admin/postx'
 
         axios[method](route, {
           ...this.post,
@@ -225,18 +216,13 @@
           categories: this.selectedCategories
         })
           .then(response => {
+            this.$root.activeSection = 'admin-view-posts'
+
             let notify = 'updated'
             if (this.saving) notify = 'saved'
             if (this.publishing && !this.post.published_at) notify = 'published'
 
-            window.blogBus.$emit('notification', {
-              color: 'is-primary',
-              text: window.i18n.t(
-                `blog.admin.views.blog-admin-view-post.${notify}`, {
-                  title: response.data.title
-                }
-              )
-            })
+            window.notify(this.$t(`blog.admin.views.blog-admin-view-post.${notify}`, { title: response.data.title }), 'is-primary')
 
             this.saving = false
             this.publishing = false
@@ -261,12 +247,9 @@
         axios
           .delete(`blog/api/admin/post/${this.post.id}`)
           .then(() => {
-            this.$emit('deleted')
+            this.$root.showView = 'admin-view-posts'
 
-            window.blogBus.$emit('notification', {
-              color: 'is-primary',
-              text: window.i18n.t('blog.admin.views.blog-admin-view-post.deleted')
-            })
+            window.notify(this.$t('blog.admin.views.blog-admin-view-post.deleted'), 'is-primary')
           })
           .catch(this.handleAxiosError)
       },
@@ -278,14 +261,12 @@
           .then(response => {
             this.categoriesLoading = false
             this.categories = response.data
+            this.selectedCategories = this.post.categories.map(({ id }) => id)
           })
           .catch(error => {
             this.categoriesLoading = false
             this.handleAxiosError(error)
           })
-      },
-      setCategories () {
-        this.selectedCategories = this.post.categories.map(({ id }) => id)
       }
     }
   }

@@ -20,18 +20,10 @@
   import PiemeramBlogAdminViews from './piemeram-blog-admin-views.vue'
 
   export default {
-    data: () => ({
-      showAdmin: null
-    }),
     components: {
       PiemeramBlogAdminMenuMobile,
       PiemeramBlogAdminMenuFull,
       PiemeramBlogAdminViews
-    },
-    created () {
-      window.blogBus.$on('showAdmin', showAdmin => {
-        this.showAdmin = showAdmin
-      })
     }
   }
 </script>

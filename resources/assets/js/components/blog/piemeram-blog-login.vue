@@ -82,7 +82,9 @@
           .then(response => {
             axios.defaults.headers.common['X-CSRF-TOKEN'] = response.data.csrf_token
 
-            this.$emit('loggedin', response.data.auth)
+            this.$root.auth = response.data.auth
+
+            this.$root.showModals.splice('login', 1)
           })
           .catch(this.handleAxiosError)
       }

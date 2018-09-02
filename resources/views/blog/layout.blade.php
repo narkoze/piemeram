@@ -9,22 +9,20 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token">
     @include('shared.php2js.laravel')
+    <script> window.auth = @json($auth) </script>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ mix('css/blog.css') }}" />
   </head>
   <body class="has-navbar-fixed-top">
-    <div id="appElement">
-      <piemeram-blog-window :auth-user="{{ json_encode($auth) }}"></piemeram-blog-window>
+    <div class="notification"></div>
+
+    <div id="blog">
+      <piemeram-blog-window></piemeram-blog-window>
     </div>
 
     <script src="{{ mix('js/libs.js') }}"></script>
     <script src="{{ mix('js/vue.js') }}"></script>
     <script src="{{ mix('js/components/blog/blog.js') }}"></script>
-    <script>
-      new Vue({
-        el: '#appElement'
-      })
-    </script>
   </body>
 </html>

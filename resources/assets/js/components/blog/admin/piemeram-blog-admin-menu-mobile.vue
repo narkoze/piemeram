@@ -42,19 +42,14 @@
 </template>
 
 <script>
-  import Methods from './blog-admin-menu'
+  import mixins from './mixins'
 
   export default {
     mixins: [
-      Methods,
+      mixins,
     ],
     data: () => ({
       isAdminDropdownOpen: false
-    }),
-    created () {
-      window.blogBus.$on('showAdmin', showAdmin => {
-        this.showAdmin = showAdmin
-      })
-    }
+    })
   }
 </script>

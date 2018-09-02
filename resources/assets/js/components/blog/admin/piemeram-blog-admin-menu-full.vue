@@ -7,7 +7,7 @@
       <li>
         <a
           @click="posts"
-          :class="{ 'is-active': showAdmin === 'admin-view-posts' }"
+          :class="{ 'is-active': $root.activeSection === 'admin-view-posts' }"
         >
           {{ $t('blog.admin.blog-admin-menu.posts') }}
         </a>
@@ -16,7 +16,7 @@
       <li>
         <a
           @click="post"
-          :class="{ 'is-active': showAdmin === 'admin-view-post' }"
+          :class="{ 'is-active': $root.activeSection === 'admin-view-post' }"
         >
           <i class="fas fa-plus"></i>
           {{ $t('blog.admin.blog-admin-menu.post') }}
@@ -26,7 +26,7 @@
       <li>
         <a
           @click="categories"
-          :class="{ 'is-active': showAdmin === 'admin-view-categories' }"
+          :class="{ 'is-active': $root.activeSection === 'admin-view-categories' }"
         >
           {{ $t('blog.admin.blog-admin-menu.categories') }}
         </a>
@@ -36,16 +36,11 @@
 </template>
 
 <script>
-  import Methods from './blog-admin-menu'
+  import mixins from './mixins'
 
   export default {
     mixins: [
-      Methods,
-    ],
-    created () {
-      window.blogBus.$on('showAdmin', showAdmin => {
-        this.showAdmin = showAdmin
-      })
-    }
+      mixins,
+    ]
   }
 </script>

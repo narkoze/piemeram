@@ -20,7 +20,13 @@
     <div :class="['navbar-menu', { 'is-active': isMenuActive }]">
       <div class="navbar-start">
         <a
-          @click="showPosts"
+          @click="() => {
+            $root.showView = ''
+            $nextTick(() => {
+              $root.showView = 'public-view-posts'
+              isMenuActive = false
+            })
+          }"
           class="navbar-item"
         >
           {{ $t('blog.blog-menu.posts') }}
@@ -29,14 +35,14 @@
 
       <div class="navbar-end">
         <div
-          v-if="auth"
+          v-if="$root.auth"
           class="navbar-item"
         >
-          {{ $t('blog.blog-menu.greeting', { name: auth.name }) }}
+          {{ $t('blog.blog-menu.greeting', { name: $root.auth.name }) }}
         </div>
 
         <div
-          v-if="auth"
+          v-if="$root.auth"
           class="navbar-item"
         >
           <p>
@@ -51,7 +57,11 @@
             </a>
 
             <a
-              @click="$emit('showAdmin'); isMenuActive = false"
+              @click="() => {
+                $root.showView = 'admin-view-posts'
+                $root.activeSection = 'admin-view-posts'
+                isMenuActive = false
+              }"
               class="bd-tw-button button is-link"
             >
               <span class="icon">
@@ -63,11 +73,11 @@
         </div>
 
         <div
-          v-if="!auth"
+          v-if="!$root.auth"
           class="navbar-item"
         >
           <a
-            @click="$emit('login')"
+            @click="$root.showModals.push('login')"
             class="bd-tw-button button is-info"
           >
             <span class="icon">
@@ -117,9 +127,6 @@
   import axios from '../../axios'
 
   export default {
-    props: [
-      'auth',
-    ],
     data: () => ({
       isMenuActive: false,
       disabledLogout: false
@@ -140,16 +147,8 @@
 
             axios.defaults.headers.common['X-CSRF-TOKEN'] = response.data.csrf_token
 
-            this.$emit('loggedout')
+            this.$root.auth = null
           })
-      },
-      showPosts () {
-        this.isMenuActive = false
-
-        window.blogBus.$emit('showPublic', null)
-        this.$nextTick(() => {
-          window.blogBus.$emit('showPublic', 'public-view-posts')
-        })
       }
     }
   }

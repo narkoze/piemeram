@@ -10,10 +10,7 @@ export default {
       if (error.response.status === 422) {
         this.errors = error.response.data.errors
       } else {
-        window.blogBus.$emit('notification', {
-          color: 'is-danger',
-          text: `${error.response.status}: ${error.response.statusText}`
-        })
+        window.notify(this.$t(`${error.response.status}: ${error.response.statusText}`), 'is-danger')
       }
     }
   }

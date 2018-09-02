@@ -112,19 +112,23 @@ $navbar-burger-color: red;
 @import "elements/icon";
 @import "elements/image";
 @import "elements/notification";
-.blog-notification {
-  min-height: 52px;
-  width: 100%;
-  position: absolute;
-  z-index: 1;
+.notification {
   border-radius: 0;
   padding: 0.8rem 1.25rem 0 1.25rem;
+  position: fixed;
 
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -ms-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  margin-top: -3.25rem;
+  z-index: 31;
+  min-height: 52px;
+  width: 100%;
+
+  -webkit-transition: visibility .5s, opacity .5s linear;
+  -moz-transition: visibility .5s, opacity .5s linear;
+  -ms-transition: visibility .5s, opacity .5s linear;
+  -o-transition: visibility .5s, opacity .5s linear;
+  transition: visibility .5s, opacity .5s linear;
 }
 
 @import "elements/progress";

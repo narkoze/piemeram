@@ -14,9 +14,8 @@ class HomeController extends Controller
         $auth = null;
 
         if (auth()->check()) {
-            $auth = auth()->user()->first([
+            $auth = auth()->user()->only([
                 'name',
-                'email',
             ]);
         }
 

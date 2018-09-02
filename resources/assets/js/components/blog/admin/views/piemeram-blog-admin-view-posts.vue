@@ -27,16 +27,27 @@
           @mouseout="mouseover = null"
         >
           <td>
-            <a @click="$emit('editPost', post)">
+            <a @click="() => {
+              $root.activeSection = 'admin-view-posts'
+              $root.showView = 'admin-view-post'
+              $root.post = post
+            }">
               <b>{{ post.title }}</b>
             </a>
 
             <div v-if="mouseover === post.id">
-              <a @click="$emit('editPost', post)">
+              <a @click="() => {
+                $root.activeSection = 'admin-view-posts'
+                $root.showView = 'admin-view-post'
+                $root.post = post
+              }">
                 <small>{{ $t('blog.admin.views.blog-admin-view-posts.edit') }}</small>
               </a>
               <span class="link-divider">|</span>
-              <a @click="$emit('showPublicPost', post)">
+              <a @click="() => {
+                $root.showView = 'public-view-post'
+                $root.post = post
+              }">
                 <small v-if="post.published_at">{{ $t('blog.admin.views.blog-admin-view-posts.view') }}</small>
                 <small v-else>{{ $t('blog.admin.views.blog-admin-view-posts.preview') }}</small>
               </a>

@@ -6,51 +6,54 @@
           <div class="media">
             <div class="media-content has-text-centered">
               <p class="title article-title">
-                {{ post.title }}
+                {{ $root.post.title }}
               </p>
               <p class="subtitle is-6 article-subtitle">
-                <b>{{ post.author.name }}</b>,
+                <b>{{ $root.post.author.name }}</b>,
                 <span
-                  v-if="post.published_at"
-                  :title="post.published_at"
+                  v-if="$root.post.published_at"
+                  :title="$root.post.published_at"
                 >
-                  {{ post.published_at | dateString }}
+                  {{ $root.post.published_at | dateString }}
                 </span>
                 <span
                   v-else
-                  :title="post.updated_at"
+                  :title="$root.post.updated_at"
                 >
-                  {{ post.updated_at | dateString }}
+                  {{ $root.post.updated_at | dateString }}
                 </span>
               </p>
             </div>
           </div>
 
           <div class="content article-body article-body-margin is-hidden-touch">
-            <p>{{ post.content }}</p>
+            <p>{{ $root.post.content }}</p>
           </div>
 
           <div class="content article-body is-hidden-desktop">
-            <p>{{ post.content }}</p>
+            <p>{{ $root.post.content }}</p>
           </div>
 
 
           <div class="article additional">
             <span
-              v-for="(category, index) in post.categories"
+              v-for="(category, index) in $root.post.categories"
               :key="category.id"
               class="categories"
             >
-              {{ category.name }}<span v-if="post.categories.length - index !== 1">,</span>
+              {{ category.name }}<span v-if="$root.post.categories.length - index !== 1">,</span>
             </span>
           </div>
 
           <div
-            v-if="authenticated"
+            v-if="$root.auth"
             class="article actions"
           >
             <a
-              @click="$emit('editAdminPost', post)"
+              @click="() => {
+                $root.activeSection = 'admin-view-posts'
+                $root.showView = 'admin-view-post'
+              }"
               class="button is-info"
             >
               <span class="icon">
@@ -66,12 +69,3 @@
     </div>
   </section>
 </template>
-
-<script>
-  export default {
-    props: [
-      'post',
-      'authenticated',
-    ]
-  }
-</script>

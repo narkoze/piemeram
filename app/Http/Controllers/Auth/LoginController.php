@@ -50,7 +50,6 @@ class LoginController extends Controller
             return response()->json([
                 'auth' => $user->only([
                     'name',
-                    'email',
                 ]),
                 'csrf_token' => csrf_token(),
             ]);

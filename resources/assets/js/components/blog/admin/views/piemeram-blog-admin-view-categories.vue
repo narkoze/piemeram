@@ -118,10 +118,7 @@
             this.category = {}
             this.loadCategories()
 
-            window.blogBus.$emit('notification', {
-              color: 'is-primary',
-              text: window.i18n.t('blog.admin.views.blog-admin-view-categories.added', { category: response.data.name })
-            })
+            window.notify(this.$t('blog.admin.views.blog-admin-view-categories.added', { category: response.data.name }), 'is-primary')
           })
           .catch(this.handleAxiosError)
       },
@@ -153,10 +150,7 @@
             this.category = {}
             this.loadCategories()
 
-            window.blogBus.$emit('notification', {
-              color: 'is-primary',
-              text: window.i18n.t('blog.admin.views.blog-admin-view-categories.edited', { category: response.data.name })
-            })
+            window.notify(this.$t('blog.admin.views.blog-admin-view-categories.edited', { category: response.data.name }), 'is-primary')
 
             this.$nextTick(() => {
               this.focus()
@@ -182,10 +176,7 @@
             this.category = {}
             this.loadCategories()
 
-            window.blogBus.$emit('notification', {
-              color: 'is-primary',
-              text: window.i18n.t('blog.admin.views.blog-admin-view-categories.deleted')
-            })
+            window.notify(this.$t('blog.admin.views.blog-admin-view-categories.deleted'), 'is-primary')
 
             this.$nextTick(() => {
               this.focus()

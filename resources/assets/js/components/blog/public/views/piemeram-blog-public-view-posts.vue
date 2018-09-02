@@ -28,7 +28,7 @@
             <div class="media-content has-text-centered">
               <p class="title article-title">
                 <a
-                  @click="$emit('showPost', post)"
+                  @click="$root.post = post; $root.showView = 'public-view-post'"
                   class="is-link-reversed"
                 >
                   {{ post.title }}
@@ -63,11 +63,15 @@
           </div>
 
           <div
-            v-if="authenticated"
+            v-if="$root.auth"
             class="article actions"
           >
             <a
-              @click="$emit('editAdminPost', post)"
+              @click="() => {
+                $root.activeSection = 'admin-view-posts'
+                $root.showView = 'admin-view-post'
+                $root.post = post
+              }"
               class="button is-info"
             >
               <span class="icon">
@@ -91,9 +95,6 @@
   export default {
     mixins: [
       AxiosErrorHandler,
-    ],
-    props: [
-      'authenticated',
     ],
     data: () => ({
       posts: {}
