@@ -7,6 +7,4 @@ yarn
 
 cp -rf ../piem.env .env
 
-./artisan serve & npm run watch
-
 cd -
