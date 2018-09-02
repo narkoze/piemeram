@@ -24,6 +24,6 @@ if [ -d public ]; then
 fi
 tar -zcvf piem.tgz .
 
-php artisan migrate --pretend
+# php artisan migrate --pretend
 
 cd -
