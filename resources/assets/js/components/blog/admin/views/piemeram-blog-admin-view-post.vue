@@ -207,8 +207,8 @@
 
         let method = this.post.id ? 'put' : 'post'
         let route = this.post.id
-          ? `blog/api/admin/postx/${this.post.id}`
-          : 'blog/api/admin/postx'
+          ? `blog/api/admin/post/${this.post.id}`
+          : 'blog/api/admin/post'
 
         axios[method](route, {
           ...this.post,
