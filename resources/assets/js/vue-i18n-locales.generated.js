@@ -176,7 +176,9 @@ export default {
                         "edit": "Edit"
                     },
                     "blog-public-view-posts": {
-                        "edit": "Edit"
+                        "edit": "Edit",
+                        "copy": "Copy post link",
+                        "copied": "Post link successfully copied"
                     }
                 }
             }
@@ -523,7 +525,9 @@ export default {
                         "edit": "Labot"
                     },
                     "blog-public-view-posts": {
-                        "edit": "Labot"
+                        "edit": "Labot",
+                        "copy": "Kopēt ziņas saiti",
+                        "copied": "Ziņas saite veiksmīgi nokopēta"
                     }
                 }
             }

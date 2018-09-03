@@ -215,6 +215,13 @@ a.is-link-reversed {
   }
 }
 
+a.copy {
+  color: $grey-darker;
+  &:hover {
+    color: $cyan;
+  }
+}
+
 .link-divider {
   color: #ddd;
   font-size: 13px;

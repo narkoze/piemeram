@@ -95,7 +95,7 @@
 
 <script>
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
-  import axios from '../../../../axios'
+  import axios from 'axios'
 
   export default {
     mixins: [

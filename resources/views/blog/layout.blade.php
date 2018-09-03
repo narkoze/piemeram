@@ -9,7 +9,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token">
     @include('shared.php2js.laravel')
-    <script> window.auth = @json($auth) </script>
+    <script>
+      window.auth = @json($auth);
+      @if (isset($post))
+        window.post = @json($post);
+      @endif
+    </script>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ mix('css/blog.css') }}" />

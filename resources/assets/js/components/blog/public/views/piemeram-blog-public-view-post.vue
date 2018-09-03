@@ -3,6 +3,16 @@
     <div class="column is-8 is-offset-2">
       <div class="card article">
         <div class="card-content">
+          <div class="has-text-right">
+            <a
+              @click="copy($root.post.id)"
+              class="copy"
+              :title="$t('blog.public.views.blog-public-view-posts.copy')"
+            >
+              <i class="fas fa-link"></i>
+            </a>
+          </div>
+
           <div class="media">
             <div class="media-content has-text-centered">
               <p class="title article-title">
@@ -69,3 +79,13 @@
     </div>
   </section>
 </template>
+
+<script>
+  import mixins from './mixins'
+
+  export default {
+    mixins: [
+      mixins,
+    ]
+  }
+</script>

@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', 'HomeController@index')->name('blog');
+Route::get('/post/{post}', 'PostController@show');
 
 Route::group([
     'prefix' => 'api'

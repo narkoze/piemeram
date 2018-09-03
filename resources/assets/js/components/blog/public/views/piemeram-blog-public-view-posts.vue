@@ -24,6 +24,16 @@
         class="card article"
       >
         <div class="card-content">
+          <div class="has-text-right">
+            <a
+              @click="copy(post.id)"
+              class="copy"
+              :title="$t('blog.public.views.blog-public-view-posts.copy')"
+            >
+              <i class="fas fa-link"></i>
+            </a>
+          </div>
+
           <div class="media">
             <div class="media-content has-text-centered">
               <p class="title article-title">
@@ -78,7 +88,7 @@
                 <i class="fas fa-pencil-alt"></i>
               </span>
               <span>
-                {{ $t('blog.public.views.blog-public-view-post.edit') }}
+                {{ $t('blog.public.views.blog-public-view-posts.edit') }}
               </span>
             </a>
           </div>
@@ -90,11 +100,13 @@
 
 <script>
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
-  import axios from '../../../../axios'
+  import mixins from './mixins'
+  import axios from 'axios'
 
   export default {
     mixins: [
       AxiosErrorHandler,
+      mixins,
     ],
     data: () => ({
       posts: {}
