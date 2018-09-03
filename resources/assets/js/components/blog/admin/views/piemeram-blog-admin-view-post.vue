@@ -310,6 +310,9 @@
           }
         })
       }
+    },
+    beforeDestroy () {
+      window.blogBus.$off('localeChanged')
     }
   }
 </script>
