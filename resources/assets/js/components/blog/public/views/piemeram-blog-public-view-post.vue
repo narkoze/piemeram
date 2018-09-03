@@ -37,13 +37,12 @@
           </div>
 
           <div class="content article-body article-body-margin is-hidden-touch">
-            <p>{{ $root.post.content }}</p>
+            <div v-html="$root.post.content"></div>
           </div>
 
           <div class="content article-body is-hidden-desktop">
-            <p>{{ $root.post.content }}</p>
+            <div v-html="$root.post.content"></div>
           </div>
-
 
           <div class="article additional">
             <span

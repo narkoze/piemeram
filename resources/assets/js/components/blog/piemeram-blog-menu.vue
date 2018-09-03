@@ -135,7 +135,10 @@
       setLocale (locale) {
         axios
           .post(`locale/${locale}`)
-          .then(() => { this.$i18n.locale = locale })
+          .then(() => {
+            this.$i18n.locale = locale
+            window.blogBus.$emit('localeChanged', locale)
+          })
       },
       logout () {
         this.disabledLogout = true

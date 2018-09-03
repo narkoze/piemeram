@@ -53,13 +53,21 @@
 
 
           <div class="content article-body article-body-margin is-hidden-touch">
-            <p>
-              {{ post.content }}
-            </p>
+            <div v-html="pagebrake(post.content)"></div>
           </div>
 
           <div class="content article-body is-hidden-desktop">
-            <p>{{ post.content }}</p>
+            <div v-html="pagebrake(post.content)"></div>
+          </div>
+
+          <div class="pagebreak-link">
+            <a
+              v-if="hasPagebreak(post.content)"
+              @click="$root.post = post; $root.showView = 'public-view-post'"
+              class="is-link-reversed"
+            >
+              <i class="fas fa-arrow-right"></i> {{ $t('blog.public.views.blog-public-view-posts.pagebreak') }}
+            </a>
           </div>
 
           <div class="article additional">
@@ -126,6 +134,12 @@
             this.posts = response.data
           })
           .catch(this.handleAxiosError)
+      },
+      hasPagebreak (postContent) {
+        return postContent.includes('<!-- pagebreak -->')
+      },
+      pagebrake (postContent) {
+        return postContent.split('<!-- pagebreak -->')[0]
       }
     }
   }

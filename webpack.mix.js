@@ -47,8 +47,11 @@ mix.sass('resources/assets/sass/blog.scss', 'public/css', {
   ]
 })
 
+mix.copyDirectory('node_modules/tinymce/skins', 'public/css/tinymce/skins')
+
 mix.js('resources/assets/js/components/blog/blog.js', 'public/js/components/blog/blog.js')
 mix.js('resources/assets/js/components/blog/admin/admin.js', 'public/js/components/blog/admin/admin.js')
+mix.js('resources/assets/js/components/blog/langs/lv.js', 'public/js/components/blog/langs/lv.js')
 
 /**
  * Shared

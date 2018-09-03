@@ -178,7 +178,8 @@ export default {
                     "blog-public-view-posts": {
                         "edit": "Edit",
                         "copy": "Copy post link",
-                        "copied": "Post link successfully copied"
+                        "copied": "Post link successfully copied",
+                        "pagebreak": "Continue reading..."
                     }
                 }
             }
@@ -527,7 +528,8 @@ export default {
                     "blog-public-view-posts": {
                         "edit": "Labot",
                         "copy": "Kopēt ziņas saiti",
-                        "copied": "Ziņas saite veiksmīgi nokopēta"
+                        "copied": "Ziņas saite veiksmīgi nokopēta",
+                        "pagebreak": "Turpini lasīt..."
                     }
                 }
             }

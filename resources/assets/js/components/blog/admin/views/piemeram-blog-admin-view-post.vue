@@ -30,7 +30,7 @@
         <div class="field">
           <textarea
             v-model="post.content"
-            :class="['textarea', { 'is-danger': errors.content }]"
+            :class="['textarea', 'editor', { 'is-danger': errors.content }]"
             :disabled="disabled"
             rows="15"
           >
@@ -172,6 +172,12 @@
 <script>
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import axios from 'axios'
+  import tinymce from 'tinymce/tinymce'
+  import 'tinymce/themes/modern/theme'
+  import 'tinymce/plugins/lists'
+  import 'tinymce/plugins/link'
+  import 'tinymce/plugins/textcolor'
+  import 'tinymce/plugins/pagebreak'
 
   export default {
     mixins: [
@@ -195,9 +201,15 @@
       }
 
       this.loadCategories()
+
+      window.blogBus.$on('localeChanged', () => {
+        tinymce.remove()
+        this.initTinymce()
+      })
     },
     mounted () {
       this.$refs.title.focus()
+      this.initTinymce()
     },
     methods: {
       publish (draft = false) {
@@ -267,7 +279,59 @@
             this.categoriesLoading = false
             this.handleAxiosError(error)
           })
+      },
+      initTinymce () {
+        let self = this
+
+        tinymce.init({
+          selector: '.editor',
+          language: self.$i18n.locale,
+          skin_url: '/css/tinymce/skins/lightgray',
+          plugins: 'lists link textcolor pagebreak',
+          toolbar: 'formatselect | bold italic underline | bullist numlist | forecolor indent blockquote | alignleft aligncenter alignright | link pagebreak | undo redo',
+          block_formats: 'Heading 1=h2;Heading 2=h3;Heading 3=h4;',
+          pagebreak_split_block: true,
+          pagebreak_separator: '<!-- pagebreak -->',
+          content_style: 'h2 { font-size: 1.75em; margin-bottom: 0.5714em; } h3 { font-size: 1.5em; margin-bottom: 0.6666em; } h4 { font-size: 1.25em;  margin-bottom: 0.8em; } h2, h3, h4 { font-weight: 600; line-height: 1.125; color: #363636; } body { font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif; font-size: 1rem; }',
+          menubar: false,
+          branding: false,
+          init_instance_callback: function (editor) {
+            this.on('KeyUp', (e) => {
+              self.post.content = editor.getContent()
+            })
+            this.on('Change', (e) => {
+              if (editor.getContent() !== this.value) {
+                self.post.content = editor.getContent()
+              }
+            })
+            this.on('init', (e) => {
+              editor.setContent(self.post.content)
+            })
+          }
+        })
       }
     }
   }
 </script>
+
+<style>
+  .mce-tinymce.mce-container.mce-panel {
+    border-color: #dbdbdb;
+    border-radius: 4px;
+  }
+  .mce-tinymce.mce-container.mce-panel:hover {
+    border-color: #b5b5b5;
+  }
+  .mce-container {
+    border-radius: 4px;
+  }
+  .mce-container-body {
+    border-radius: 4px;
+  }
+  .mce-stack-layout-item {
+    border: none !important;
+  }
+  .mce-btn {
+    border: none !important;
+  }
+</style>

@@ -16,6 +16,8 @@ window.Vue.filter('dateString', (value) => {
   return date.format('YYYY-MM-DD')
 })
 
+window.blogBus = new window.Vue()
+
 const blog = new window.Vue({
   data: () => ({
     auth: window.auth,
