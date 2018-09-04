@@ -17,7 +17,7 @@
             class="has-text-centered is-size-4"
             colspan="3"
           >
-            <i class="fas fa-spinner fa-spin"></i>
+            <i class="fas fa-spinner fa-pulse"></i>
           </td>
         </tr>
         <tr

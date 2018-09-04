@@ -46,6 +46,7 @@ mix.sass('resources/assets/sass/blog.scss', 'public/css', {
     'node_modules/flag-icon-css/sass'
   ]
 })
+mix.sass('resources/assets/sass/tinymce.scss', 'public/css', 'tinymce')
 
 mix.copyDirectory('node_modules/tinymce/skins', 'public/css/tinymce/skins')
 

@@ -108,6 +108,41 @@ $navbar-burger-color: red;
 @import "elements/button";
 @import "elements/container";
 @import "elements/content";
+.content h2,
+.content h3,
+.content h4,
+.content p:not(:last-child),
+.content dl:not(:last-child),
+.content ol:not(:last-child),
+.content ul:not(:last-child),
+.content blockquote:not(:last-child),
+.content pre:not(:last-child),
+.content table:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.content h3:not(:first-child) {
+  margin-top: 0;
+}
+
+.content ul,
+.content ol,
+.content ol:not(:last-child),
+.content ul:not(:last-child) {
+  margin-left: 3em;
+  margin-top: -1em;
+}
+
+.content ul,
+.content ol,
+.content li + li {
+  line-height: .7;
+}
+.content li + li {
+  margin-top: 0;
+}
+
+
 @import "elements/form";
 @import "elements/icon";
 @import "elements/image";

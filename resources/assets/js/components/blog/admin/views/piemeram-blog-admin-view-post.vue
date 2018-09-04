@@ -28,6 +28,12 @@
         </div>
 
         <div class="field">
+          <i
+            v-if="editorLoading"
+            class="fas fa-spinner fa-pulse"
+          >
+          </i>
+
           <textarea
             v-model="post.content"
             :class="['textarea', 'editor', { 'is-danger': errors.content }]"
@@ -136,7 +142,7 @@
               &nbsp;
               <i
                 v-if="categoriesLoading"
-                class="fas fa-spinner fa-spin"
+                class="fas fa-spinner fa-pulse"
               >
               </i>
             </p>
@@ -178,6 +184,7 @@
   import 'tinymce/plugins/link'
   import 'tinymce/plugins/textcolor'
   import 'tinymce/plugins/pagebreak'
+  import 'tinymce/plugins/table'
 
   export default {
     mixins: [
@@ -191,7 +198,8 @@
       deleting: false,
       categories: [],
       selectedCategories: [],
-      categoriesLoading: false
+      categoriesLoading: false,
+      editorLoading: false
     }),
     created () {
       this.post = this.$root.post || {
@@ -282,19 +290,29 @@
       },
       initTinymce () {
         let self = this
+        self.editorLoading = true
 
         tinymce.init({
           selector: '.editor',
           language: self.$i18n.locale,
           skin_url: '/css/tinymce/skins/lightgray',
-          plugins: 'lists link textcolor pagebreak',
-          toolbar: 'formatselect | bold italic underline | bullist numlist | forecolor indent blockquote | alignleft aligncenter alignright | link pagebreak | undo redo',
+          plugins: 'lists link textcolor pagebreak table',
+          toolbar: 'formatselect | bold italic underline | bullist numlist | forecolor indent blockquote | alignleft aligncenter alignright | link pagebreak | table | undo redo',
+          table_default_attributes: {
+            border: '0',
+            class: 'table is-striped is-narrow is-hoverable is-fullwidth'
+          },
           block_formats: 'Heading 1=h2;Heading 2=h3;Heading 3=h4;',
           pagebreak_split_block: true,
           pagebreak_separator: '<!-- pagebreak -->',
-          content_style: 'h2 { font-size: 1.75em; margin-bottom: 0.5714em; } h3 { font-size: 1.5em; margin-bottom: 0.6666em; } h4 { font-size: 1.25em;  margin-bottom: 0.8em; } h2, h3, h4 { font-weight: 600; line-height: 1.125; color: #363636; } body { font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif; font-size: 1rem; }',
+          content_css: '/css/tinymce.css',
           menubar: false,
           branding: false,
+          setup: function () {
+            this.on('init', () => {
+              self.editorLoading = false
+            })
+          },
           init_instance_callback: function (editor) {
             this.on('KeyUp', (e) => {
               self.post.content = editor.getContent()

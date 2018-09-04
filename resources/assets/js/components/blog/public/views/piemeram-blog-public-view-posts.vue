@@ -10,7 +10,7 @@
             <div class="media-content has-text-centered">
               <p class="title article-title">
                 <a class="is-link-reversed">
-                  <i class="fa fa-spinner fa-spin"></i>
+                  <i class="fa fa-spinner fa-pulse"></i>
                 </a>
               </p>
             </div>
