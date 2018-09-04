@@ -12,4 +12,5 @@ return [
   'deleted' => 'Kategorija veiksmīgi izdzēsta',
   'confirm' => 'Dzēst ":name"?',
   'postcount' => 'Ziņas / Melnraksti',
+  'canceledit' => 'Atcelt',
 ];

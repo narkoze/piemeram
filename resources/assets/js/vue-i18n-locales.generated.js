@@ -105,7 +105,8 @@ export default {
                         "delete": "Delete",
                         "deleted": "Category successfully deleted",
                         "confirm": "Delete \"{name}\"?",
-                        "postcount": "Posts \/ Drafts"
+                        "postcount": "Posts \/ Drafts",
+                        "canceledit": "Cancel"
                     },
                     "blog-admin-view-post": {
                         "title": {
@@ -455,7 +456,8 @@ export default {
                         "delete": "Dzēst",
                         "deleted": "Kategorija veiksmīgi izdzēsta",
                         "confirm": "Dzēst \"{name}\"?",
-                        "postcount": "Ziņas \/ Melnraksti"
+                        "postcount": "Ziņas \/ Melnraksti",
+                        "canceledit": "Atcelt"
                     },
                     "blog-admin-view-post": {
                         "title": {

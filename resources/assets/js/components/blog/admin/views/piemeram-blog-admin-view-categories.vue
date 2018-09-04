@@ -25,6 +25,14 @@
       </a>
 
       <a
+        v-if="category.id"
+        @click="cancel"
+        class="button"
+      >
+        {{ $t('blog.admin.views.blog-admin-view-categories.canceledit') }}
+      </a>
+
+      <a
         v-else
         @click="add"
         :class="['button', 'is-info', { 'is-loading': disabled }]"
@@ -93,6 +101,7 @@
     ],
     data: () => ({
       category: {},
+      categoryName: null,
       categories: [],
       categoriesLoading: false,
       mouseover: null,
@@ -137,6 +146,8 @@
           })
       },
       setCategory (category) {
+        this.category.name = this.categoryName
+        this.categoryName = category.name
         this.category = category
         this.focus()
       },
@@ -187,6 +198,11 @@
             this.categoriesLoading = false
             this.handleAxiosError(error)
           })
+      },
+      cancel () {
+        this.category.name = this.categoryName
+        this.category = {}
+        this.focus()
       }
     }
   }

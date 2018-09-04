@@ -12,4 +12,5 @@ return [
   'deleted' => 'Category successfully deleted',
   'confirm' => 'Delete ":name"?',
   'postcount' => 'Posts / Drafts',
+  'canceledit' => 'Cancel',
 ];
