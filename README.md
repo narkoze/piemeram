@@ -1,6 +1,9 @@
-# www.piemeram.lv
+# My personal playground
 
-## Deployment steps for shared hostings
+## Projects
+  * Blog
+
+#### Deployment steps for shared hostings
 1.	Run ./bin/build.production.sh
 2.	Upload piem.tgz
 3.	Extract
