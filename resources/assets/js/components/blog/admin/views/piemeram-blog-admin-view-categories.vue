@@ -120,6 +120,7 @@
       },
       add () {
         this.disabled = true
+        this.errors = {}
 
         axios
           .post('blog/api/admin/category', this.category)

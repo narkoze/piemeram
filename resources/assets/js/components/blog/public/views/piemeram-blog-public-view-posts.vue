@@ -75,7 +75,7 @@
               {{ category.name }}<span v-if="post.categories.length - index !== 1">,</span>
             </span>
             <span
-              v-if="post.comments_count"
+              v-if="post.comments_count > 0"
               :class="['commentcount', { rightcommentcount: post.categories.length }]"
             >
               {{ $t('blog.public.views.blog-public-view-posts.' + (post.comments_count > 1 ? 'comments' : 'comment'), { count: post.comments_count }) }}

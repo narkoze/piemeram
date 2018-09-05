@@ -211,6 +211,7 @@
       },
       saveComment () {
         this.disabled = true
+        this.errors = {}
 
         axios
           .post(`blog/api/post/${this.$root.post.id}/comment`, this.comment)
