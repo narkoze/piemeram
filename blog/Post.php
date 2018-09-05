@@ -43,6 +43,23 @@ class Post extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)
+            ->select([
+                'id',
+                'author_id',
+                'comment',
+                'updated_at',
+                'created_at',
+            ])
+            ->with('author:id,name')
+            ->orderBy('created_at', 'desc');
+    }
+
     public function json()
     {
         $post = $this->only([

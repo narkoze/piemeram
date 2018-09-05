@@ -28,6 +28,7 @@
         v-if="category.id"
         @click="cancel"
         class="button"
+        :disabled="disabled"
       >
         {{ $t('blog.admin.views.blog-admin-view-categories.canceledit') }}
       </a>

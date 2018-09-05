@@ -49,6 +49,7 @@ class LoginController extends Controller
         if ($request->ajax()) {
             return response()->json([
                 'auth' => $user->only([
+                    'id',
                     'name',
                 ]),
                 'csrf_token' => csrf_token(),

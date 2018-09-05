@@ -36,9 +36,10 @@
 
           <textarea
             v-model="post.content"
-            :class="['textarea', 'editor', { 'is-danger': errors.content }]"
+            :class="['textarea', { 'is-danger': errors.content }]"
             :disabled="disabled"
             rows="15"
+            id="editor"
           >
           </textarea>
           <p v-if="errors.content" class="help is-danger">{{ errors.content.join() }}</p>
@@ -293,7 +294,7 @@
         self.editorLoading = true
 
         tinymce.init({
-          selector: '.editor',
+          selector: '#editor',
           language: self.$i18n.locale,
           skin_url: '/css/tinymce/skins/lightgray',
           plugins: 'lists link textcolor pagebreak table',
@@ -330,6 +331,7 @@
       }
     },
     beforeDestroy () {
+      tinymce.remove()
       window.blogBus.$off('localeChanged')
     }
   }

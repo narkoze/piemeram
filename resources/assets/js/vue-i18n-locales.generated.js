@@ -174,13 +174,23 @@ export default {
                 },
                 "views": {
                     "blog-public-view-post": {
-                        "edit": "Edit"
+                        "edit": "Edit",
+                        "modified": "Modified",
+                        "comments": "Comments",
+                        "commentas": "Comment as {name}",
+                        "comment": "Comment",
+                        "logintocomment": "Login to comment",
+                        "delete": "Delete",
+                        "canceledit": "Cancel",
+                        "confirm": "Delete \"{comment}\"?"
                     },
                     "blog-public-view-posts": {
                         "edit": "Edit",
                         "copy": "Copy post link",
                         "copied": "Post link successfully copied",
-                        "pagebreak": "Continue reading..."
+                        "pagebreak": "Continue reading...",
+                        "comments": "{count} comments",
+                        "comment": "{count} comment"
                     }
                 }
             }
@@ -525,13 +535,23 @@ export default {
                 },
                 "views": {
                     "blog-public-view-post": {
-                        "edit": "Labot"
+                        "edit": "Labot",
+                        "modified": "Labots",
+                        "comments": "Komentāri",
+                        "commentas": "Komentēt kā {name}",
+                        "comment": "Komentēt",
+                        "logintocomment": "Ienāc, lai komentētu",
+                        "delete": "Dzēst",
+                        "canceledit": "Atcelt",
+                        "confirm": "Dzēst \"{comment}\"?"
                     },
                     "blog-public-view-posts": {
                         "edit": "Labot",
                         "copy": "Kopēt ziņas saiti",
                         "copied": "Ziņas saite veiksmīgi nokopēta",
-                        "pagebreak": "Turpini lasīt..."
+                        "pagebreak": "Turpini lasīt...",
+                        "comments": "{count} komentāri",
+                        "comment": "{count} komentārs"
                     }
                 }
             }

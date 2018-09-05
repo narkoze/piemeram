@@ -14,6 +14,7 @@ class PostController extends Controller
                 'author:id,name',
                 'categories:id,name',
             ])
+            ->withCount('comments')
             ->orderBy('published_at', 'desc')
             ->get([
                 'id',

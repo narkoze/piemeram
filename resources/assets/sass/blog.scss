@@ -223,15 +223,55 @@ span.flag-icon {
 .article-body {
   line-height: 1.4;
   white-space: pre-wrap;
+  @media screen and (min-width: $desktop) {
+    margin: 0 3rem;
+  }
 }
-.article-body-margin {
-  margin: 0 3rem;
-}
+
 .article.additional {
-  margin: 0 3rem 0 3rem;
+  margin-top: 2rem;
+  @media screen and (min-width: $desktop) {
+    margin: 2rem 3rem 0 3rem;
+  }
 }
+
 .article.actions {
-  margin: 2rem 3rem 0 3rem;
+  margin: 2rem 0 0 0;
+  @media screen and (min-width: $desktop) {
+    margin: 2rem 3rem 0 3rem;
+  }
+}
+
+.comments {
+  margin: 5rem 0;
+  margin-top: 25px;
+}
+.comment {
+  margin-top: 4rem;
+}
+.comment-title {
+  font-size: 2rem;
+  font-weight: lighter;
+  line-height: 2;
+  @media screen and (min-width: $desktop) {
+    margin: 0 3rem;
+  }
+}
+.comment-body {
+  line-height: 1.4;
+  @media screen and (min-width: $desktop) {
+    margin: 0 3rem;
+  }
+}
+.commentcount {
+  font-style: italic;
+  color: $grey;
+}
+.rightcommentcount {
+  display: block;
+  @media screen and (min-width: $desktop) {
+    float: right;
+  }
 }
 
 .public {
@@ -258,7 +298,11 @@ a.copy {
 }
 
 .pagebreak-link {
-  margin: -2rem 3rem 1rem 4rem;
+  margin: -3rem 0 0 0;
+
+  @media screen and (min-width: $desktop) {
+    margin: -3rem 3rem 0 3rem;
+  }
 }
 
 .link-divider {

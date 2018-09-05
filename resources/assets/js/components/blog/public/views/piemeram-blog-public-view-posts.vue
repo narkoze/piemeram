@@ -52,11 +52,7 @@
           </div>
 
 
-          <div class="content article-body article-body-margin is-hidden-touch">
-            <div v-html="pagebrake(post.content)"></div>
-          </div>
-
-          <div class="content article-body is-hidden-desktop">
+          <div class="content article-body is-clearfix">
             <div v-html="pagebrake(post.content)"></div>
           </div>
 
@@ -77,6 +73,12 @@
               class="categories"
             >
               {{ category.name }}<span v-if="post.categories.length - index !== 1">,</span>
+            </span>
+            <span
+              v-if="post.comments_count"
+              :class="['commentcount', { rightcommentcount: post.categories.length }]"
+            >
+              {{ $t('blog.public.views.blog-public-view-posts.' + (post.comments_count > 1 ? 'comments' : 'comment'), { count: post.comments_count }) }}
             </span>
           </div>
 
