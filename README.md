@@ -1,7 +1,9 @@
 # My personal playground
 
 ## Projects
-  * Blog
+### Blog
+#### Features
+  * 
 
 #### Deployment steps for shared hostings
 1.	Run ./bin/build.production.sh
