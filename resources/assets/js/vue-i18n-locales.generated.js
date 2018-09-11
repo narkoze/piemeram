@@ -130,7 +130,9 @@ export default {
                         "comments": "Comments",
                         "commentsdescription": "Top 10 posts with the most comments",
                         "categories": "Categories",
-                        "categoriesdescription": "Top 10 categories with the most posts"
+                        "categoriesdescription": "Top 10 categories with the most posts",
+                        "postlabel": "Posts",
+                        "draftlabel": "Drafts"
                     },
                     "blog-admin-view-post": {
                         "title": {
@@ -514,7 +516,9 @@ export default {
                         "comments": "Komentāri",
                         "commentsdescription": "Top 10 ziņas ar visvairāk komentāriem",
                         "categories": "Kategorijas",
-                        "categoriesdescription": "Top 10 kategorijas ar visvairāk ziņām"
+                        "categoriesdescription": "Top 10 kategorijas ar visvairāk ziņām",
+                        "postlabel": "Ziņas",
+                        "draftlabel": "Melnraksti"
                     },
                     "blog-admin-view-post": {
                         "title": {

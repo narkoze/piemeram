@@ -34,7 +34,7 @@ class DashboardController extends Controller
         ')
         ->whereBetween('created_at', [
             Carbon::now()->startOfMonth()->subMonths(11)->toDateString(),
-            Carbon::now()->toDateString()
+            Carbon::now()->toDateTimeString()
         ])
         ->groupBy([
             'year',
@@ -69,7 +69,7 @@ class DashboardController extends Controller
         ')
         ->whereBetween('published_at', [
             Carbon::now()->startOfMonth()->subMonths(11)->toDateString(),
-            Carbon::now()->toDateString()
+            Carbon::now()->toDateTimeString()
         ])
         ->get();
 
@@ -82,7 +82,7 @@ class DashboardController extends Controller
         ->whereNull('published_at')
         ->whereBetween('updated_at', [
             Carbon::now()->startOfMonth()->subMonths(11)->toDateString(),
-            Carbon::now()->toDateString()
+            Carbon::now()->toDateTimeString()
         ])
         ->get();
 

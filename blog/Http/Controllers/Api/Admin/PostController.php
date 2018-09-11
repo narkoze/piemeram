@@ -71,7 +71,11 @@ class PostController extends Controller
     {
         $post->fill($request->all());
 
-        $post->published_at = $request->draft ? null :  Carbon::now();
+        if ($request->draft) {
+            $post->published_at = null;
+        } else if (!$post->published_at) {
+            $post->published_at = Carbon::now();
+        }
 
         $post->save();
 
