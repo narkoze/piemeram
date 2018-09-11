@@ -22,6 +22,7 @@
         <a
           @click="() => {
             $root.showView = ''
+            $root.anchor = null
             $nextTick(() => {
               $root.showView = 'public-view-posts'
               isMenuActive = false
@@ -58,9 +59,10 @@
 
             <a
               @click="() => {
-                $root.showView = 'admin-view-posts'
-                $root.activeSection = 'admin-view-posts'
+                $root.showView = 'admin-view-dashboard'
+                $root.activeSection = 'admin-view-dashboard'
                 isMenuActive = false
+                scrollTo(0, 0)
               }"
               class="bd-tw-button button is-link"
             >
@@ -152,6 +154,9 @@
 
             this.$root.auth = null
           })
+      },
+      scrollTo (x, y) {
+        window.scrollTo(x, y)
       }
     }
   }

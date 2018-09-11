@@ -53,6 +53,7 @@ mix.copyDirectory('node_modules/tinymce/skins', 'public/css/tinymce/skins')
 mix.js('resources/assets/js/components/blog/blog.js', 'public/js/components/blog/blog.js')
 mix.js('resources/assets/js/components/blog/admin/admin.js', 'public/js/components/blog/admin/admin.js')
 mix.js('resources/assets/js/components/blog/langs/lv.js', 'public/js/components/blog/langs/lv.js')
+mix.js('node_modules/chart.js/src/chart.js', 'public/js/chart.js')
 
 /**
  * Shared
@@ -60,4 +61,11 @@ mix.js('resources/assets/js/components/blog/langs/lv.js', 'public/js/components/
 mix.js('resources/assets/js/vue.js', 'public/js/vue.js')
 mix.js('resources/assets/js/axios.js', 'public/js/axios.js')
 
-mix.inProduction() ? mix.version() : mix.browserSync({ proxy: 'localhost:8000' })
+mix.inProduction() ? mix.version() : mix.browserSync({ proxy: {
+  target: 'localhost:8000',
+  reqHeaders: function () {
+    return {
+      host: 'localhost:3000'
+    }
+  }
+}})

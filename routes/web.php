@@ -17,3 +17,5 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('project', 'ProjectController@index')->name('project');
 Route::get('about', 'AboutController@index')->name('about');
 Route::post('locale/{locale}', 'LocaleController@setLocale')->name('setLocale');
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

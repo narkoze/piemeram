@@ -1,4 +1,5 @@
 window.Vue.component('piemeram-blog-admin-view-categories', require('./views/piemeram-blog-admin-view-categories.vue'))
+window.Vue.component('piemeram-blog-admin-view-dashboard', require('./views/piemeram-blog-admin-view-dashboard.vue'))
 window.Vue.component('piemeram-blog-admin-view-posts', require('./views/piemeram-blog-admin-view-posts.vue'))
 window.Vue.component('piemeram-blog-admin-view-post', require('./views/piemeram-blog-admin-view-post.vue'))
 window.Vue.component('piemeram-blog-admin-menu-mobile', require('./piemeram-blog-admin-menu-mobile.vue'))

@@ -26,7 +26,13 @@ Route::group([
     'middleware' => 'auth',
     'prefix' => 'api/admin',
 ], function () {
+    Route::get('dashboard/users', 'Api\Admin\DashboardController@users');
+    Route::get('dashboard/posts', 'Api\Admin\DashboardController@posts');
+    Route::get('dashboard/comments', 'Api\Admin\DashboardController@comments');
+    Route::get('dashboard/categories', 'Api\Admin\DashboardController@categories');
+
     Route::resources([
+        'dashboard' => 'Api\Admin\DashboardController',
         'category' => 'Api\Admin\CategoryController',
         'post' => 'Api\Admin\PostController',
     ]);

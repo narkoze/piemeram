@@ -18,7 +18,11 @@ class CommentController extends Controller
 
     public function index(Post $post)
     {
-        return response()->json($post->comments);
+        $comments = $post->comments->each(function ($comment) {
+            $comment->append('is_edited');
+        });
+
+        return response()->json($comments);
     }
 
     public function store(Request $request, Post $post)

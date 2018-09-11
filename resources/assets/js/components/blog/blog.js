@@ -27,8 +27,9 @@ const blog = new window.Vue({
     },
     showView: 'public-view-posts',
     showModals: [],
+    anchor: null,
     activeSection: null,
-    post: null
+    post: {}
   }),
   el: '#blog',
   components: {

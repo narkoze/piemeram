@@ -88,10 +88,11 @@ export default {
         "blog": {
             "admin": {
                 "blog-admin-menu": {
-                    "title": "Posts",
+                    "title": "Administrator",
                     "posts": "All posts",
                     "post": "New post",
-                    "categories": "Categories"
+                    "categories": "Categories",
+                    "dashboard": "Dashboard"
                 },
                 "views": {
                     "blog-admin-view-categories": {
@@ -107,6 +108,29 @@ export default {
                         "confirm": "Delete \"{name}\"?",
                         "postcount": "Posts \/ Drafts",
                         "canceledit": "Cancel"
+                    },
+                    "blog-admin-view-dashboard": {
+                        "title": "Dashboard",
+                        "1": "January",
+                        "2": "February",
+                        "3": "March",
+                        "4": "April",
+                        "5": "May",
+                        "6": "June",
+                        "7": "July",
+                        "8": "August",
+                        "9": "September",
+                        "10": "October",
+                        "11": "November",
+                        "12": "December",
+                        "users": "Users",
+                        "usersdescription": "How many users are registered in each month",
+                        "posts": "Posts \/ Drafts",
+                        "postsdescription": "How many posts and drafts in each month",
+                        "comments": "Comments",
+                        "commentsdescription": "Top 10 posts with the most comments",
+                        "categories": "Categories",
+                        "categoriesdescription": "Top 10 categories with the most posts"
                     },
                     "blog-admin-view-post": {
                         "title": {
@@ -189,8 +213,7 @@ export default {
                         "copy": "Copy post link",
                         "copied": "Post link successfully copied",
                         "pagebreak": "Continue reading...",
-                        "comments": "{count} comments",
-                        "comment": "{count} comment"
+                        "comments": "{count} comments"
                     }
                 }
             }
@@ -449,10 +472,11 @@ export default {
         "blog": {
             "admin": {
                 "blog-admin-menu": {
-                    "title": "Ziņas",
+                    "title": "Administrātors",
                     "posts": "Visas ziņas",
                     "post": "Jauna ziņa",
-                    "categories": "Kategorijas"
+                    "categories": "Kategorijas",
+                    "dashboard": "Informācija"
                 },
                 "views": {
                     "blog-admin-view-categories": {
@@ -468,6 +492,29 @@ export default {
                         "confirm": "Dzēst \"{name}\"?",
                         "postcount": "Ziņas \/ Melnraksti",
                         "canceledit": "Atcelt"
+                    },
+                    "blog-admin-view-dashboard": {
+                        "title": "Informācija",
+                        "1": "Janvāris",
+                        "2": "Februāris",
+                        "3": "Marts",
+                        "4": "Aprīlis",
+                        "5": "Maijs",
+                        "6": "Jūnijs",
+                        "7": "Jūlijs",
+                        "8": "Augusts",
+                        "9": "Septembris",
+                        "10": "Oktobris",
+                        "11": "Novembris",
+                        "12": "Decembris",
+                        "users": "Lietotāji",
+                        "usersdescription": "Cik lietotāji reģistrēti katrā mēnesī",
+                        "posts": "Ziņas \/ Melnraksti",
+                        "postsdescription": "Cik ziņas un melnrakstu katrā mēnesī",
+                        "comments": "Komentāri",
+                        "commentsdescription": "Top 10 ziņas ar visvairāk komentāriem",
+                        "categories": "Kategorijas",
+                        "categoriesdescription": "Top 10 kategorijas ar visvairāk ziņām"
                     },
                     "blog-admin-view-post": {
                         "title": {
@@ -550,8 +597,7 @@ export default {
                         "copy": "Kopēt ziņas saiti",
                         "copied": "Ziņas saite veiksmīgi nokopēta",
                         "pagebreak": "Turpini lasīt...",
-                        "comments": "{count} komentāri",
-                        "comment": "{count} komentārs"
+                        "comments": "{count} komentāri"
                     }
                 }
             }

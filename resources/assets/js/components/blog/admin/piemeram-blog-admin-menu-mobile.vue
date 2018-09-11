@@ -17,6 +17,13 @@
 
     <div class="dropdown-menu blog-dropdown-menu">
       <a
+        @click="dashboard(); isAdminDropdownOpen = false"
+        class="dropdown-item"
+      >
+        {{ $t('blog.admin.blog-admin-menu.dashboard') }}
+      </a>
+
+      <a
         @click="posts(); isAdminDropdownOpen = false"
         class="dropdown-item"
       >

@@ -1,5 +1,16 @@
 <template>
   <aside class="menu is-fullheight">
+    <ul class="menu-list">
+      <li>
+        <a
+          @click="dashboard"
+          :class="{ 'is-active': $root.activeSection === 'admin-view-dashboard' }"
+        >
+          {{ $t('blog.admin.blog-admin-menu.dashboard') }}
+        </a>
+      </li>
+    </ul>
+
     <p class="menu-label">
       {{ $t('blog.admin.blog-admin-menu.title') }}
     </p>

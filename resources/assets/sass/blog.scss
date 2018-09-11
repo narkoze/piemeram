@@ -29,9 +29,17 @@ html {
 .card-margin {
   margin-bottom: 0.75rem;
 }
-
 .card-content-nopadding {
   padding: 0;
+}
+.card.data {
+  width: 100%;
+  text-align: center;
+
+  .card-content {
+    font-size: 3em;
+    font-weight: 700;
+  }
 }
 
 $dropdown-content-radius: 0;
@@ -87,7 +95,12 @@ aside.menu {
   background: $grey-dark;
   padding-top: 1em;
 }
-
+.menu-list a {
+  border-radius: 0;
+  color: white;
+  display: block;
+  padding: 0.5em 0.75em;
+}
 
 @import "components/message";
 @import "components/modal";
@@ -203,6 +216,9 @@ span.flag-icon {
 .articles {
   margin: 5rem 0;
   margin-top: -200px;
+  @media screen and (max-width: $tablet) {
+    margin-top: -370px;
+  }
 }
 .article {
   margin-top: 4rem;
@@ -275,7 +291,7 @@ span.flag-icon {
 }
 
 .public {
-  background: #F9FAF5;
+  background: rgba(249, 250, 245, 0.747);
   height: fit-content;
 }
 
@@ -328,4 +344,19 @@ a.copy {
 .categories {
   font-style: italic;
   color: $grey;
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -.5em;
+  visibility: hidden;
+
+  &#comments {
+    top: -3em;
+  }
+
+  &[id^='posts-'] {
+    top: -5em;
+  }
 }

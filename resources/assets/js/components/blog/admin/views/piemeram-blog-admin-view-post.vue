@@ -282,7 +282,10 @@
           .then(response => {
             this.categoriesLoading = false
             this.categories = response.data
-            this.selectedCategories = this.post.categories.map(({ id }) => id)
+
+            if (this.post.id) {
+              this.selectedCategories = this.post.categories.map(({ id }) => id)
+            }
           })
           .catch(error => {
             this.categoriesLoading = false

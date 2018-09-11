@@ -10,10 +10,6 @@ class Comment extends Model
         'comment',
     ];
 
-    protected $appends = [
-        'is_edited'
-    ];
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -1,0 +1,27 @@
+<?php
+
+return [
+  'title' => 'Dashboard',
+  '1' => 'January',
+  '2' => 'February',
+  '3' => 'March',
+  '4' => 'April',
+  '5' => 'May',
+  '6' => 'June',
+  '7' => 'July',
+  '8' => 'August',
+  '9' => 'September',
+  '10' => 'October',
+  '11' => 'November',
+  '12' => 'December',
+  'users' => 'Users',
+  'usersdescription' => 'How many users are registered in each month',
+  'posts' => 'Posts / Drafts',
+  'postsdescription' => 'How many posts and drafts in each month',
+  'comments' => 'Comments',
+  'commentsdescription' => 'Top 10 posts with the most comments',
+  'categories' => 'Categories',
+  'categoriesdescription' => 'Top 10 categories with the most posts',
+  'postlabel' => 'Posts',
+  'draftlabel' => 'Drafts',
+];

@@ -6,5 +6,4 @@ return [
   'copied' => 'Ziņas saite veiksmīgi nokopēta',
   'pagebreak' => 'Turpini lasīt...',
   'comments' => ':count komentāri',
-  'comment' => ':count komentārs',
 ];

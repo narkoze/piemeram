@@ -1,0 +1,27 @@
+<?php
+
+return [
+  'title' => 'Informācija',
+  '1' => 'Janvāris',
+  '2' => 'Februāris',
+  '3' => 'Marts',
+  '4' => 'Aprīlis',
+  '5' => 'Maijs',
+  '6' => 'Jūnijs',
+  '7' => 'Jūlijs',
+  '8' => 'Augusts',
+  '9' => 'Septembris',
+  '10' => 'Oktobris',
+  '11' => 'Novembris',
+  '12' => 'Decembris',
+  'users' => 'Lietotāji',
+  'usersdescription' => 'Cik lietotāji reģistrēti katrā mēnesī',
+  'posts' => 'Ziņas / Melnraksti',
+  'postsdescription' => 'Cik ziņas un melnrakstu katrā mēnesī',
+  'comments' => 'Komentāri',
+  'commentsdescription' => 'Top 10 ziņas ar visvairāk komentāriem',
+  'categories' => 'Kategorijas',
+  'categoriesdescription' => 'Top 10 kategorijas ar visvairāk ziņām',
+  'postlabel' => 'Ziņas',
+  'draftlabel' => 'Melnraksti',
+];

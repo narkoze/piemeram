@@ -6,5 +6,4 @@ return [
   'copied' => 'Post link successfully copied',
   'pagebreak' => 'Continue reading...',
   'comments' => ':count comments',
-  'comment' => ':count comment',
 ];
