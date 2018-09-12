@@ -23,7 +23,11 @@ if [ -d public ]; then
   sed -i '/\workaround/s/^\/\///g' app/Providers/AppServiceProvider.php
 fi
 tar -zcvf piem.tgz .
-
+ls -l --block-size=M | grep piem.tgz
+scp piem.tgz piem:/home/piemeram/
+ssh piem touch /home/piemeram/storage/framework/down
+ssh piem tar -xvzf /home/piemeram/piem.tgz
+ssh piem rm /home/piemeram/storage/framework/down /home/piemeram/piem.tgz
 # php artisan migrate --pretend
 
 cd -
