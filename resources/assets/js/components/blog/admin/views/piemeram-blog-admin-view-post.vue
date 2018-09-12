@@ -186,6 +186,7 @@
   import 'tinymce/plugins/textcolor'
   import 'tinymce/plugins/pagebreak'
   import 'tinymce/plugins/table'
+  import 'tinymce/plugins/paste'
 
   export default {
     mixins: [
@@ -300,7 +301,7 @@
           selector: '#editor',
           language: self.$i18n.locale,
           skin_url: '/css/tinymce/skins/lightgray',
-          plugins: 'lists link textcolor pagebreak table',
+          plugins: 'lists link textcolor pagebreak table paste',
           toolbar: 'formatselect | bold italic underline | bullist numlist | forecolor indent blockquote | alignleft aligncenter alignright | link pagebreak | table | undo redo',
           table_default_attributes: {
             border: '0',
@@ -312,6 +313,7 @@
           content_css: '/css/tinymce.css',
           menubar: false,
           branding: false,
+          paste_as_text: true,
           setup: function () {
             this.on('init', () => {
               self.editorLoading = false
