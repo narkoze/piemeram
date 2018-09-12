@@ -213,20 +213,7 @@
 
             this.chart.ctx.data.datasets.push({
               data: response.data.counts,
-              backgroundColor: [
-                'hsl(14, 100%, 53%)',
-                'hsl(48, 100%, 67%)',
-                'hsl(141, 71%, 48%)',
-                'hsl(171, 100%, 41%)',
-                'hsl(204, 86%, 53%)',
-                'hsl(217, 71%, 53%)',
-                'hsl(271, 100%, 71%)',
-                'hsl(348, 100%, 61%)',
-                'hsl(14, 100%, 53%)',
-                'hsl(48, 100%, 67%)',
-                'hsl(141, 71%, 48%)',
-                'hsl(171, 100%, 41%)',
-              ]
+              backgroundColor: 'hsl(171, 100%, 41%)'
             })
 
             this.chart.ctx.options.legend.display = false
