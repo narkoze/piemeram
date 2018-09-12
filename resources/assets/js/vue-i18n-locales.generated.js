@@ -187,7 +187,7 @@ export default {
                 "login": "Login",
                 "logout": "Logout",
                 "language": "Language",
-                "greeting": "Hello {name}",
+                "greeting": "Hello, {name}",
                 "admin": "Administrator"
             },
             "layout": {
@@ -573,7 +573,7 @@ export default {
                 "login": "Ienākt",
                 "logout": "Iziet",
                 "language": "Valoda",
-                "greeting": "Sveiks {name}",
+                "greeting": "Sveiks, {name}",
                 "admin": "Administrators"
             },
             "layout": {

@@ -6,6 +6,6 @@ return [
   'login' => 'Login',
   'logout' => 'Logout',
   'language' => 'Language',
-  'greeting' => 'Hello :name',
+  'greeting' => 'Hello, :name',
   'admin' => 'Administrator',
 ];

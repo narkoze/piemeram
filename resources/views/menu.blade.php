@@ -63,7 +63,7 @@
         </div>
         @auth
           <div>
-            @lang('menu.greeting')
+            @lang('menu.greeting'),
             <div class="ui dropdown">
               <a href="">{{ auth()->user()->name }}</a>
               <div class="menu">

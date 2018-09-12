@@ -6,6 +6,6 @@ return [
   'login' => 'Ienākt',
   'logout' => 'Iziet',
   'language' => 'Valoda',
-  'greeting' => 'Sveiks :name',
+  'greeting' => 'Sveiks, :name',
   'admin' => 'Administrators',
 ];
