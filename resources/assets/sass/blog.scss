@@ -44,37 +44,6 @@ html {
 
 $dropdown-content-radius: 0;
 @import "components/dropdown";
-.blog-dropdown {
-  z-index: 1;
-}
-.blog-dropdown-trigger a {
-  display: block;
-  position: fixed;
-  width: 100%;
-  text-align: left;
-  border: 0;
-  border-radius: 0;
-  background: $grey-dark;
-  color: $white;
-  min-height: 42px;
-
-  &:active,
-  &:hover {
-    color: $white;
-  }
-
-  span {
-    vertical-align: middle;
-  }
-}
-.blog-dropdown-menu {
-  position: fixed;
-  top: 5.9rem;
-  left: 0;
-  z-index: 20;
-  background: $white;
-}
-
 @import "components/level";
 @import "components/media";
 
@@ -94,6 +63,9 @@ aside.menu {
   width: inherit;
   background: $grey-dark;
   padding-top: 1em;
+}
+.menu-list {
+  line-height: 26px;
 }
 .menu-list a {
   border-radius: 0;
@@ -364,4 +336,30 @@ a.anchor {
 div.scrollable {
   max-width: 100%;
   overflow-y: scroll;
+}
+
+.submenu {
+  background: $grey-dark;
+  height: 52px;
+  overflow: auto;
+  white-space: nowrap;
+  display: flex;
+
+  a {
+    margin: auto 0;
+    padding: 14px 14px;
+    display: inline-block;
+    color: $white-ter;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+    &.is-active {
+      color: $black;
+      background: $white;
+    }
+  }
 }
