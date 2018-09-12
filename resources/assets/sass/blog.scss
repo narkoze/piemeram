@@ -360,3 +360,8 @@ a.anchor {
     top: -5em;
   }
 }
+
+div.scrollable {
+  max-width: 100%;
+  overflow-y: scroll;
+}
