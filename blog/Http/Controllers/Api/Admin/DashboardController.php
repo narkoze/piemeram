@@ -100,7 +100,7 @@ class DashboardController extends Controller
     {
         $query = Post::select('title')
             ->withCount('comments')
-            ->orderBy('comments_count')
+            ->orderByDesc('comments_count')
             ->limit(10)
             ->get();
 
