@@ -121,6 +121,12 @@
             </div>
           </div>
         </div>
+        <i
+          @click="scrolltop"
+          ref="scrolltop"
+          class="fas fa-arrow-alt-circle-up scrolltop"
+        >
+        </i>
       </div>
     </section>
   </transition>
@@ -142,6 +148,15 @@
     created () {
       this.loadPosts()
     },
+    mounted () {
+      window.onscroll = () => {
+        if (document.body.scrollTop > 352 || document.documentElement.scrollTop > 352) {
+          this.$refs.scrolltop.style.display = 'block'
+        } else {
+          this.$refs.scrolltop.style.display = 'none'
+        }
+      }
+    },
     methods: {
       loadPosts () {
         this.disabled = true
@@ -162,7 +177,10 @@
           .catch(this.handleAxiosError)
       },
       hasPagebreak: (postContent) => postContent.includes('<!-- pagebreak -->'),
-      pagebrake: (postContent) => postContent.split('<!-- pagebreak -->')[0]
+      pagebrake: (postContent) => postContent.split('<!-- pagebreak -->')[0],
+      scrolltop () {
+        document.querySelector('.articles').scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
     }
   }
 </script>

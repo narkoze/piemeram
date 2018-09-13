@@ -363,3 +363,20 @@ div.scrollable {
     }
   }
 }
+
+.scrolltop {
+  display: none;
+  position: fixed;
+  cursor: pointer;
+  bottom: 20px;
+  font-size: 3em;
+  opacity: 0.9;
+  right: 4px;
+  @media screen and (min-width: $desktop) {
+    font-size: 4em;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
