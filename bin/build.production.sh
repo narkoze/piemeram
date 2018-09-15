@@ -5,9 +5,8 @@ cd "$(dirname $0)/.."
 
 composer install --no-dev
 
-yarn --production
-
-npm run production
+yarn install --prod
+yarn run prod
 
 php artisan vue-i18n:generate
 php artisan config:cache
