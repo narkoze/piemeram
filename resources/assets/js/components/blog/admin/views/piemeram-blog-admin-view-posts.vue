@@ -2,110 +2,132 @@
   <div>
     <h1 class="title">{{ $t('blog.admin.views.blog-admin-view-posts.title') }}</h1>
 
-    <div class="scrollable">
-      <table class="table is-striped is-narrow is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>{{ $t('blog.admin.views.blog-admin-view-posts.posttitle') }}</th>
-            <th>{{ $t('blog.admin.views.blog-admin-view-posts.categories') }}</th>
-            <th>{{ $t('blog.admin.views.blog-admin-view-posts.author') }}</th>
-            <th>{{ $t('blog.admin.views.blog-admin-view-posts.date') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-if="disabled">
-            <td
-              class="has-text-centered is-size-4"
-              colspan="3"
-            >
-              <i class="fas fa-spinner fa-pulse"></i>
-            </td>
-          </tr>
-          <tr
-            v-for="post in posts"
-            :key="post.id"
-            @mouseover="mouseover = post.id"
-            @mouseout="mouseover = null"
-          >
-            <td>
-              <a @click="() => {
-                $root.activeSection = 'admin-view-posts'
-                $root.showView = 'admin-view-post'
-                $root.post = post
-              }">
-                <b>{{ post.title }}</b>
-              </a>
-
-              <div v-if="mouseover === post.id">
-                <a @click="() => {
-                  $root.activeSection = 'admin-view-posts'
-                  $root.showView = 'admin-view-post'
-                  $root.post = post
-                }">
-                  <small>{{ $t('blog.admin.views.blog-admin-view-posts.edit') }}</small>
-                </a>
-                <span class="link-divider">|</span>
-                <a @click="() => {
-                  $root.showView = 'public-view-post'
-                  $root.post = post
-                }">
-                  <small v-if="post.published_at">{{ $t('blog.admin.views.blog-admin-view-posts.view') }}</small>
-                  <small v-else>{{ $t('blog.admin.views.blog-admin-view-posts.preview') }}</small>
-                </a>
-              </div>
-            </td>
-
-            <td>
-              <span
-                v-for="(category, index) in post.categories"
-                :key="category.id"
+    <div class="columns">
+      <div class="column">
+        <div class="scrollable">
+          <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>{{ $t('blog.admin.views.blog-admin-view-posts.posttitle') }}</th>
+                <th>{{ $t('blog.admin.views.blog-admin-view-posts.categories') }}</th>
+                <th>{{ $t('blog.admin.views.blog-admin-view-posts.author') }}</th>
+                <th>{{ $t('blog.admin.views.blog-admin-view-posts.date') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-if="disabled">
+                <td
+                  class="has-text-centered is-size-4"
+                  colspan="3"
+                >
+                  <i class="fas fa-spinner fa-pulse"></i>
+                </td>
+              </tr>
+              <tr
+                v-for="post in posts"
+                :key="post.id"
+                @mouseover="mouseover = post.id"
+                @mouseout="mouseover = null"
               >
-                {{ category.name }}<span v-if="post.categories.length - index !== 1">,</span>
-              </span>
-            </td>
+                <td>
+                  <a @click="() => {
+                    $root.activeSection = 'admin-view-posts'
+                    $root.showView = 'admin-view-post'
+                    $root.post = post
+                  }">
+                    <b>{{ post.title }}</b>
+                  </a>
 
-            <td>{{ post.author.name }}</td>
+                  <div v-if="mouseover === post.id">
+                    <a @click="() => {
+                      $root.activeSection = 'admin-view-posts'
+                      $root.showView = 'admin-view-post'
+                      $root.post = post
+                    }">
+                      <small>{{ $t('blog.admin.views.blog-admin-view-posts.edit') }}</small>
+                    </a>
+                    <span class="link-divider">|</span>
+                    <a @click="() => {
+                      $root.showView = 'public-view-post'
+                      $root.post = post
+                    }">
+                      <small v-if="post.published_at">{{ $t('blog.admin.views.blog-admin-view-posts.view') }}</small>
+                      <small v-else>{{ $t('blog.admin.views.blog-admin-view-posts.preview') }}</small>
+                    </a>
+                  </div>
+                </td>
 
-            <td>
-              <div v-if="post.published_at">
-                {{ $t('blog.admin.views.blog-admin-view-posts.published') }}
-                <br>
-                <span
-                  class="hover"
-                  :title="post.published_at"
-                >
-                  {{ post.published_at | dateString }}
-                </span>
-              </div>
-              <div v-else>
-                {{ $t('blog.admin.views.blog-admin-view-posts.saved') }}
-                <br>
-                <span
-                  class="hover"
-                  :title="post.updated_at"
-                >
-                  {{ post.updated_at | dateString }}
-                </span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <td>
+                  <span
+                    v-for="(category, index) in post.categories"
+                    :key="category.id"
+                  >
+                    <a @click="loadCategory = [category.id]">
+                      {{ category.name }}</a><span v-if="post.categories.length - index !== 1">,</span>
+                  </span>
+                </td>
+
+                <td>{{ post.author.name }}</td>
+
+                <td>
+                  <div v-if="post.published_at">
+                    {{ $t('blog.admin.views.blog-admin-view-posts.published') }}
+                    <br>
+                    <span
+                      class="hover"
+                      :title="post.published_at"
+                    >
+                      {{ post.published_at | dateString }}
+                    </span>
+                  </div>
+                  <div v-else>
+                    {{ $t('blog.admin.views.blog-admin-view-posts.saved') }}
+                    <br>
+                    <span
+                      class="hover"
+                      :title="post.updated_at"
+                    >
+                      {{ post.updated_at | dateString }}
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="column is-4">
+        <piemeram-blog-shared-categories
+          only="posts"
+          :postCategories="loadCategory"
+          :filtering="disabled"
+          @selectedCategories="(categories) => { selectedCategories = categories }"
+          @filter="loadPosts"
+        >
+        </piemeram-blog-shared-categories>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import axios from 'axios'
 
   export default {
+    components: {
+      PiemeramBlogSharedCategories
+    },
     mixins: [
       AxiosErrorHandler,
     ],
     data: () => ({
       posts: [],
-      mouseover: null
+      mouseover: null,
+      selectedCategories: [],
+      loadCategory: null
     }),
     created () {
       this.loadPosts()
@@ -113,9 +135,13 @@
     methods: {
       loadPosts () {
         this.disabled = true
+        this.posts = []
+
+        let params = {}
+        if (this.selectedCategories.length) params['categories'] = this.selectedCategories
 
         axios
-          .get('blog/api/admin/post')
+          .get('blog/api/admin/post', { params })
           .then(response => {
             this.disabled = false
 

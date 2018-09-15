@@ -16,21 +16,29 @@ class PostController extends Controller
         'content' => 'required',
     ];
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderByRaw('COALESCE(published_at, updated_at) DESC')
-            ->with([
-                'author:id,name',
-                'categories:id,name'
-            ])
-            ->get([
-                'id',
-                'title',
-                'content',
-                'author_id',
-                'updated_at',
-                'published_at',
-            ]);
+        $query = Post::select([
+            'id',
+            'title',
+            'content',
+            'author_id',
+            'updated_at',
+            'published_at',
+        ])
+        ->with([
+            'author:id,name',
+            'categories:id,name'
+        ])
+        ->orderByRaw('COALESCE(published_at, updated_at) DESC');
+
+        if ($request->filled('categories')) {
+            $query->whereHas('categories', function ($query) use ($request) {
+                $query->whereIn('id', $request->categories);
+            });
+        }
+
+        $posts = $query->get();
 
         return response()->json($posts);
     }

@@ -218,6 +218,12 @@ export default {
                         "comments": "{count} comments"
                     }
                 }
+            },
+            "shared": {
+                "blog-shared-categories": {
+                    "filter": "Filter",
+                    "removefilter": "Remove filter"
+                }
             }
         },
         "github": {
@@ -603,6 +609,12 @@ export default {
                         "pagebreak": "Turpini lasīt...",
                         "comments": "{count} komentāri"
                     }
+                }
+            },
+            "shared": {
+                "blog-shared-categories": {
+                    "filter": "Filtrēt",
+                    "removefilter": "Noņemt filtru"
                 }
             }
         },

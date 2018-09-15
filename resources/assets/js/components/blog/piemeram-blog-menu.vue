@@ -23,6 +23,7 @@
           @click="() => {
             $root.showView = ''
             $root.anchor = null
+            $root.categories = []
             $nextTick(() => {
               $root.showView = 'public-view-posts'
               isMenuActive = false

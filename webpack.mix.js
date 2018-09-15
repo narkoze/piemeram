@@ -51,7 +51,6 @@ mix.sass('resources/assets/sass/tinymce.scss', 'public/css', 'tinymce')
 mix.copyDirectory('node_modules/tinymce/skins', 'public/css/tinymce/skins')
 
 mix.js('resources/assets/js/components/blog/blog.js', 'public/js/components/blog/blog.js')
-mix.js('resources/assets/js/components/blog/admin/admin.js', 'public/js/components/blog/admin/admin.js')
 mix.js('resources/assets/js/components/blog/langs/lv.js', 'public/js/components/blog/langs/lv.js')
 mix.js('node_modules/chart.js/src/chart.js', 'public/js/chart.js')
 

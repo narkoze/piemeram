@@ -4,10 +4,6 @@ import axios from 'axios'
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken
 
-window.Vue.component('piemeram-blog-login', require('./piemeram-blog-login.vue'))
-window.Vue.component('piemeram-blog-modal', require('./piemeram-blog-modal.vue'))
-window.Vue.component('piemeram-blog-menu', require('./piemeram-blog-menu.vue'))
-
 window.Vue.filter('dateString', (value) => {
   let date = window.moment(value)
 
@@ -29,7 +25,8 @@ const blog = new window.Vue({
     showModals: [],
     anchor: null,
     activeSection: null,
-    post: {}
+    post: {},
+    categories: []
   }),
   el: '#blog',
   components: {

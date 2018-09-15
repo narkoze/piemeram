@@ -29,6 +29,23 @@ html {
 .card-margin {
   margin-bottom: 0.75rem;
 }
+.card-header {
+  background-color: none;
+  border-bottom: 1px solid $grey-lighter;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1);
+          box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.card-footer {
+  padding: 0.75rem;
+  display: inherit;
+}
+
 .card-content-nopadding {
   padding: 0;
 }
@@ -39,6 +56,31 @@ html {
   .card-content {
     font-size: 3em;
     font-weight: 700;
+  }
+}
+
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  margin-top: 4em;
+  top: 78px;
+
+  .card {
+    margin-top: 24px;
+  }
+}
+
+.column.side {
+  @media screen and (min-width: $desktop) {
+    max-width: 300px;
+  }
+}
+
+.column.main {
+  @media screen and (max-width: $desktop) {
+    .card.article:first-child {
+      margin-top: 0;
+    }
   }
 }
 
@@ -305,12 +347,11 @@ a.copy {
 
 .select select[multiple].select-is-fullwidth {
   width: 100%;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 0;
-  &:hover {
-    border-color: #dbdbdb;
-  }
+  border: none;
+  border-radius: 0;
+  overflow-y: auto;
+  border: none;
+  box-shadow: none;
 }
 
 .categories {
@@ -367,16 +408,16 @@ div.scrollable {
 .scrolltop {
   display: none;
   position: fixed;
-  cursor: pointer;
   bottom: 20px;
   font-size: 3em;
-  opacity: 0.9;
   right: 4px;
+  color: $grey-lighter;
+  cursor: pointer;
   @media screen and (min-width: $desktop) {
     font-size: 4em;
   }
 
   &:hover {
-    opacity: 1;
+    color: $grey-light;
   }
 }

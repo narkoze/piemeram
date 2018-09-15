@@ -5,8 +5,20 @@
 
 <template>
   <transition appear name="fade">
-    <section class="articles">
-      <div class="column is-8 is-offset-2">
+    <div class="columns is-desktop is-centered articles">
+      <div class="column side">
+        <div class="sticky">
+          <piemeram-blog-shared-categories
+            only="publishedPosts"
+            :filtering="disabled"
+            @selectedCategories="(categories) => { selectedCategories = categories }"
+            @filter="loadPosts"
+          >
+          </piemeram-blog-shared-categories>
+        </div>
+      </div>
+
+      <div class="column main">
         <div
           v-if="disabled"
           class="card article"
@@ -15,9 +27,7 @@
             <div class="media">
               <div class="media-content has-text-centered">
                 <p class="title article-title">
-                  <a class="is-link-reversed">
-                    <i class="fa fa-spinner fa-pulse"></i>
-                  </a>
+                  <i class="fa fa-spinner fa-pulse"></i>
                 </p>
               </div>
             </div>
@@ -51,7 +61,6 @@
                       $root.showView = 'public-view-post'
                       $root.anchor = `post-${post.id}`
                     }"
-                    class="is-link-reversed"
                   >
                     {{ post.title }}
                   </a>
@@ -72,7 +81,11 @@
               class="pagebreak-link"
             >
               <a
-                @click="$root.post = post; $root.showView = 'public-view-post'"
+                @click="() => {
+                  $root.post = post
+                  $root.showView = 'public-view-post'
+                  $root.anchor = `post-${post.id}`
+                }"
                 class="is-link-reversed"
               >
                 <i class="fas fa-arrow-right"></i> {{ $t('blog.public.views.blog-public-view-posts.pagebreak') }}
@@ -121,29 +134,35 @@
             </div>
           </div>
         </div>
-        <i
-          @click="scrolltop"
-          ref="scrolltop"
-          class="fas fa-arrow-alt-circle-up scrolltop"
-        >
-        </i>
       </div>
-    </section>
+
+      <i
+        @click="scrolltop"
+        ref="scrolltop"
+        class="fas fa-arrow-alt-circle-up scrolltop"
+      >
+      </i>
+    </div>
   </transition>
 </template>
 
 <script>
+  import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import mixins from './mixins'
   import axios from 'axios'
 
   export default {
+    components: {
+      PiemeramBlogSharedCategories
+    },
     mixins: [
       AxiosErrorHandler,
       mixins,
     ],
     data: () => ({
-      posts: {}
+      posts: [],
+      selectedCategories: []
     }),
     created () {
       this.loadPosts()
@@ -160,9 +179,14 @@
     methods: {
       loadPosts () {
         this.disabled = true
+        this.posts = []
+
+        let params = {}
+        if (this.$root.categories.length) params['categories'] = this.$root.categories
+        if (this.selectedCategories.length) params['categories'] = this.selectedCategories
 
         axios
-          .get('blog/api/post')
+          .get('blog/api/post', { params })
           .then(response => {
             this.disabled = false
 
@@ -179,8 +203,11 @@
       hasPagebreak: (postContent) => postContent.includes('<!-- pagebreak -->'),
       pagebrake: (postContent) => postContent.split('<!-- pagebreak -->')[0],
       scrolltop () {
-        document.querySelector('.articles').scrollIntoView({ behavior: 'smooth', block: 'start' })
+        document.querySelector('.has-navbar-fixed-top').scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
+    },
+    beforeDestroy () {
+      window.onscroll = null
     }
   }
 </script>

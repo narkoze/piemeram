@@ -17,6 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
+    protected $hidden = [
+        'pivot'
+    ];
+
     protected $fillable = [
         'title',
         'content',

@@ -136,47 +136,20 @@
           </div>
         </div>
 
-        <div class="card card-margin">
-          <header class="card-header">
-            <p class="card-header-title">
-              {{ $t('blog.admin.views.blog-admin-view-post.categories.title') }}
-              &nbsp;
-              <i
-                v-if="categoriesLoading"
-                class="fas fa-spinner fa-pulse"
-              >
-              </i>
-            </p>
-          </header>
-          <div class="card-content card-content-nopadding">
-            <div class="content">
-              <div class="select is-multiple select-is-fullwidth">
-
-                <select
-                  v-model="selectedCategories"
-                  class="select-is-fullwidth"
-                  :size="categories.length > 8 ? 8 : categories.length"
-                  :disabled="disabled"
-                  multiple
-                >
-                  <option
-                    v-for="category in categories"
-                    :key="category.id"
-                    :value="category.id"
-                  >
-                    {{ category.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
+        <piemeram-blog-shared-categories
+          :postCategories="post.categories"
+          :actions="false"
+          :disabled="disabled"
+          @selectedCategories="(categories) => { selectedCategories = categories }"
+        >
+        </piemeram-blog-shared-categories>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import axios from 'axios'
   import tinymce from 'tinymce/tinymce'
@@ -189,6 +162,9 @@
   import 'tinymce/plugins/paste'
 
   export default {
+    components: {
+      PiemeramBlogSharedCategories
+    },
     mixins: [
       AxiosErrorHandler,
     ],
@@ -198,10 +174,8 @@
       updating: false,
       saving: false,
       deleting: false,
-      categories: [],
-      selectedCategories: [],
-      categoriesLoading: false,
-      editorLoading: false
+      editorLoading: false,
+      selectedCategories: []
     }),
     created () {
       this.post = this.$root.post || {
@@ -209,8 +183,6 @@
         content: null,
         categories: []
       }
-
-      this.loadCategories()
 
       window.blogBus.$on('localeChanged', () => {
         tinymce.remove()
@@ -274,24 +246,6 @@
             window.notify(this.$t('blog.admin.views.blog-admin-view-post.deleted'), 'is-primary')
           })
           .catch(this.handleAxiosError)
-      },
-      loadCategories () {
-        this.categoriesLoading = true
-
-        axios
-          .get('blog/api/admin/category')
-          .then(response => {
-            this.categoriesLoading = false
-            this.categories = response.data
-
-            if (this.post.id) {
-              this.selectedCategories = this.post.categories.map(({ id }) => id)
-            }
-          })
-          .catch(error => {
-            this.categoriesLoading = false
-            this.handleAxiosError(error)
-          })
       },
       initTinymce () {
         let self = this

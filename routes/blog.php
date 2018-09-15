@@ -10,6 +10,7 @@ Route::group([
 
     Route::resources([
         'post' => 'Api\PostController',
+        'category' => 'Api\CategoryController',
     ]);
 });
 
