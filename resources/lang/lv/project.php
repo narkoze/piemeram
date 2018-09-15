@@ -6,7 +6,7 @@ return [
     'blog' => [
       'title' => 'Emuārs',
       'description' => 'Vienkārš emuārs',
-      'conclusion' => 'Tiklīdz man rādās vajadzība pēc EventBus es sapratu, ka projekts ir sapinķerēts un pareizais risinājums būtu VueX',
+      'conclusion' => 'Mana pirmā Vue aplikācija',
       'extra' => 'Ietvari: Laravel, VueJs, Bulma',
     ],
     'tm' => [

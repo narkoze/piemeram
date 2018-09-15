@@ -6,7 +6,7 @@ return [
     'blog' => [
         'title' => 'Blog',
         'description' => 'Simple blog',
-        'conclusion' => 'As soon as i had need for EventBus, I realized that the project is too messy and the correct solution would be VueX',
+        'conclusion' => 'My first Vue application',
         'extra' => 'Frameworks: Laravel, VueJs, Bulma',
       ],
       'tm' => [
