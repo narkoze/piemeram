@@ -60,10 +60,15 @@
 
             <a
               @click="() => {
-                $root.showView = 'admin-view-dashboard'
-                $root.activeSection = 'admin-view-dashboard'
-                isMenuActive = false
-                scrollTo(0, 0)
+                $root.showView = ''
+                $root.anchor = null
+                $root.categories = []
+                $nextTick(() => {
+                  $root.showView = 'admin-view-dashboard'
+                  $root.activeSection = 'admin-view-dashboard'
+                  isMenuActive = false
+                  scrollTo(0, 0)
+                })
               }"
               class="bd-tw-button button is-link"
             >
