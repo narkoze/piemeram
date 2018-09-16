@@ -5,14 +5,12 @@ cd "$(dirname $0)/.."
 
 composer install --no-dev
 
-yarn install --prod
-yarn run prod
-
 php artisan vue-i18n:generate
 php artisan config:cache
-php artisan config:clear
 php artisan route:cache
-php artisan route:clear
+
+yarn install --prod
+yarn run prod
 
 cp -rf ../piem_prod.env .env
 

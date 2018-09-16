@@ -289,7 +289,7 @@ export default {
                 "blog": {
                     "title": "Blog",
                     "description": "Simple blog",
-                    "conclusion": "As soon as i had need for EventBus, I realized that the project is too messy and the correct solution would be VueX",
+                    "conclusion": "My first Vue application",
                     "extra": "Frameworks: Laravel, VueJs, Bulma"
                 },
                 "tm": {
@@ -681,7 +681,7 @@ export default {
                 "blog": {
                     "title": "Emuārs",
                     "description": "Vienkārš emuārs",
-                    "conclusion": "Tiklīdz man rādās vajadzība pēc EventBus es sapratu, ka projekts ir sapinķerēts un pareizais risinājums būtu VueX",
+                    "conclusion": "Mana pirmā Vue aplikācija",
                     "extra": "Ietvari: Laravel, VueJs, Bulma"
                 },
                 "tm": {
