@@ -18,7 +18,3 @@ Route::get('about', 'AboutController@index')->name('about');
 Route::post('locale/{locale}', 'LocaleController@setLocale')->name('setLocale');
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
-Route::get('piemeram.lv/TM2/TM2.application')
-    ->middleware(['auth', 'verified'])
-    ->name('download.tm2');
