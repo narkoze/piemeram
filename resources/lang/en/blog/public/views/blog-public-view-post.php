@@ -10,4 +10,5 @@ return [
   'delete' => 'Delete',
   'canceledit' => 'Cancel',
   'confirm' => 'Delete ":comment"?',
+  'verifytocomment' => 'Verify e-mail address to comment',
 ];

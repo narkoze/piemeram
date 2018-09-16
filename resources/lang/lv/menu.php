@@ -7,4 +7,6 @@ return [
   'greeting' => 'Sveiks',
   'login' => 'Ienākt',
   'logout' => 'Iziet',
+  'verify' => 'Apliecināt e-pasta adresi',
+  'verificationrequired' => 'Nepieciešama e-pasta apliecināšana',
 ];

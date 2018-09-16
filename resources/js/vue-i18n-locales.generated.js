@@ -83,6 +83,12 @@ export default {
                     "password": "Password",
                     "passwordagain": "Password again"
                 }
+            },
+            "verify": {
+                "title": "Verify your e-mail address",
+                "beforeproceeding": "Before proceeding, please check your email for a verification link",
+                "resend": "Send a verification email",
+                "emailsent": "A fresh verification link has been sent to your email address"
             }
         },
         "blog": {
@@ -188,7 +194,8 @@ export default {
                 "logout": "Logout",
                 "language": "Language",
                 "greeting": "Hello, {name}",
-                "admin": "Administrator"
+                "admin": "Administrator",
+                "verificationrequired": "E-mail verification is required"
             },
             "layout": {
                 "title": "Piemeram.lv - Blog"
@@ -208,7 +215,8 @@ export default {
                         "logintocomment": "Login to comment",
                         "delete": "Delete",
                         "canceledit": "Cancel",
-                        "confirm": "Delete \"{comment}\"?"
+                        "confirm": "Delete \"{comment}\"?",
+                        "verifytocomment": "Verify e-mail address to comment"
                     },
                     "blog-public-view-posts": {
                         "edit": "Edit",
@@ -235,21 +243,31 @@ export default {
             "about": "About me",
             "greeting": "Hello",
             "login": "Login",
-            "logout": "Logout"
+            "logout": "Logout",
+            "verify": "Verify e-mail address",
+            "verificationrequired": "E-mail verification is required"
         },
         "message": {
             "greeting": "Hello",
             "layout": {
                 "salutation": "Regards"
             },
-            "resetpassword": {
+            "passwordreset": {
                 "content": "You are receiving this email because we received a password reset request for your account",
-                "resetbutton": "Reset password",
+                "button": "Reset password",
                 "info": "If you did not request a password reset, no further action is required"
+            },
+            "emailverification": {
+                "content": "Please click the button below to verify your email address",
+                "button": "Verify e-mail address",
+                "info": "If you did not create an account, no further action is required"
             }
         },
         "notifications": {
-            "subject": "Reset password notification"
+            "subjects": {
+                "passwordreset": "Reset password notification",
+                "emailverification": "Verify e-mail address"
+            }
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -475,6 +493,12 @@ export default {
                     "password": "Parole",
                     "passwordagain": "Parole vēlreiz"
                 }
+            },
+            "verify": {
+                "title": "Aplieciniet savu e-pasta adresi",
+                "beforeproceeding": "Pirms turpiniet, lūdzu pārbaudiet e-pastu vai jums jau nav apliecinājuma saite",
+                "resend": "Sūtīt apliecinājuma e-pastu",
+                "emailsent": "Jauna apliecinājuma saite nosūtīta uz jūsu e-pasta adresi"
             }
         },
         "blog": {
@@ -580,7 +604,8 @@ export default {
                 "logout": "Iziet",
                 "language": "Valoda",
                 "greeting": "Sveiks, {name}",
-                "admin": "Administrators"
+                "admin": "Administrators",
+                "verificationrequired": "Nepieciešama e-pasta apliecināšana"
             },
             "layout": {
                 "title": "Piemeram.lv - Emuārs"
@@ -600,7 +625,8 @@ export default {
                         "logintocomment": "Ienāc, lai komentētu",
                         "delete": "Dzēst",
                         "canceledit": "Atcelt",
-                        "confirm": "Dzēst \"{comment}\"?"
+                        "confirm": "Dzēst \"{comment}\"?",
+                        "verifytocomment": "Aplieciniet e-pasta adresi, lai komentētu"
                     },
                     "blog-public-view-posts": {
                         "edit": "Labot",
@@ -627,21 +653,31 @@ export default {
             "about": "Par mani",
             "greeting": "Sveiks",
             "login": "Ienākt",
-            "logout": "Iziet"
+            "logout": "Iziet",
+            "verify": "Apliecināt e-pasta adresi",
+            "verificationrequired": "Nepieciešama e-pasta apliecināšana"
         },
         "message": {
             "greeting": "Sveiki",
             "layout": {
                 "salutation": "Sveicieni"
             },
-            "resetpassword": {
+            "passwordreset": {
                 "content": "Jūs saņēmāt šo e-pastu, jo mēs saņēmām paroles atiestatīšanas pieprasījumu jūsu kontam",
-                "resetbutton": "Atiestatīt paroli",
+                "button": "Atiestatīt paroli",
                 "info": "Ja jūs nepieprasījāt paroles atiestatīšanu, tad nekādās tālākās darbības nav nepieciešamas"
+            },
+            "emailverification": {
+                "content": "Lūdzu uzklikšķiniet uz zemāk esošās pogas, lai apliecinātu savu e-pastu",
+                "button": "Apliecināt e-pasta adresi",
+                "info": "Ja jūs neizveidojāt kontu, tad nekādās tālākās darbības nav nepieciešamas"
             }
         },
         "notifications": {
-            "subject": "Paroles atiestatīšanas ziņojums"
+            "subjects": {
+                "passwordreset": "Paroles atiestatīšanas ziņojums",
+                "emailverification": "Aplieciniet e-pasta adresi"
+            }
         },
         "pagination": {
             "previous": "&laquo; Iepriekšējā",

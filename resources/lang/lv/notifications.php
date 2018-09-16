@@ -1,5 +1,8 @@
 <?php
 
 return [
-  'subject' => 'Paroles atiestatīšanas ziņojums',
+  'subjects' => [
+    'passwordreset' => 'Paroles atiestatīšanas ziņojums',
+    'emailverification' => 'Aplieciniet e-pasta adresi',
+  ],
 ];

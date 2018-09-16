@@ -67,6 +67,14 @@
             <div class="ui dropdown">
               <a href="">{{ auth()->user()->name }}</a>
               <div class="menu">
+                  @verified (false)
+                  <a
+                    class="item"
+                    href="{{ route('verification.notice') }}"
+                  >
+                    @lang('menu.verify')
+                  </a>
+                  @endverified
                   <a
                     class="item"
                     href="{{ route('logout') }}"
@@ -75,6 +83,14 @@
                     @lang('menu.logout')
                   </a>
               </div>
+
+              @verified (false)
+                <i
+                  class="fa fa-exclamation-triangle"
+                  title="{{ trans('menu.verificationrequired') }}"
+                >
+                </i>
+              @endverified
             </div>
           </div>
         @endauth

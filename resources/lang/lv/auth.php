@@ -21,6 +21,12 @@ return [
       'email' => 'E-pasts',
       'password' => 'Parole',
       'passwordagain' => 'Parole vēlreiz',
-    ]
+    ],
+  ],
+  'verify' => [
+    'title' => 'Aplieciniet savu e-pasta adresi',
+    'beforeproceeding' => 'Pirms turpiniet, lūdzu pārbaudiet e-pastu vai jums jau nav apliecinājuma saite',
+    'resend' => 'Sūtīt apliecinājuma e-pastu',
+    'emailsent' => 'Jauna apliecinājuma saite nosūtīta uz jūsu e-pasta adresi',
   ],
 ];

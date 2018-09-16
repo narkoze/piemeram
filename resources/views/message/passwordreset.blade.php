@@ -1,15 +1,15 @@
 @extends('message.layout')
 @section('content')
 
-  @lang('message.resetpassword.content')
+  @lang('message.passwordreset.content')
 
   @component('mail::button', [
       'url' => url(config('app.url').route('password.reset', [$token, "email=$email"], false)),
       'color' => 'red'
   ])
-    @lang('message.resetpassword.resetbutton')
+    @lang('message.passwordreset.button')
   @endcomponent
 
-  @lang('message.resetpassword.info')
+  @lang('message.passwordreset.info')
 
 @endsection

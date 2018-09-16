@@ -1,8 +1,18 @@
-
-@import "font-awesome";
-
 $font-family: Helvetica, Arial, sans-serif;
 
+$red: #DB2828;
+$teal: #00b5ad;
+$gray: #A0A0A0;
+$blue: #2185d0;
+$black: #1b1c1d;
+$brown: #a5673f;
+$error: #9F3A38;
+$orange: #f2711c;
+
+@import "font-awesome";
+i.fa.fa-exclamation-triangle {
+  color: $orange;
+}
 // semantic-ui
 @import 'globals/variables';
 @import 'globals/reset';
@@ -55,15 +65,6 @@ $font-family: Helvetica, Arial, sans-serif;
 // @import 'views/feed';
 @import 'views/item';
 // @import 'views/statistic';
-
-
-$red: #DB2828;
-$teal: #00b5ad;
-$gray: #A0A0A0;
-$blue: #2185d0;
-$black: #1b1c1d;
-$brown: #a5673f;
-$error: #9F3A38;
 
 .github {
   position: fixed;

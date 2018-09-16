@@ -10,4 +10,5 @@ return [
   'delete' => 'Dzēst',
   'canceledit' => 'Atcelt',
   'confirm' => 'Dzēst ":comment"?',
+  'verifytocomment' => 'Aplieciniet e-pasta adresi, lai komentētu',
 ];

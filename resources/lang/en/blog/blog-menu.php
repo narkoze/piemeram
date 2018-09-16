@@ -8,4 +8,5 @@ return [
   'language' => 'Language',
   'greeting' => 'Hello, :name',
   'admin' => 'Administrator',
+  'verificationrequired' => 'E-mail verification is required',
 ];

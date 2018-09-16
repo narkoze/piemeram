@@ -45,7 +45,7 @@
       </a>
       <div class="content">
         <a
-          href="{{ asset('piemeram.lv/TM2/TM2.application') }}"
+          href="{{ route('download.tm2') }}"
           class="header"
           target="_blank"
         >

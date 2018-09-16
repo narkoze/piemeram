@@ -17,6 +17,7 @@ class HomeController extends Controller
             $auth = auth()->user()->only([
                 'id',
                 'name',
+                'email_verified_at',
             ]);
         }
 

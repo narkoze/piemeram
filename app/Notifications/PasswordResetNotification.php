@@ -5,7 +5,7 @@ namespace Piemeram\Notifications;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ResetPasswordNotification extends Notification
+class PasswordResetNotification extends Notification
 {
     /**
      * The password reset token.
@@ -67,8 +67,8 @@ class ResetPasswordNotification extends Notification
         }
 
         return (new MailMessage)
-            ->subject(trans('notifications.subject'))
-            ->markdown('message.resetpassword', [
+            ->subject(trans('notifications.subjects.passwordreset'))
+            ->markdown('message.passwordreset', [
                 'token' => $this->token,
                 'email' => $notifiable->email,
             ]);

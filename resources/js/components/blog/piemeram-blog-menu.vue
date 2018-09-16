@@ -59,6 +59,7 @@
             </a>
 
             <a
+              v-if="$root.auth.email_verified_at"
               @click="() => {
                 $root.showView = ''
                 $root.anchor = null
@@ -71,6 +72,17 @@
                 })
               }"
               class="bd-tw-button button is-link"
+            >
+              <span class="icon">
+                <i class="fas fa-cogs"></i>
+              </span>
+              <span>{{ $t('blog.blog-menu.admin') }}</span>
+            </a>
+            <a
+              v-else
+              :title="$t('blog.blog-menu.verificationrequired')"
+              class="bd-tw-button button is-link"
+              disabled
             >
               <span class="icon">
                 <i class="fas fa-cogs"></i>

@@ -15,7 +15,10 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'auth',
+    'middleware' => [
+        'auth',
+        'verified',
+    ],
     'prefix' => 'api',
 ], function () {
     Route::post('post/{post}/comment', 'Api\CommentController@store');
@@ -24,7 +27,10 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'auth',
+    'middleware' => [
+        'auth',
+        'verified',
+    ],
     'prefix' => 'api/admin',
 ], function () {
     Route::get('dashboard/users', 'Api\Admin\DashboardController@users');

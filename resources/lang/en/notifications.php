@@ -1,5 +1,8 @@
 <?php
 
 return [
-  'subject' => 'Reset password notification',
+  'subjects' => [
+    'passwordreset' => 'Reset password notification',
+    'emailverification' => 'Verify e-mail address',
+  ],
 ];

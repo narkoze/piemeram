@@ -7,4 +7,6 @@ return [
   'greeting' => 'Hello',
   'login' => 'Login',
   'logout' => 'Logout',
+  'verify' => 'Verify e-mail address',
+  'verificationrequired' => 'E-mail verification is required',
 ];

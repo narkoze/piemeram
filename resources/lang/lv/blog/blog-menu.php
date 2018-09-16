@@ -8,4 +8,5 @@ return [
   'language' => 'Valoda',
   'greeting' => 'Sveiks, :name',
   'admin' => 'Administrators',
+  'verificationrequired' => 'Nepieciešama e-pasta apliecināšana',
 ];

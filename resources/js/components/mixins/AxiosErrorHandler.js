@@ -6,9 +6,10 @@ export default {
   methods: {
     handleAxiosError (error) {
       this.disabled = false
-
       if (error.response) {
-        if (error.response.status === 422) {
+        if (error.response.status === 403) {
+          window.location = error.response.data.message
+        } else if (error.response.status === 422) {
           this.errors = error.response.data.errors
         } else {
           window.notify(this.$t(`${error.response.status}: ${error.response.statusText}`), 'is-danger')

@@ -14,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::if('verified', function ($bool = true) {
+            $authenticated = auth()->check();
+            $verified = auth()->user()->hasVerifiedEmail();
+
+            return $bool ? $authenticated and $verified : $authenticated and !$verified;
+        });
     }
 
     /**
