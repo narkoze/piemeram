@@ -150,14 +150,17 @@
                 </div>
               </div>
 
-              <i v-if="!$root.auth">{{ $t('blog.public.views.blog-public-view-post.logintocomment') }}</i>
+              <p>
+                <i v-if="!$root.auth">{{ $t('blog.public.views.blog-public-view-post.logintocomment') }}</i>
 
-              <a
-                v-if="$root.auth && !$root.auth.email_verified_at"
-                href="email/verify"
-              >
-                <i>{{ $t('blog.public.views.blog-public-view-post.verifytocomment') }}</i>
-              </a>
+                <a
+                  v-if="$root.auth && !$root.auth.email_verified_at"
+                  href="email/verify"
+                >
+                  <i>{{ $t('blog.public.views.blog-public-view-post.verifytocomment') }}</i>
+                </a>
+
+              </p>
 
               <br>
 
