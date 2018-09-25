@@ -7,6 +7,4 @@ composer install
 yarn
 yarn run dev
 
-cp -rf ../piem.env .env
-
 cd -
