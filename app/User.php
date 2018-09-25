@@ -2,7 +2,7 @@
 
 namespace Piemeram;
 
-use Piemeram\Notifications\ResetPasswordNotification;
+use Piemeram\Notifications\PasswordResetNotification;
 use Piemeram\Notifications\EmailVerificationNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
