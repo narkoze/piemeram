@@ -28,8 +28,8 @@ class DashboardController extends Controller
     public function users()
     {
         $query = User::selectRaw('
-            year(created_at) as year,
-            month(created_at) as month,
+            extract(year from created_at) as year,
+            extract(month from created_at) as month,
             count(*) as count
         ')
         ->whereBetween('created_at', [
@@ -63,8 +63,8 @@ class DashboardController extends Controller
 
         $posts = clone $query;
         $posts = $posts->selectRaw('
-            year(published_at) as year,
-            month(published_at) as month,
+            extract(year from published_at) as year,
+            extract(month from published_at) as month,
             count(*) as count
         ')
         ->whereBetween('published_at', [
@@ -75,8 +75,8 @@ class DashboardController extends Controller
 
         $drafts = clone $query;
         $drafts = $drafts->selectRaw('
-            year(updated_at) as year,
-            month(updated_at) as month,
+            extract(year from updated_at) as year,
+            extract(month from updated_at) as month,
             count(*) as count
         ')
         ->whereNull('published_at')
