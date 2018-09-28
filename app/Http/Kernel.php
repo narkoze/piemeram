@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Piemeram\Http\Middleware\EnsureEmailIsVerified::class,
+        'masterOnly' => \Piemeram\Http\Middleware\MasterOnly::class,
     ];
 
     /**
