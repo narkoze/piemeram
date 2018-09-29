@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
+    protected $table = 'blog_posts';
+
     protected $hidden = [
         'pivot'
     ];
@@ -44,7 +46,7 @@ class Post extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'blog_category_post');
     }
 
     /**

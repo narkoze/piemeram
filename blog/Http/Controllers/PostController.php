@@ -16,8 +16,11 @@ class PostController extends Controller
 
         if (auth()->check()) {
             $auth = auth()->user()->only([
+                'id',
                 'name',
-            ]);
+            ]) + [
+                'verified' => auth()->user()->hasVerifiedEmail(),
+            ];
         }
 
         $post->load('author:id,name');

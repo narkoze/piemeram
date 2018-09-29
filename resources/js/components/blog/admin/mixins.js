@@ -12,6 +12,20 @@ export default {
         this.$root.activeSection = 'admin-view-dashboard'
       })
     },
+    users () {
+      this.reset()
+      this.$nextTick(() => {
+        this.$root.showView = 'admin-view-users'
+        this.$root.activeSection = 'admin-view-users'
+      })
+    },
+    roles () {
+      this.reset()
+      this.$nextTick(() => {
+        this.$root.showView = 'admin-view-roles'
+        this.$root.activeSection = 'admin-view-roles'
+      })
+    },
     posts () {
       this.reset()
       this.$nextTick(() => {

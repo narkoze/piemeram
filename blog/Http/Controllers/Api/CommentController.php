@@ -27,6 +27,12 @@ class CommentController extends Controller
 
     public function store(Request $request, Post $post)
     {
+        if (!in_array(auth()->user()->id, [1,3,5]) and
+            Comment::where('author_id', auth()->user()->id)->count() > 1
+        ) {
+            abort(403, 'You can add only 2 comments');
+        }
+
         $request->validate($this->rules);
 
         $comment = new Comment();
@@ -39,6 +45,12 @@ class CommentController extends Controller
 
     public function update(Request $request, Post $post, Comment $comment)
     {
+        if (!in_array(auth()->user()->id, [1,3,5]) and
+            $comment->author->id != auth()->user()->id
+        ) {
+            abort(403, 'You can edit only your comments');
+        }
+
         $rules = $this->rules;
         $rules['author_id'][] = Rule::in(auth()->user()->id);
         $request->validate($rules);
@@ -51,6 +63,12 @@ class CommentController extends Controller
 
     public function destroy(Post $post, Comment $comment)
     {
+        if (!in_array(auth()->user()->id, [1,3,5]) and
+            $comment->author->id != auth()->user()->id
+        ) {
+            abort(403, 'You can delete only your comments');
+        }
+
         $comment->delete();
 
         return response()->json();

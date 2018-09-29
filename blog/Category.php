@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $table = 'blog_categories';
+
     protected $fillable = [
         'name',
     ];
@@ -20,7 +22,7 @@ class Category extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->belongsToMany(Post::class, 'blog_category_post');
     }
 
     /**
@@ -28,7 +30,7 @@ class Category extends Model
      */
     public function publishedPosts()
     {
-        return $this->belongsToMany(Post::class)->whereNotNull('published_at');
+        return $this->belongsToMany(Post::class, 'blog_category_post')->whereNotNull('published_at');
     }
 
     /**
@@ -36,6 +38,14 @@ class Category extends Model
      */
     public function draftPosts()
     {
-        return $this->belongsToMany(Post::class)->whereNull('published_at');
+        return $this->belongsToMany(Post::class, 'blog_category_post')->whereNull('published_at');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(\Piemeram\User::class, 'created_by');
     }
 }

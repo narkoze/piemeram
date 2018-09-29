@@ -101,7 +101,7 @@
             </div>
 
             <div class="content comment-body">
-              <div v-if="$root.auth && $root.auth.email_verified_at">
+              <div v-if="$root.auth && $root.auth.verified">
                 <label>
                   {{ $t('blog.public.views.blog-public-view-post.commentas', { name: $root.auth.name }) }}
                 </label>
@@ -154,7 +154,7 @@
                 <i v-if="!$root.auth">{{ $t('blog.public.views.blog-public-view-post.logintocomment') }}</i>
 
                 <a
-                  v-if="$root.auth && !$root.auth.email_verified_at"
+                  v-if="$root.auth && !$root.auth.verified"
                   href="email/verify"
                 >
                   <i>{{ $t('blog.public.views.blog-public-view-post.verifytocomment') }}</i>
@@ -163,6 +163,13 @@
               </p>
 
               <br>
+
+
+              <i
+                v-if="commentsLoading"
+                class="fa fa-spinner fa-pulse"
+              >
+              </i>
 
               <article
                 v-for="comment in comments"

@@ -42,5 +42,7 @@ Route::group([
         'dashboard' => 'Api\Admin\DashboardController',
         'category' => 'Api\Admin\CategoryController',
         'post' => 'Api\Admin\PostController',
+        'user' => 'Api\Admin\UserController',
+        'role' => 'Api\Admin\RoleController',
     ]);
 });

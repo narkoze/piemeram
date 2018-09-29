@@ -12,7 +12,29 @@
     </ul>
 
     <p class="menu-label">
-      {{ $t('blog.admin.blog-admin-menu.title') }}
+      {{ $t('blog.admin.blog-admin-menu.usertitle') }}
+    </p>
+    <ul class="menu-list">
+      <li>
+        <a
+          @click="users"
+          :class="{ 'is-active': $root.activeSection === 'admin-view-users' }"
+        >
+          {{ $t('blog.admin.blog-admin-menu.users') }}
+        </a>
+      </li>
+      <li>
+        <a
+          @click="roles"
+          :class="{ 'is-active': $root.activeSection === 'admin-view-roles' }"
+        >
+          {{ $t('blog.admin.blog-admin-menu.roles') }}
+        </a>
+      </li>
+    </ul>
+
+    <p class="menu-label">
+      {{ $t('blog.admin.blog-admin-menu.posttitle') }}
     </p>
     <ul class="menu-list">
       <li>

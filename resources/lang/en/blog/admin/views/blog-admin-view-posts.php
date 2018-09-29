@@ -11,4 +11,5 @@ return [
   'view' => 'View',
   'preview' => 'Preview',
   'categories' => 'Categories',
+  'draft' => 'Draft',
 ];

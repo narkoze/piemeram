@@ -51,8 +51,9 @@ class LoginController extends Controller
                 'auth' => $user->only([
                     'id',
                     'name',
-                    'email_verified_at',
-                ]),
+                ]) + [
+                    'verified' => $user->hasVerifiedEmail(),
+                ],
                 'csrf_token' => csrf_token(),
             ]);
         }

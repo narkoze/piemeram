@@ -14,11 +14,14 @@ class HomeController extends Controller
         $auth = null;
 
         if (auth()->check()) {
-            $auth = auth()->user()->only([
+            $user = auth()->user();
+
+            $auth = $user->only([
                 'id',
                 'name',
-                'email_verified_at',
-            ]);
+            ]) + [
+                'verified' => $user->hasVerifiedEmail(),
+            ];
         }
 
         return view('blog.layout', compact('auth'));

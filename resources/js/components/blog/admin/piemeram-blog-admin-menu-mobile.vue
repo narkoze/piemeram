@@ -7,6 +7,18 @@
       {{ $t('blog.admin.blog-admin-menu.dashboard') }}
     </a>
     <a
+      @click="users"
+      :class="{ 'is-active': $root.activeSection === 'admin-view-users' }"
+    >
+      {{ $t('blog.admin.blog-admin-menu.users') }}
+    </a>
+    <a
+      @click="roles"
+      :class="{ 'is-active': $root.activeSection === 'admin-view-roles' }"
+    >
+      {{ $t('blog.admin.blog-admin-menu.roles') }}
+    </a>
+    <a
       @click="posts"
       :class="{ 'is-active': $root.activeSection === 'admin-view-posts' }"
     >

@@ -11,4 +11,5 @@ return [
   'view' => 'Skatīt',
   'preview' => 'Priekšskatīt',
   'categories' => 'Kategorijas',
+  'draft' => 'Melnraksts',
 ];

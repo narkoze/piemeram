@@ -18,7 +18,7 @@
               <tr v-if="disabled">
                 <td
                   class="has-text-centered is-size-4"
-                  colspan="3"
+                  colspan="4"
                 >
                   <i class="fas fa-spinner fa-pulse"></i>
                 </td>
@@ -37,6 +37,10 @@
                   }">
                     <b>{{ post.title }}</b>
                   </a>
+
+                  <span v-if="!post.published_at">
+                    - {{ $t('blog.admin.views.blog-admin-view-posts.draft') }}
+                  </span>
 
                   <div v-if="mouseover === post.id">
                     <a @click="() => {
@@ -98,14 +102,17 @@
       </div>
 
       <div class="column is-4">
-        <piemeram-blog-shared-categories
-          only="posts"
-          :postCategories="loadCategory"
-          :filtering="disabled"
-          @selectedCategories="(categories) => { selectedCategories = categories }"
-          @filter="loadPosts"
-        >
-        </piemeram-blog-shared-categories>
+        <div class="sticky is-marginless">
+          <piemeram-blog-shared-categories
+            class="is-marginless"
+            only="posts"
+            :postCategories="loadCategory"
+            :filtering="disabled"
+            @selectedCategories="(categories) => { selectedCategories = categories }"
+            @filter="loadPosts"
+          >
+          </piemeram-blog-shared-categories>
+        </div>
       </div>
     </div>
   </div>

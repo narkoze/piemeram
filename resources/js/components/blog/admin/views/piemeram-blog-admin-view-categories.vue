@@ -47,7 +47,7 @@
       <thead>
         <tr>
           <th>{{ $t('blog.admin.views.blog-admin-view-categories.category') }}</th>
-          <th>{{ $t('blog.admin.views.blog-admin-view-categories.postcount') }}</th>
+          <th class="has-text-right">{{ $t('blog.admin.views.blog-admin-view-categories.postcount') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -68,22 +68,22 @@
           @mouseout="mouseover = null"
         >
           <td>
-            <a @click="setCategory(category)">
+            <a @click="(disabled || deleting) || setCategory(category)">
               <b>{{ category.name }}</b>
             </a>
 
             <div v-if="mouseover === category.id">
-              <a @click="setCategory(category)">
+              <a @click="(disabled || deleting) || setCategory(category)">
                 <small>{{ $t('blog.admin.views.blog-admin-view-categories.edit') }}</small>
               </a>
               <span class="link-divider">|</span>
-              <a @click="destroyCategory(category)">
+              <a @click="(disabled || deleting) || destroyCategory(category)">
                 <small>{{ $t('blog.admin.views.blog-admin-view-categories.delete') }}</small>
               </a>
             </div>
             <div v-else>&nbsp;</div>
           </td>
-          <td>
+          <td class="has-text-right">
             {{ category.published_posts_count }} / {{ category.draft_posts_count }}
           </td>
         </tr>

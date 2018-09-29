@@ -13,7 +13,7 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('blog_comments', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('author_id');
@@ -26,7 +26,7 @@ class CreateCommentsTable extends Migration
             $table->integer('post_id');
             $table->foreign('post_id')
                 ->references('id')
-                ->on('posts')
+                ->on('blog_posts')
                 ->onDelete('cascade');
 
             $table->timestamps();
@@ -40,6 +40,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('blog_comments');
     }
 }

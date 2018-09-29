@@ -59,7 +59,7 @@
             </a>
 
             <a
-              v-if="$root.auth.email_verified_at"
+              v-if="$root.auth.verified"
               @click="() => {
                 $root.showView = ''
                 $root.anchor = null

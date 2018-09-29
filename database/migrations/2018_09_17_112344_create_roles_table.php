@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCategories extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateTableCategories extends Migration
      */
     public function up()
     {
-        Schema::create('blog_categories', function (Blueprint $table) {
+        Schema::create('blog_roles', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
+            $table->text('description');
 
             $table->integer('created_by');
             $table->foreign('created_by')
@@ -26,18 +27,13 @@ class CreateTableCategories extends Migration
             $table->timestamps();
         });
 
-        Schema::create('blog_category_post', function (Blueprint $table) {
-            $table->integer('category_id');
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('blog_categories')
-                ->onDelete('cascade');
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('blog_role_id')->nullable();
 
-            $table->integer('post_id');
-            $table->foreign('post_id')
+            $table->foreign('blog_role_id')
                 ->references('id')
-                ->on('blog_posts')
-                ->onDelete('cascade');
+                ->on('blog_roles')
+                ->onDelete('set null');
         });
     }
 
@@ -48,7 +44,10 @@ class CreateTableCategories extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_category_post');
-        Schema::dropIfExists('blog_categories');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('blog_role_id');
+        });
+
+        Schema::dropIfExists('blog_roles');
     }
 }

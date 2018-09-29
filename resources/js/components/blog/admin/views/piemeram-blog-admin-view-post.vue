@@ -195,6 +195,8 @@
     },
     methods: {
       publish (draft = false) {
+        tinymce.activeEditor.getBody().setAttribute('contenteditable', false)
+
         this.disabled = true
         draft ? this.saving = true : this.publishing = true
         this.errors = {}
@@ -223,6 +225,8 @@
             this.disabled = false
 
             this.post = response.data
+
+            tinymce.activeEditor.getBody().setAttribute('contenteditable', true)
           })
           .catch(error => {
             this.saving = false
