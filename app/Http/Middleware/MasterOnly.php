@@ -11,7 +11,7 @@ class MasterOnly
     {
         switch (Route::currentRouteName()) {
             case 'logs':
-                abort_if(!auth()->check() || !in_array(auth()->user()->id, [1,3,5]), 403);
+                abort_if(!auth()->check() || !in_array(auth()->user()->id, [2,3,5]), 403);
                 break;
         }
 

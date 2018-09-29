@@ -45,7 +45,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        if (!in_array(auth()->user()->id, [1,3,5]) and
+        if (!in_array(auth()->user()->id, [2,3,5]) and
             Post::where('author_id', auth()->user()->id)->count() > 1
         ) {
             abort(403, 'You can create only 2 posts');
@@ -65,7 +65,7 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        if (!in_array(auth()->user()->id, [1,3,5]) and
+        if (!in_array(auth()->user()->id, [2,3,5]) and
             $post->author->id != auth()->user()->id
         ) {
             abort(403, 'You can edit only your posts');
@@ -82,7 +82,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if (!in_array(auth()->user()->id, [1,3,5]) and
+        if (!in_array(auth()->user()->id, [2,3,5]) and
             $post->author->id != auth()->user()->id
         ) {
             abort(403, 'You can delete only your posts');

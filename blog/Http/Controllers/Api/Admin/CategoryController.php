@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        if (!in_array(auth()->user()->id, [1,3,5]) and
+        if (!in_array(auth()->user()->id, [2,3,5]) and
             Category::where('created_by', auth()->user()->id)->count() > 1
         ) {
             abort(403, 'You can create only 2 categories');
@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        if (!in_array(auth()->user()->id, [1,3,5]) and
+        if (!in_array(auth()->user()->id, [2,3,5]) and
             $category->createdBy->id != auth()->user()->id
         ) {
             abort(403, 'You can edit only your categories');
@@ -67,7 +67,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        if (!in_array(auth()->user()->id, [1,3,5]) and
+        if (!in_array(auth()->user()->id, [2,3,5]) and
             $category->createdBy->id != auth()->user()->id
         ) {
             abort(403, 'You can delete only your categories');
