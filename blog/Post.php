@@ -4,17 +4,6 @@ namespace Blog;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Blog\Post
- *
- * @property int $id
- * @property string $title
- * @property string $content
- * @property int $author_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @mixin \Eloquent
- */
 class Post extends Model
 {
     protected $table = 'blog_posts';

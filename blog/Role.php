@@ -4,7 +4,6 @@ namespace Blog;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Role extends Model
 {
     protected $table = 'blog_roles';
