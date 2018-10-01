@@ -2,5 +2,6 @@
 
 ## Projects
 ### Blog
+[Site](https://www.piemeram.lv/blog)
 #### Features
   *
