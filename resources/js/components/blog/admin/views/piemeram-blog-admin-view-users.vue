@@ -1,28 +1,64 @@
 <template>
   <div>
-    <h1 class="title">{{ $t('blog.admin.views.blog-admin-view-users.title') }}</h1>
+    <h1 class="title">
+      {{ $t('blog.admin.views.blog-admin-view-users.title') }}
+      <i v-if="usersLoading && !sorting" class="fas fa-spinner fa-pulse"></i>
+    </h1>
 
     <div class="scrollable">
       <table class="table is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
-            <th>{{ $t('blog.admin.views.blog-admin-view-users.name') }}</th>
-            <th>{{ $t('blog.admin.views.blog-admin-view-users.email') }}</th>
-            <th>{{ $t('blog.admin.views.blog-admin-view-users.role') }}</th>
-            <th class="has-text-right">{{ $t('blog.admin.views.blog-admin-view-users.posts') }}</th>
-            <th class="has-text-right">{{ $t('blog.admin.views.blog-admin-view-users.comments') }}</th>
+            <piemeram-blog-shared-sort
+              column="name"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="usersLoading"
+              @changed="sort"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-users.name') }}
+            </piemeram-blog-shared-sort>
+            <piemeram-blog-shared-sort
+              column="email"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="usersLoading"
+              @changed="sort"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-users.email') }}
+            </piemeram-blog-shared-sort>
+            <piemeram-blog-shared-sort
+              column="blog_roles.name"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-users.role') }}
+            </piemeram-blog-shared-sort>
+            <piemeram-blog-shared-sort
+              column="blog_posts_count"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+              class="has-text-right"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-users.posts') }}
+            </piemeram-blog-shared-sort>
+            <piemeram-blog-shared-sort
+              column="blog_comments_count"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+              class="has-text-right"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-users.comments') }}
+            </piemeram-blog-shared-sort>
           </tr>
         </thead>
         <tbody>
-          <tr v-if="usersLoading">
-            <td
-              class="has-text-centered is-size-4"
-              colspan="5"
-            >
-              <i class="fas fa-spinner fa-pulse"></i>
-            </td>
-          </tr>
-
           <tr
             v-for="user in users"
             :key="user.id"
@@ -74,12 +110,18 @@
 </template>
 
 <script>
+  import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
+  import SortHandler from '../../../mixins/SortHandler'
   import axios from 'axios'
 
   export default {
+    components: {
+      PiemeramBlogSharedSort
+    },
     mixins: [
       AxiosErrorHandler,
+      SortHandler,
     ],
     data: () => ({
       users: [],
@@ -92,22 +134,32 @@
       this.loadRoles()
     },
     methods: {
+      sort (by) {
+        this.sorting = true
+        this.sortHandler(by)
+        this.loadUsers()
+      },
       loadUsers () {
         this.usersLoading = true
 
         axios
-          .get('blog/api/admin/user')
+          .get('blog/api/admin/user', { params: this.params })
           .then(response => {
             this.usersLoading = false
+            this.sorting = false
 
-            this.users = response.data
+            this.users = response.data.users
+            this.params = response.data.params
 
             this.users.map(user => {
               user.blog_role = user.blog_role || { id: null }
               this.$set(user, 'blog_role_changing', false)
             })
           })
-          .catch(this.handleAxiosError)
+          .catch(error => {
+            this.sorting = false
+            this.handleAxiosError(error)
+          })
       },
       loadRoles () {
         this.rolesLoading = true
@@ -117,7 +169,7 @@
           .then(response => {
             this.rolesLoading = false
 
-            this.roles = response.data
+            this.roles = response.data.roles
           })
           .catch(error => {
             this.rolesLoading = false

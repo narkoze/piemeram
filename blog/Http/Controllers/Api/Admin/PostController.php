@@ -5,9 +5,15 @@ namespace Blog\Http\Controllers\Api\Admin;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Blog\Post;
+use DB;
 
 class PostController extends Controller
 {
+    protected $defaultParams = [
+        'sortBy' => 'dates',
+        'sortDirection' => 'desc',
+    ];
+
     protected $rules = [
         'title' => [
             'required',
@@ -18,19 +24,20 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
+        $params = $request->all() + $this->defaultParams;
+
         $query = Post::select([
-            'id',
+            'blog_posts.id',
             'title',
-            'content',
             'author_id',
-            'updated_at',
+            'blog_posts.updated_at',
             'published_at',
+
         ])
-        ->with([
-            'author:id,name',
-            'categories:id,name'
-        ])
-        ->orderByRaw('COALESCE(published_at, updated_at) DESC');
+            ->with([
+                'author:id,name',
+                'categories:id,name'
+            ]);
 
         if ($request->filled('categories')) {
             $query->whereHas('categories', function ($query) use ($request) {
@@ -38,9 +45,32 @@ class PostController extends Controller
             });
         }
 
+        if ($params['sortBy'] == 'authors.name') {
+            $query->leftJoin('users as authors', 'authors.id', '=', 'blog_posts.author_id');
+        }
+
+        if ($params['sortBy'] == 'categories') {
+            $categories = DB::table('blog_category_post')
+                ->select('post_id')
+                ->selectRaw("string_agg(blog_categories.name, '') as categories")
+                ->join('blog_categories', 'blog_categories.id', '=', 'blog_category_post.category_id')
+                ->groupBy('post_id');
+
+            $query->leftJoinSub($categories, 'categories', function ($query) {
+                $query->on('categories.post_id', '=', 'blog_posts.id');
+            })->addSelect('categories');
+        }
+
+        $sortDirection  = strtolower($params['sortDirection'] == 'asc' ? 'asc' : 'desc');
+        if ($params['sortBy'] == 'dates') {
+            $query->orderByRaw("COALESCE(published_at, blog_posts.updated_at) $sortDirection");
+        } else {
+            $query->orderBy($params['sortBy'], $params['sortDirection']);
+        }
+
         $posts = $query->get();
 
-        return response()->json($posts);
+        return response()->json(compact('posts', 'params'));
     }
 
     public function store(Request $request)

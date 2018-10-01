@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 class="title">{{ $t('blog.admin.views.blog-admin-view-posts.title') }}</h1>
+    <h1 class="title">
+      {{ $t('blog.admin.views.blog-admin-view-posts.title') }}
+      <i  v-if="disabled && !sorting" class="fas fa-spinner fa-pulse"></i>
+    </h1>
 
     <div class="columns">
       <div class="column">
@@ -8,21 +11,45 @@
           <table class="table is-striped is-narrow is-hoverable is-fullwidth">
             <thead>
               <tr>
-                <th>{{ $t('blog.admin.views.blog-admin-view-posts.posttitle') }}</th>
-                <th>{{ $t('blog.admin.views.blog-admin-view-posts.categories') }}</th>
-                <th>{{ $t('blog.admin.views.blog-admin-view-posts.author') }}</th>
-                <th>{{ $t('blog.admin.views.blog-admin-view-posts.date') }}</th>
+                <piemeram-blog-shared-sort
+                  column="title"
+                  :sort="params.sortBy"
+                  :direction="params.sortDirection"
+                  :disabled="sorting"
+                  @changed="sort"
+                >
+                  {{ $t('blog.admin.views.blog-admin-view-posts.posttitle') }}
+                </piemeram-blog-shared-sort>
+                <piemeram-blog-shared-sort
+                  column="categories"
+                  :sort="params.sortBy"
+                  :direction="params.sortDirection"
+                  :disabled="sorting"
+                  @changed="sort"
+                >
+                  {{ $t('blog.admin.views.blog-admin-view-posts.categories') }}
+                </piemeram-blog-shared-sort>
+                <piemeram-blog-shared-sort
+                  column="authors.name"
+                  :sort="params.sortBy"
+                  :direction="params.sortDirection"
+                  :disabled="sorting"
+                  @changed="sort"
+                >
+                  {{ $t('blog.admin.views.blog-admin-view-posts.author') }}
+                </piemeram-blog-shared-sort>
+                <piemeram-blog-shared-sort
+                  column="dates"
+                  :sort="params.sortBy"
+                  :direction="params.sortDirection"
+                  :disabled="sorting"
+                  @changed="sort"
+                >
+                  {{ $t('blog.admin.views.blog-admin-view-posts.date') }}
+                </piemeram-blog-shared-sort>
               </tr>
             </thead>
             <tbody>
-              <tr v-if="disabled">
-                <td
-                  class="has-text-centered is-size-4"
-                  colspan="4"
-                >
-                  <i class="fas fa-spinner fa-pulse"></i>
-                </td>
-              </tr>
               <tr
                 v-for="post in posts"
                 :key="post.id"
@@ -107,9 +134,9 @@
             class="is-marginless"
             only="posts"
             :postCategories="loadCategory"
-            :filtering="disabled"
+            :filtering="disabled && !sorting"
             @selectedCategories="(categories) => { selectedCategories = categories }"
-            @filter="loadPosts"
+            @filter="filterPosts"
           >
           </piemeram-blog-shared-categories>
         </div>
@@ -120,15 +147,19 @@
 
 <script>
   import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
+  import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
+  import SortHandler from '../../../mixins/SortHandler'
   import axios from 'axios'
 
   export default {
     components: {
-      PiemeramBlogSharedCategories
+      PiemeramBlogSharedCategories,
+      PiemeramBlogSharedSort
     },
     mixins: [
       AxiosErrorHandler,
+      SortHandler,
     ],
     data: () => ({
       posts: [],
@@ -140,21 +171,31 @@
       this.loadPosts()
     },
     methods: {
+      sort (by) {
+        this.sorting = true
+        this.sortHandler(by)
+        this.loadPosts()
+      },
+      filterPosts () {
+        this.params['categories'] = this.selectedCategories
+        this.loadPosts()
+      },
       loadPosts () {
         this.disabled = true
-        this.posts = []
-
-        let params = {}
-        if (this.selectedCategories.length) params['categories'] = this.selectedCategories
 
         axios
-          .get('blog/api/admin/post', { params })
+          .get('blog/api/admin/post', { params: this.params })
           .then(response => {
             this.disabled = false
+            this.sorting = false
 
-            this.posts = response.data
+            this.posts = response.data.posts
+            this.params = response.data.params
           })
-          .catch(this.handleAxiosError)
+          .catch(error => {
+            this.sorting = false
+            this.handleAxiosError(error)
+          })
       }
     }
   }

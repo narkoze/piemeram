@@ -5,7 +5,7 @@
         {{ $t('blog.admin.views.blog-admin-view-post.categories.title') }}
         &nbsp;
         <i
-          v-if="disabled || filtering"
+          v-if="disabled"
           class="fas fa-spinner fa-pulse"
         >
         </i>
@@ -130,7 +130,7 @@
             this.disabled = false
             this.categories = response.data
 
-            if (this.$root.categories.length) {
+            if (this.$root.categories.length && this.$root.side === 'public') {
               this.$nextTick(() => {
                 this.selectedCategories = this.$root.categories
                 this.filtered = true

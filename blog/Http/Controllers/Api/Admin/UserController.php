@@ -7,41 +7,66 @@ use Piemeram\User;
 
 class UserController extends Controller
 {
-    public function index()
+    protected $defaultParams = [
+        'sortBy' => 'name',
+        'sortDirection' => 'asc',
+    ];
+
+    public function index(Request $request)
     {
-        $users = $this->query()->get()->map(function ($user) {
-            $parts = explode("@", $user->email);
-            $name = implode(array_slice($parts, 0, count($parts) -1), '@');
-            $len  = floor(strlen($name) / 2);
+        $params = $request->all() + $this->defaultParams;
 
-            $user->email = substr($name, 0, $len) . str_repeat('*', $len) . "@" . end($parts);
-            return $user;
-        });
+        $users = $this->query($params)
+            ->get()
+            ->map(function ($user) {
+                $parts = explode("@", $user->email);
+                $name = implode(array_slice($parts, 0, count($parts) -1), '@');
+                $len  = floor(strlen($name) / 2);
 
-        return response()->json($users);
+                $user->email = substr($name, 0, $len) . str_repeat('*', $len) . "@" . end($parts);
+                return $user;
+            });
+
+        return response()->json(compact('users', 'params'));
     }
 
     public function update(Request $request, User $user)
     {
+        $params = $request->all() + $this->defaultParams;
+
         $user->blogRole()->associate($request->blogRole);
         $user->save();
 
-        $user = $this->query()->whereId($user->id)->firstOrFail();
+        $user = $this->query($params)
+            ->whereId($user->id)
+            ->firstOrFail();
 
-        return response()->json($user);
+        return response()->json(compact('user', 'params'));
     }
 
-    protected function query()
+    protected function query($params = [])
     {
-        return User::select([
-            'id',
-            'name',
+        $query = User::select([
+            'users.id',
+            'users.name',
             'email',
             'blog_role_id',
         ])
             ->with('blogRole:id,name,description')
             ->withCount('blogPosts')
-            ->withCount('blogComments')
-            ->orderBy('name');
+            ->withCount('blogComments');
+
+        if ($params['sortBy'] == 'blog_roles.name') {
+            $query->leftJoin('blog_roles', 'blog_roles.id', '=', 'users.blog_role_id');
+        }
+
+        $sortDirection  = strtolower($params['sortDirection'] == 'asc' ? 'asc' : 'desc');
+        if ($params['sortBy'] == 'name') {
+            $query->orderByRaw("unaccent(users.name) $sortDirection");
+        } else {
+            $query->orderBy($params['sortBy'], $sortDirection);
+        }
+
+        return $query;
     }
 }

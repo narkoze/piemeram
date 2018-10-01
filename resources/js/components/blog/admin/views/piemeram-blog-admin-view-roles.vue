@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 class="title">{{ $t('blog.admin.views.blog-admin-view-roles.title') }}</h1>
+    <h1 class="title">
+      {{ $t('blog.admin.views.blog-admin-view-roles.title') }}
+      <i v-if="rolesLoading && !sorting" class="fas fa-spinner fa-pulse"></i>
+    </h1>
 
     <div class="field">
       <input
@@ -58,23 +61,38 @@
     <table class="table is-striped is-narrow is-hoverable is-fullwidth">
       <thead>
         <tr>
-          <th>{{ $t('blog.admin.views.blog-admin-view-roles.role') }}</th>
-          <th>{{ $t('blog.admin.views.blog-admin-view-roles.description') }}</th>
-          <th class="has-text-right">{{ $t('blog.admin.views.blog-admin-view-roles.usercount') }}</th>
+          <piemeram-blog-shared-sort
+            column="name"
+            :sort="params.sortBy"
+            :direction="params.sortDirection"
+            :disabled="sorting"
+            @changed="sort"
+          >
+            {{ $t('blog.admin.views.blog-admin-view-roles.role') }}
+          </piemeram-blog-shared-sort>
+          <piemeram-blog-shared-sort
+            column="description"
+            :sort="params.sortBy"
+            :direction="params.sortDirection"
+            :disabled="sorting"
+            @changed="sort"
+          >
+            {{ $t('blog.admin.views.blog-admin-view-roles.description') }}
+          </piemeram-blog-shared-sort>
+          <piemeram-blog-shared-sort
+            column="users_count"
+            :sort="params.sortBy"
+            :direction="params.sortDirection"
+            :disabled="sorting"
+            @changed="sort"
+            class="has-text-right"
+          >
+            {{ $t('blog.admin.views.blog-admin-view-roles.usercount') }}
+          </piemeram-blog-shared-sort>
         </tr>
       </thead>
       <tbody>
-        <tr v-if="rolesLoading">
-          <td
-            class="has-text-centered is-size-4"
-            colspan="3"
-          >
-            <i class="fas fa-spinner fa-pulse"></i>
-          </td>
-        </tr>
-
         <tr
-          v-else
           v-for="role in roles"
           :key="role.name"
           @mouseover="mouseover = role.id"
@@ -105,12 +123,18 @@
 </template>
 
 <script>
+  import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
+  import SortHandler from '../../../mixins/SortHandler'
   import axios from 'axios'
 
   export default {
+    components: {
+      PiemeramBlogSharedSort
+    },
     mixins: [
       AxiosErrorHandler,
+      SortHandler,
     ],
     data: () => ({
       roles: [],
@@ -127,18 +151,27 @@
       this.focus()
     },
     methods: {
+      sort (by) {
+        this.sorting = true
+        this.sortHandler(by)
+        this.loadRoles()
+      },
       loadRoles () {
         this.rolesLoading = true
-        this.roles = []
 
         axios
-          .get('blog/api/admin/role')
+          .get('blog/api/admin/role', { params: this.params })
           .then(response => {
             this.rolesLoading = false
-            this.roles = response.data
+            this.sorting = false
+
+            this.roles = response.data.roles
+            this.params = response.data.params
           })
           .catch(error => {
             this.rolesLoading = false
+            this.sorting = false
+
             this.handleAxiosError(error)
           })
       },

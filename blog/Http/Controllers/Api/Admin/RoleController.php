@@ -7,6 +7,11 @@ use Blog\Role;
 
 class RoleController extends Controller
 {
+    protected $defaultParams = [
+        'sortBy' => 'name',
+        'sortDirection' => 'asc',
+    ];
+
     protected $rules = [
         'name' => [
             'required',
@@ -15,17 +20,21 @@ class RoleController extends Controller
         'description' => 'required'
     ];
 
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::select([
+        $params = $request->all() + $this->defaultParams;
+
+        $query = Role::select([
             'id',
             'name',
             'description',
         ])
-        ->withCount('users')
-        ->get();
+            ->withCount('users')
+            ->orderBy($params['sortBy'], $params['sortDirection']);
 
-        return response()->json($roles);
+        $roles = $query->get();
+
+        return response()->json(compact('roles', 'params'));
     }
 
     public function store(Request $request)

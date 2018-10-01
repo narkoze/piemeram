@@ -7,6 +7,11 @@ use Blog\Category;
 
 class CategoryController extends Controller
 {
+    protected $defaultParams = [
+        'sortBy' => 'name',
+        'sortDirection' => 'asc',
+    ];
+
     protected $rules = [
         'name' => [
             'required',
@@ -14,17 +19,29 @@ class CategoryController extends Controller
         ],
     ];
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('name')
-            ->withCount('publishedPosts')
-            ->withCount('draftPosts')
-            ->get([
-                'id',
-                'name',
-            ]);
+        $params = $request->all() + $this->defaultParams;
 
-        return response()->json($categories);
+        $query = Category::select([
+            'blog_categories.id',
+            'name'
+        ])
+            ->selectRaw('
+                sum(case when blog_posts.published_at is not null then 1 else 0 end) as published_posts_count,
+                sum(case when blog_posts.id is not null and blog_posts.published_at is null then 1 else 0 end) as draft_posts_count,
+                sum(case when blog_posts.id is not null then 1 else 0 end) as total
+            ')
+            ->leftJoin('blog_category_post', 'blog_category_post.category_id', '=', 'blog_categories.id')
+            ->leftJoin('blog_posts', 'blog_posts.id', '=', 'blog_category_post.post_id')
+            ->groupBy([
+                'blog_categories.id',
+                'name',
+            ])->orderBy($params['sortBy'], $params['sortDirection']);
+
+        $categories = $query->get();
+
+        return response()->json(compact('categories', 'params'));
     }
 
     public function store(Request $request)

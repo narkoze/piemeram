@@ -184,6 +184,8 @@ $navbar-burger-color: red;
   margin-top: -3.25rem;
   z-index: 31;
   min-height: 52px;
+  max-height: 52px;
+  overflow-y: hidden;
   width: 100%;
 
   -webkit-transition: visibility .5s, opacity .5s linear;

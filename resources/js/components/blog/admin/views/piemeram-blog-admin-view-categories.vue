@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 class="title">{{ $t('blog.admin.views.blog-admin-view-categories.title') }}</h1>
+    <h1 class="title">
+      {{ $t('blog.admin.views.blog-admin-view-categories.title') }}
+      <i  v-if="categoriesLoading && !sorting" class="fas fa-spinner fa-pulse"></i>
+    </h1>
 
     <div class="field">
       <input
@@ -46,22 +49,29 @@
     <table class="table is-striped is-narrow is-hoverable is-fullwidth">
       <thead>
         <tr>
-          <th>{{ $t('blog.admin.views.blog-admin-view-categories.category') }}</th>
-          <th class="has-text-right">{{ $t('blog.admin.views.blog-admin-view-categories.postcount') }}</th>
+          <piemeram-blog-shared-sort
+            column="name"
+            :sort="params.sortBy"
+            :direction="params.sortDirection"
+            :disabled="sorting"
+            @changed="sort"
+          >
+            {{ $t('blog.admin.views.blog-admin-view-categories.category') }}
+          </piemeram-blog-shared-sort>
+          <piemeram-blog-shared-sort
+            column="total"
+            :sort="params.sortBy"
+            :direction="params.sortDirection"
+            :disabled="sorting"
+            @changed="sort"
+            class="has-text-right"
+          >
+            {{ $t('blog.admin.views.blog-admin-view-categories.postcount') }}
+          </piemeram-blog-shared-sort>
         </tr>
       </thead>
       <tbody>
-        <tr v-if="categoriesLoading">
-          <td
-            class="has-text-centered is-size-4"
-            colspan="3"
-          >
-            <i class="fas fa-spinner fa-pulse"></i>
-          </td>
-        </tr>
-
         <tr
-          v-else
           v-for="category in categories"
           :key="category.id"
           @mouseover="mouseover = category.id"
@@ -93,12 +103,18 @@
 </template>
 
 <script>
+  import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
+  import SortHandler from '../../../mixins/SortHandler'
   import axios from 'axios'
 
   export default {
+    components: {
+      PiemeramBlogSharedSort
+    },
     mixins: [
       AxiosErrorHandler,
+      SortHandler,
     ],
     data: () => ({
       category: {},
@@ -117,6 +133,11 @@
     methods: {
       focus () {
         this.$refs.name.focus()
+      },
+      sort (by) {
+        this.sorting = true
+        this.sortHandler(by)
+        this.loadCategories()
       },
       add () {
         this.disabled = true
@@ -137,13 +158,18 @@
         this.categoriesLoading = true
 
         axios
-          .get('blog/api/admin/category')
+          .get('blog/api/admin/category', { params: this.params })
           .then(response => {
             this.categoriesLoading = false
-            this.categories = response.data
+            this.sorting = false
+
+            this.categories = response.data.categories
+            this.params = response.data.params
           })
           .catch(error => {
             this.categoriesLoading = false
+            this.sorting = false
+
             this.handleAxiosError(error)
           })
       },
