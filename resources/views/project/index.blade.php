@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="item">
+    {{-- <div class="item">
       <a
         href="{{ asset('img/project/tm.jpg') }}"
         class="image"
@@ -65,6 +65,6 @@
           @lang('project.index.tm.extra')
         </div>
       </div>
-    </div>
+    </div> --}}
   </div>
 @endsection
