@@ -46,59 +46,61 @@
       </a>
     </div>
 
-    <table class="table is-striped is-narrow is-hoverable is-fullwidth">
-      <thead>
-        <tr>
-          <piemeram-blog-shared-sort
-            column="name"
-            :sort="params.sortBy"
-            :direction="params.sortDirection"
-            :disabled="sorting"
-            @changed="sort"
+    <div class="scrollable">
+      <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <piemeram-blog-shared-sort
+              column="name"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-categories.category') }}
+            </piemeram-blog-shared-sort>
+            <piemeram-blog-shared-sort
+              column="total"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+              class="has-text-right"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-categories.postcount') }}
+            </piemeram-blog-shared-sort>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="category in categories"
+            :key="category.id"
+            @mouseover="mouseover = category.id"
+            @mouseout="mouseover = null"
           >
-            {{ $t('blog.admin.views.blog-admin-view-categories.category') }}
-          </piemeram-blog-shared-sort>
-          <piemeram-blog-shared-sort
-            column="total"
-            :sort="params.sortBy"
-            :direction="params.sortDirection"
-            :disabled="sorting"
-            @changed="sort"
-            class="has-text-right"
-          >
-            {{ $t('blog.admin.views.blog-admin-view-categories.postcount') }}
-          </piemeram-blog-shared-sort>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="category in categories"
-          :key="category.id"
-          @mouseover="mouseover = category.id"
-          @mouseout="mouseover = null"
-        >
-          <td>
-            <a @click="(disabled || deleting) || setCategory(category)">
-              <b>{{ category.name }}</b>
-            </a>
-
-            <div v-if="mouseover === category.id">
+            <td>
               <a @click="(disabled || deleting) || setCategory(category)">
-                <small>{{ $t('blog.admin.views.blog-admin-view-categories.edit') }}</small>
+                <b>{{ category.name }}</b>
               </a>
-              <span class="link-divider">|</span>
-              <a @click="(disabled || deleting) || destroyCategory(category)">
-                <small>{{ $t('blog.admin.views.blog-admin-view-categories.delete') }}</small>
-              </a>
-            </div>
-            <div v-else>&nbsp;</div>
-          </td>
-          <td class="has-text-right">
-            {{ category.published_posts_count }} / {{ category.draft_posts_count }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+              <div v-if="mouseover === category.id">
+                <a @click="(disabled || deleting) || setCategory(category)">
+                  <small>{{ $t('blog.admin.views.blog-admin-view-categories.edit') }}</small>
+                </a>
+                <span class="link-divider">|</span>
+                <a @click="(disabled || deleting) || destroyCategory(category)">
+                  <small>{{ $t('blog.admin.views.blog-admin-view-categories.delete') }}</small>
+                </a>
+              </div>
+              <div v-else>&nbsp;</div>
+            </td>
+            <td class="has-text-right">
+              {{ category.published_posts_count }} / {{ category.draft_posts_count }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

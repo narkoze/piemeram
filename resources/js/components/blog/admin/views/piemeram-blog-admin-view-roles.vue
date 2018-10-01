@@ -57,68 +57,69 @@
         {{ $t('blog.admin.views.blog-admin-view-roles.add') }}
       </a>
     </div>
-
-    <table class="table is-striped is-narrow is-hoverable is-fullwidth">
-      <thead>
-        <tr>
-          <piemeram-blog-shared-sort
-            column="name"
-            :sort="params.sortBy"
-            :direction="params.sortDirection"
-            :disabled="sorting"
-            @changed="sort"
+    <div class="scrollable">
+      <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <piemeram-blog-shared-sort
+              column="name"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-roles.role') }}
+            </piemeram-blog-shared-sort>
+            <piemeram-blog-shared-sort
+              column="description"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-roles.description') }}
+            </piemeram-blog-shared-sort>
+            <piemeram-blog-shared-sort
+              column="users_count"
+              :sort="params.sortBy"
+              :direction="params.sortDirection"
+              :disabled="sorting"
+              @changed="sort"
+              class="has-text-right"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-roles.usercount') }}
+            </piemeram-blog-shared-sort>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="role in roles"
+            :key="role.name"
+            @mouseover="mouseover = role.id"
+            @mouseout="mouseover = null"
           >
-            {{ $t('blog.admin.views.blog-admin-view-roles.role') }}
-          </piemeram-blog-shared-sort>
-          <piemeram-blog-shared-sort
-            column="description"
-            :sort="params.sortBy"
-            :direction="params.sortDirection"
-            :disabled="sorting"
-            @changed="sort"
-          >
-            {{ $t('blog.admin.views.blog-admin-view-roles.description') }}
-          </piemeram-blog-shared-sort>
-          <piemeram-blog-shared-sort
-            column="users_count"
-            :sort="params.sortBy"
-            :direction="params.sortDirection"
-            :disabled="sorting"
-            @changed="sort"
-            class="has-text-right"
-          >
-            {{ $t('blog.admin.views.blog-admin-view-roles.usercount') }}
-          </piemeram-blog-shared-sort>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="role in roles"
-          :key="role.name"
-          @mouseover="mouseover = role.id"
-          @mouseout="mouseover = null"
-        >
-          <td>
-            <a @click="(disabled || deleting) || setRole(role)">
-              <b>{{ role.name }}</b>
-            </a>
-
-            <div v-if="mouseover === role.id">
+            <td>
               <a @click="(disabled || deleting) || setRole(role)">
-                <small>{{ $t('blog.admin.views.blog-admin-view-roles.edit') }}</small>
+                <b>{{ role.name }}</b>
               </a>
-              <span class="link-divider">|</span>
-              <a @click="(disabled || deleting) || destroyRole(role)">
-                <small>{{ $t('blog.admin.views.blog-admin-view-roles.delete') }}</small>
-              </a>
-            </div>
-            <div v-else>&nbsp;</div>
-          </td>
-          <td>{{ role.description }}</td>
-          <td class="has-text-right">{{ role.users_count || '' }}</td>
-        </tr>
-      </tbody>
-    </table>
+
+              <div v-if="mouseover === role.id">
+                <a @click="(disabled || deleting) || setRole(role)">
+                  <small>{{ $t('blog.admin.views.blog-admin-view-roles.edit') }}</small>
+                </a>
+                <span class="link-divider">|</span>
+                <a @click="(disabled || deleting) || destroyRole(role)">
+                  <small>{{ $t('blog.admin.views.blog-admin-view-roles.delete') }}</small>
+                </a>
+              </div>
+              <div v-else>&nbsp;</div>
+            </td>
+            <td>{{ role.description }}</td>
+            <td class="has-text-right">{{ role.users_count || '' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
