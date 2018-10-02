@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">
       {{ $t('blog.admin.views.blog-admin-view-roles.title') }}
-      <i v-if="rolesLoading && !sorting" class="fas fa-spinner fa-pulse"></i>
+      <i v-if="rolesLoading && !sorting && !pageChanging" class="fas fa-spinner fa-pulse"></i>
     </h1>
 
     <div class="field">
@@ -93,7 +93,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="role in roles"
+            v-for="role in roles.data"
             :key="role.name"
             @mouseover="mouseover = role.id"
             @mouseout="mouseover = null"
@@ -120,10 +120,18 @@
         </tbody>
       </table>
     </div>
+    <br>
+    <piemeram-blog-shared-paginate
+      :paginator="roles"
+      :changing="pageChanging"
+      @changed="setPage"
+    >
+    </piemeram-blog-shared-paginate>
   </div>
 </template>
 
 <script>
+  import PiemeramBlogSharedPaginate from '../../shared/piemeram-blog-shared-paginate.vue'
   import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import SortHandler from '../../../mixins/SortHandler'
@@ -131,6 +139,7 @@
 
   export default {
     components: {
+      PiemeramBlogSharedPaginate,
       PiemeramBlogSharedSort
     },
     mixins: [
@@ -143,7 +152,8 @@
       role: {},
       roleCopy: {},
       mouseover: null,
-      deleting: false
+      deleting: false,
+      pageChanging: false
     }),
     created () {
       this.loadRoles()
@@ -157,13 +167,19 @@
         this.sortHandler(by)
         this.loadRoles()
       },
-      loadRoles () {
+      setPage (page) {
+        this.pageChanging = true
+        this.loadRoles(page)
+      },
+      loadRoles (page = 1) {
         this.rolesLoading = true
+        this.params.page = page
 
         axios
           .get('blog/api/admin/role', { params: this.params })
           .then(response => {
             this.rolesLoading = false
+            this.pageChanging = false
             this.sorting = false
 
             this.roles = response.data.roles
@@ -171,6 +187,7 @@
           })
           .catch(error => {
             this.rolesLoading = false
+            this.pageChanging = false
             this.sorting = false
 
             this.handleAxiosError(error)

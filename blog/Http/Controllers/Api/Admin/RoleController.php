@@ -32,7 +32,11 @@ class RoleController extends Controller
             ->withCount('users')
             ->orderBy($params['sortBy'], $params['sortDirection']);
 
-        $roles = $query->get();
+        if ($request->all) {
+            $roles = $query->get();
+        } else {
+            $roles = $query->paginate(7);
+        }
 
         return response()->json(compact('roles', 'params'));
     }

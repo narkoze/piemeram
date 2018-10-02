@@ -39,7 +39,7 @@ class CategoryController extends Controller
                 'name',
             ])->orderBy($params['sortBy'], $params['sortDirection']);
 
-        $categories = $query->get();
+        $categories = $query->paginate(9);
 
         return response()->json(compact('categories', 'params'));
     }

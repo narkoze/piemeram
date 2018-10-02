@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">
       {{ $t('blog.admin.views.blog-admin-view-users.title') }}
-      <i v-if="usersLoading && !sorting" class="fas fa-spinner fa-pulse"></i>
+      <i v-if="usersLoading && !sorting && !pageChanging" class="fas fa-spinner fa-pulse"></i>
     </h1>
 
     <div class="scrollable">
@@ -60,7 +60,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="user in users"
+            v-for="user in users.data"
             :key="user.id"
           >
             <td>{{ user.name }}</td>
@@ -106,10 +106,18 @@
         </tbody>
       </table>
     </div>
+    <br>
+    <piemeram-blog-shared-paginate
+      :paginator="users"
+      :changing="pageChanging"
+      @changed="setPage"
+    >
+    </piemeram-blog-shared-paginate>
   </div>
 </template>
 
 <script>
+  import PiemeramBlogSharedPaginate from '../../shared/piemeram-blog-shared-paginate.vue'
   import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import SortHandler from '../../../mixins/SortHandler'
@@ -117,6 +125,7 @@
 
   export default {
     components: {
+      PiemeramBlogSharedPaginate,
       PiemeramBlogSharedSort
     },
     mixins: [
@@ -127,7 +136,8 @@
       users: [],
       roles: [],
       usersLoading: false,
-      rolesLoading: false
+      rolesLoading: false,
+      pageChanging: false
     }),
     created () {
       this.loadUsers()
@@ -136,28 +146,38 @@
     methods: {
       sort (by) {
         this.sorting = true
+
         this.sortHandler(by)
         this.loadUsers()
       },
-      loadUsers () {
+      setPage (page) {
+        this.pageChanging = true
+        this.loadUsers(page)
+      },
+      loadUsers (page = 1) {
         this.usersLoading = true
+        this.params.page = page
 
         axios
           .get('blog/api/admin/user', { params: this.params })
           .then(response => {
             this.usersLoading = false
+            this.pageChanging = false
             this.sorting = false
 
             this.users = response.data.users
             this.params = response.data.params
 
-            this.users.map(user => {
+            this.users.data.map(user => {
               user.blog_role = user.blog_role || { id: null }
               this.$set(user, 'blog_role_changing', false)
             })
           })
           .catch(error => {
+            this.usersLoading = false
+            this.pageChanging = false
             this.sorting = false
+
             this.handleAxiosError(error)
           })
       },
@@ -165,7 +185,9 @@
         this.rolesLoading = true
 
         axios
-          .get('blog/api/admin/role')
+          .get('blog/api/admin/role', { params: {
+            all: true
+          }})
           .then(response => {
             this.rolesLoading = false
 

@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">
       {{ $t('blog.admin.views.blog-admin-view-categories.title') }}
-      <i  v-if="categoriesLoading && !sorting" class="fas fa-spinner fa-pulse"></i>
+      <i  v-if="categoriesLoading && !sorting && !pageChanging" class="fas fa-spinner fa-pulse"></i>
     </h1>
 
     <div class="field">
@@ -73,7 +73,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="category in categories"
+            v-for="category in categories.data"
             :key="category.id"
             @mouseover="mouseover = category.id"
             @mouseout="mouseover = null"
@@ -101,10 +101,18 @@
         </tbody>
       </table>
     </div>
+    <br>
+    <piemeram-blog-shared-paginate
+      :paginator="categories"
+      :changing="pageChanging"
+      @changed="setPage"
+    >
+    </piemeram-blog-shared-paginate>
   </div>
 </template>
 
 <script>
+  import PiemeramBlogSharedPaginate from '../../shared/piemeram-blog-shared-paginate.vue'
   import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import SortHandler from '../../../mixins/SortHandler'
@@ -112,6 +120,7 @@
 
   export default {
     components: {
+      PiemeramBlogSharedPaginate,
       PiemeramBlogSharedSort
     },
     mixins: [
@@ -124,7 +133,8 @@
       categories: [],
       categoriesLoading: false,
       mouseover: null,
-      deleting: false
+      deleting: false,
+      pageChanging: false
     }),
     created () {
       this.loadCategories()
@@ -141,6 +151,10 @@
         this.sortHandler(by)
         this.loadCategories()
       },
+      setPage (page) {
+        this.pageChanging = true
+        this.loadCategories(page)
+      },
       add () {
         this.disabled = true
         this.errors = {}
@@ -156,13 +170,15 @@
           })
           .catch(this.handleAxiosError)
       },
-      loadCategories () {
+      loadCategories (page = 1) {
         this.categoriesLoading = true
+        this.params.page = page
 
         axios
           .get('blog/api/admin/category', { params: this.params })
           .then(response => {
             this.categoriesLoading = false
+            this.pageChanging = false
             this.sorting = false
 
             this.categories = response.data.categories
@@ -170,6 +186,7 @@
           })
           .catch(error => {
             this.categoriesLoading = false
+            this.pageChanging = false
             this.sorting = false
 
             this.handleAxiosError(error)

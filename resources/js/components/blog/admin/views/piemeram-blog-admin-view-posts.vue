@@ -2,12 +2,12 @@
   <div>
     <h1 class="title">
       {{ $t('blog.admin.views.blog-admin-view-posts.title') }}
-      <i  v-if="disabled && !sorting" class="fas fa-spinner fa-pulse"></i>
+      <i  v-if="disabled && !sorting && !pageChanging" class="fas fa-spinner fa-pulse"></i>
     </h1>
 
     <div class="columns">
       <div class="column">
-        <div class="scrollable">
+        <div class="scrollable ">
           <table class="table is-striped is-narrow is-hoverable is-fullwidth">
             <thead>
               <tr>
@@ -51,7 +51,7 @@
             </thead>
             <tbody>
               <tr
-                v-for="post in posts"
+                v-for="post in posts.data"
                 :key="post.id"
                 @mouseover="mouseover = post.id"
                 @mouseout="mouseover = null"
@@ -126,6 +126,13 @@
             </tbody>
           </table>
         </div>
+        <br>
+        <piemeram-blog-shared-paginate
+          :paginator="posts"
+          :changing="pageChanging"
+          @changed="setPage"
+        >
+        </piemeram-blog-shared-paginate>
       </div>
 
       <div class="column is-4">
@@ -134,7 +141,7 @@
             class="is-marginless"
             only="posts"
             :postCategories="loadCategory"
-            :filtering="disabled && !sorting"
+            :filtering="disabled && !sorting && !pageChanging"
             @selectedCategories="(categories) => { selectedCategories = categories }"
             @filter="filterPosts"
           >
@@ -147,6 +154,7 @@
 
 <script>
   import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
+  import PiemeramBlogSharedPaginate from '../../shared/piemeram-blog-shared-paginate.vue'
   import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import SortHandler from '../../../mixins/SortHandler'
@@ -155,6 +163,7 @@
   export default {
     components: {
       PiemeramBlogSharedCategories,
+      PiemeramBlogSharedPaginate,
       PiemeramBlogSharedSort
     },
     mixins: [
@@ -165,7 +174,8 @@
       posts: [],
       mouseover: null,
       selectedCategories: [],
-      loadCategory: null
+      loadCategory: null,
+      pageChanging: false
     }),
     created () {
       this.loadPosts()
@@ -173,19 +183,26 @@
     methods: {
       sort (by) {
         this.sorting = true
+
         this.sortHandler(by)
         this.loadPosts()
+      },
+      setPage (page) {
+        this.pageChanging = true
+        this.loadPosts(page)
       },
       filterPosts () {
         this.params['categories'] = this.selectedCategories
         this.loadPosts()
       },
-      loadPosts () {
+      loadPosts (page = 1) {
         this.disabled = true
+        this.params.page = page
 
         axios
           .get('blog/api/admin/post', { params: this.params })
           .then(response => {
+            this.pageChanging = false
             this.disabled = false
             this.sorting = false
 
@@ -193,7 +210,9 @@
             this.params = response.data.params
           })
           .catch(error => {
+            this.pageChanging = false
             this.sorting = false
+
             this.handleAxiosError(error)
           })
       }

@@ -29,6 +29,7 @@ class PostController extends Controller
         $query = Post::select([
             'blog_posts.id',
             'title',
+            'content',
             'author_id',
             'blog_posts.updated_at',
             'published_at',
@@ -68,7 +69,7 @@ class PostController extends Controller
             $query->orderBy($params['sortBy'], $params['sortDirection']);
         }
 
-        $posts = $query->get();
+        $posts = $query->paginate(11);
 
         return response()->json(compact('posts', 'params'));
     }

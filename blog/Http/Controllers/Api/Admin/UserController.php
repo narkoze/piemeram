@@ -16,8 +16,9 @@ class UserController extends Controller
     {
         $params = $request->all() + $this->defaultParams;
 
-        $users = $this->query($params)
-            ->get()
+        $users = $this->query($params)->paginate(15);
+
+        $users->setCollection($users->getCollection()
             ->map(function ($user) {
                 $parts = explode("@", $user->email);
                 $name = implode(array_slice($parts, 0, count($parts) -1), '@');
@@ -25,19 +26,18 @@ class UserController extends Controller
 
                 $user->email = substr($name, 0, $len) . str_repeat('*', $len) . "@" . end($parts);
                 return $user;
-            });
+            }
+        ));
 
         return response()->json(compact('users', 'params'));
     }
 
     public function update(Request $request, User $user)
     {
-        $params = $request->all() + $this->defaultParams;
-
         $user->blogRole()->associate($request->blogRole);
         $user->save();
 
-        $user = $this->query($params)
+        $user = $this->query()
             ->whereId($user->id)
             ->firstOrFail();
 
@@ -56,15 +56,17 @@ class UserController extends Controller
             ->withCount('blogPosts')
             ->withCount('blogComments');
 
-        if ($params['sortBy'] == 'blog_roles.name') {
-            $query->leftJoin('blog_roles', 'blog_roles.id', '=', 'users.blog_role_id');
-        }
+        if (isset($params['sortBy']) and isset($params['sortDirection'])) {
+            if ($params['sortBy'] == 'blog_roles.name') {
+                $query->leftJoin('blog_roles', 'blog_roles.id', '=', 'users.blog_role_id');
+            }
 
-        $sortDirection  = strtolower($params['sortDirection'] == 'asc' ? 'asc' : 'desc');
-        if ($params['sortBy'] == 'name') {
-            $query->orderByRaw("unaccent(users.name) $sortDirection");
-        } else {
-            $query->orderBy($params['sortBy'], $sortDirection);
+            $sortDirection  = strtolower($params['sortDirection'] == 'asc' ? 'asc' : 'desc');
+            if ($params['sortBy'] == 'name') {
+                $query->orderByRaw("unaccent(users.name) $sortDirection");
+            } else {
+                $query->orderBy($params['sortBy'], $sortDirection);
+            }
         }
 
         return $query;

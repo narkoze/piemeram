@@ -190,12 +190,19 @@
       })
     },
     mounted () {
-      this.$refs.title.focus()
       this.initTinymce()
+    },
+    watch: {
+      editorLoading (bool) {
+        if (bool) return
+
+        tinymce.activeEditor.setMode('design')
+        this.$refs.title.focus()
+      }
     },
     methods: {
       publish (draft = false) {
-        tinymce.activeEditor.getBody().setAttribute('contenteditable', false)
+        tinymce.activeEditor.setMode('readonly')
 
         this.disabled = true
         draft ? this.saving = true : this.publishing = true
@@ -226,7 +233,7 @@
 
             this.post = response.data
 
-            tinymce.activeEditor.getBody().setAttribute('contenteditable', true)
+            tinymce.activeEditor.setMode('design')
           })
           .catch(error => {
             this.saving = false
@@ -258,6 +265,7 @@
         tinymce.init({
           selector: '#editor',
           language: self.$i18n.locale,
+          readonly: true,
           skin_url: '/css/tinymce/skins/lightgray',
           plugins: 'lists link textcolor pagebreak table paste',
           toolbar: 'formatselect | bold italic underline | bullist numlist | forecolor indent blockquote | alignleft aligncenter alignright | link pagebreak | table | undo redo',
