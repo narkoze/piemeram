@@ -415,9 +415,6 @@ div.scrollable {
   right: 4px;
   color: $grey-lighter;
   cursor: pointer;
-  @media screen and (min-width: $desktop) {
-    font-size: 4em;
-  }
 
   &:hover {
     color: $grey-light;

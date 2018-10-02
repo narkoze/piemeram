@@ -6,6 +6,20 @@
     </h1>
 
     <div class="columns">
+      <div class="column is-4">
+        <div class="sticky is-marginless">
+          <piemeram-blog-shared-categories
+            class="is-marginless"
+            only="posts"
+            :postCategories="loadCategory"
+            :filtering="disabled && !sorting && !pageChanging"
+            @selectedCategories="(categories) => { selectedCategories = categories }"
+            @filter="filterPosts"
+          >
+          </piemeram-blog-shared-categories>
+        </div>
+      </div>
+
       <div class="column">
         <div class="scrollable ">
           <table class="table is-striped is-narrow is-hoverable is-fullwidth">
@@ -133,20 +147,6 @@
           @changed="setPage"
         >
         </piemeram-blog-shared-paginate>
-      </div>
-
-      <div class="column is-4">
-        <div class="sticky is-marginless">
-          <piemeram-blog-shared-categories
-            class="is-marginless"
-            only="posts"
-            :postCategories="loadCategory"
-            :filtering="disabled && !sorting && !pageChanging"
-            @selectedCategories="(categories) => { selectedCategories = categories }"
-            @filter="filterPosts"
-          >
-          </piemeram-blog-shared-categories>
-        </div>
       </div>
     </div>
   </div>
