@@ -1,32 +1,27 @@
 <template>
-  <div class="card card-margin">
-    <header class="card-header">
-      <p class="card-header-title">
+  <div class="card field card-categories">
+    <label>
         {{ $t('blog.admin.views.blog-admin-view-post.categories.title') }}
-        &nbsp;
         <i
           v-if="disabled"
           class="fas fa-spinner fa-pulse"
         >
         </i>
-      </p>
-    </header>
 
-    <div class="card-content card-content-nopadding">
+      <div class="card-content-categories is-paddingless">
       <div class="content">
         <div class="select is-multiple select-is-fullwidth">
           <select
             v-model="selectedCategories"
             class="select-is-fullwidth"
             :size="categories.length"
-            :disabled="disabled || filtering"
+            :disabled="disabled"
             multiple
           >
             <option
               v-for="category in categories"
               :key="category.id"
               :value="category.id"
-              :checked="selectedCategories.includes(category.id)"
             >
               {{ category.name }}
             </option>
@@ -34,39 +29,7 @@
         </div>
       </div>
     </div>
-
-    <footer
-      v-if="actions"
-      class="card-footer"
-    >
-      <a
-        @click="() => {
-          filtered = true
-          $emit('filter')
-          $root.categories = selectedCategories
-        }"
-        :class="['button is-info', { 'is-loading': disabled || filtering }]"
-        :disabled="disabled || filtering || (!selectedCategories.length && !filtered)"
-      >
-        {{ $t('blog.shared.blog-shared-categories.filter') }}
-      </a>
-
-      <a
-        v-if="filtered"
-        @click="() => {
-          filtered = false
-          selectedCategories = []
-          $root.categories = []
-          $root.anchor = null
-          $emit('selectedCategories', selectedCategories)
-          $emit('filter')
-        }"
-        :class="['button', { 'is-loading': disabled || filtering }]"
-        :disabled="disabled || filtering"
-      >
-        {{ $t('blog.shared.blog-shared-categories.removefilter') }}
-      </a>
-    </footer>
+    </label>
   </div>
 </template>
 
@@ -79,42 +42,26 @@
       AxiosErrorHandler,
     ],
     props: {
-      postCategories: {
+      postCategories: Array,
+      selected: {
         type: Array,
         default: () => []
       },
-      filtering: {
-        type: Boolean,
-        default: false
-      },
-      actions: {
-        type: Boolean,
-        default: true
-      },
-      only: {
-        type: String,
-        default: ''
-      }
+      only: String
     },
     data: () => ({
       categories: [],
-      selectedCategories: [],
-      filtered: false
+      selectedCategories: []
     }),
     created () {
       this.loadCategories()
     },
     watch: {
-      postCategories () {
-        if (this.postCategories.length) {
-          this.selectedCategories = this.postCategories
-          this.$emit('selectedCategories', this.postCategories)
-          this.$emit('filter')
-          this.filtered = true
-        }
+      selected () {
+        this.selectedCategories = this.selected
       },
       selectedCategories () {
-        this.$emit('selectedCategories', this.selectedCategories)
+        this.$emit('selected', this.selectedCategories)
       }
     },
     methods: {
@@ -130,10 +77,9 @@
             this.disabled = false
             this.categories = response.data
 
-            if (this.$root.categories.length && this.$root.side === 'public') {
+            if (this.$root.categories.length && this.$root.show.side === 'public') {
               this.$nextTick(() => {
                 this.selectedCategories = this.$root.categories
-                this.filtered = true
               })
             }
 
@@ -144,6 +90,5 @@
           .catch(this.handleAxiosError)
       }
     }
-
   }
 </script>

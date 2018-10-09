@@ -11,6 +11,8 @@ return [
   'delete' => 'Delete',
   'deleted' => 'Category successfully deleted',
   'confirm' => 'Delete ":name"?',
-  'postcount' => 'Posts / Drafts',
+  'postsdrafts' => 'Posts / Drafts',
+  'posts' => 'Posts',
+  'drafts' => 'Drafts',
   'canceledit' => 'Cancel',
 ];

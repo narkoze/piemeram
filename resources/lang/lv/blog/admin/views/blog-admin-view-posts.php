@@ -12,4 +12,12 @@ return [
   'preview' => 'Priekšskatīt',
   'categories' => 'Kategorijas',
   'draft' => 'Melnraksts',
+  'filter' => 'Filtrēt',
+  'removefilters' => 'Noņemt filtrus',
+  'datefrom' => 'Datums no',
+  'dateto' => 'Datums līdz',
+  'search' => 'Meklēt',
+  'status' => 'Status',
+  'published' => 'Publicēts',
+  'draft' => 'Melnraksts',
 ];

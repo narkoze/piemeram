@@ -2,18 +2,16 @@
 
 namespace Blog\Http\Controllers\Api\Admin;
 
+use Blog\Repositories\PostRepository;
 use Illuminate\Http\Request;
+use Blog\Services\Excel;
+use Piemeram\User;
 use Carbon\Carbon;
+use Blog\Category;
 use Blog\Post;
-use DB;
 
 class PostController extends Controller
 {
-    protected $defaultParams = [
-        'sortBy' => 'dates',
-        'sortDirection' => 'desc',
-    ];
-
     protected $rules = [
         'title' => [
             'required',
@@ -22,54 +20,11 @@ class PostController extends Controller
         'content' => 'required',
     ];
 
-    public function index(Request $request)
+    public function index(PostRepository $postRepo, Request $request)
     {
-        $params = $request->all() + $this->defaultParams;
+        $params = $request->all() + $postRepo->params();
 
-        $query = Post::select([
-            'blog_posts.id',
-            'title',
-            'content',
-            'author_id',
-            'blog_posts.updated_at',
-            'published_at',
-
-        ])
-            ->with([
-                'author:id,name',
-                'categories:id,name'
-            ]);
-
-        if ($request->filled('categories')) {
-            $query->whereHas('categories', function ($query) use ($request) {
-                $query->whereIn('id', $request->categories);
-            });
-        }
-
-        if ($params['sortBy'] == 'authors.name') {
-            $query->leftJoin('users as authors', 'authors.id', '=', 'blog_posts.author_id');
-        }
-
-        if ($params['sortBy'] == 'categories') {
-            $categories = DB::table('blog_category_post')
-                ->select('post_id')
-                ->selectRaw("string_agg(blog_categories.name, '') as categories")
-                ->join('blog_categories', 'blog_categories.id', '=', 'blog_category_post.category_id')
-                ->groupBy('post_id');
-
-            $query->leftJoinSub($categories, 'categories', function ($query) {
-                $query->on('categories.post_id', '=', 'blog_posts.id');
-            })->addSelect('categories');
-        }
-
-        $sortDirection  = strtolower($params['sortDirection'] == 'asc' ? 'asc' : 'desc');
-        if ($params['sortBy'] == 'dates') {
-            $query->orderByRaw("COALESCE(published_at, blog_posts.updated_at) $sortDirection");
-        } else {
-            $query->orderBy($params['sortBy'], $params['sortDirection']);
-        }
-
-        $posts = $query->paginate(11);
+        $posts = $postRepo->posts($params)->paginate(20);
 
         return response()->json(compact('posts', 'params'));
     }
@@ -137,5 +92,50 @@ class PostController extends Controller
         $post->save();
 
         $post->categories()->sync($request->categories);
+    }
+
+    public function excel(PostRepository $postRepo, Request $request)
+    {
+        $params = $request->all() + $postRepo->params();
+
+        $title = trans('blog/admin/views/blog-admin-view-posts.title');
+
+        $data = $postRepo->posts()
+            ->get()
+            ->transform(function ($post) {
+                return [
+                    $post->title,
+                    implode(', ', $post->categories->pluck('name')->toArray()),
+                    $post->author->name,
+                    $post->published_at,
+                    $post->updated_at,
+                ];
+            });
+
+        $headings = [
+            trans('blog/admin/views/blog-admin-view-posts.posttitle') => null,
+            trans('blog/admin/views/blog-admin-view-posts.categories') => [
+                'filter' => [
+                    'contains' => Category::whereIn('id', $params['categories'])
+                        ->pluck('name')
+                        ->toArray(),
+                ],
+            ],
+            trans('blog/admin/views/blog-admin-view-posts.author') => [
+                'filter' => [
+                    'equal' => User::whereId($params['authorId'])
+                        ->first(['name'])
+                        ->name ?? '',
+                ],
+            ],
+            trans('blog/admin/views/blog-admin-view-posts.published') => [
+                'format' => 'date',
+            ],
+            trans('blog/admin/views/blog-admin-view-posts.saved') => [
+                'format' => 'date',
+            ],
+        ];
+
+        return (new Excel($title, $headings, $data))->download("$title.xlsx");
     }
 }

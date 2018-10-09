@@ -2,16 +2,13 @@
 
 namespace Blog\Http\Controllers\Api\Admin;
 
+use Blog\Repositories\RoleRepository;
 use Illuminate\Http\Request;
+use Blog\Services\Excel;
 use Blog\Role;
 
 class RoleController extends Controller
 {
-    protected $defaultParams = [
-        'sortBy' => 'name',
-        'sortDirection' => 'asc',
-    ];
-
     protected $rules = [
         'name' => [
             'required',
@@ -20,22 +17,16 @@ class RoleController extends Controller
         'description' => 'required'
     ];
 
-    public function index(Request $request)
+    public function index(RoleRepository $roleRepo, Request $request)
     {
-        $params = $request->all() + $this->defaultParams;
+        $params = $request->all() + $roleRepo->params();
 
-        $query = Role::select([
-            'id',
-            'name',
-            'description',
-        ])
-            ->withCount('users')
-            ->orderBy($params['sortBy'], $params['sortDirection']);
+        $query = $roleRepo->roles($params);
 
         if ($request->all) {
             $roles = $query->get();
         } else {
-            $roles = $query->paginate(7);
+            $roles = $query->paginate(10);
         }
 
         return response()->json(compact('roles', 'params'));
@@ -90,5 +81,32 @@ class RoleController extends Controller
         $role->delete();
 
         return response()->json();
+    }
+
+    public function excel(RoleRepository $roleRepo, Request $request)
+    {
+        $params = $request->all() + $roleRepo->params();
+
+        $title = trans('blog/admin/views/blog-admin-view-roles.title');
+
+        $headings = [
+            trans('blog/admin/views/blog-admin-view-roles.role') => null,
+            trans('blog/admin/views/blog-admin-view-roles.description') => null,
+            trans('blog/admin/views/blog-admin-view-roles.usercount') => [
+                'format' => 'number',
+            ],
+        ];
+
+        $data = $roleRepo->roles($params)
+            ->get()
+            ->transform(function ($role) {
+                return [
+                    $role->name,
+                    $role->description,
+                    $role->users_count,
+                ];
+            });
+
+        return (new Excel($title, $headings, $data))->download("$title.xlsx");
     }
 }

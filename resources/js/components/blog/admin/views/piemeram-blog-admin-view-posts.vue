@@ -2,30 +2,108 @@
   <div>
     <h1 class="title">
       {{ $t('blog.admin.views.blog-admin-view-posts.title') }}
-      <i  v-if="disabled && !sorting && !pageChanging" class="fas fa-spinner fa-pulse"></i>
+      <i
+        v-if="disabled"
+        class="fas fa-spinner fa-pulse"
+      >
+      </i>
     </h1>
 
     <div class="columns">
-      <div class="column is-4">
+      <div class="column is-3">
         <div class="sticky is-marginless">
+          <piemeram-blog-shared-datepicker
+            :label="$t('blog.admin.views.blog-admin-view-posts.datefrom')"
+            :value="params.from"
+            @selected="date => params.from = date"
+          >
+          </piemeram-blog-shared-datepicker>
+
+          <piemeram-blog-shared-datepicker
+            :label="$t('blog.admin.views.blog-admin-view-posts.dateto')"
+            :value="params.to"
+            @selected="date => params.to = date"
+          >
+          </piemeram-blog-shared-datepicker>
+
+          <div class="field">
+            <label>{{ $t('blog.admin.views.blog-admin-view-posts.status') }}
+              <div class="select">
+                <select v-model="params.status">
+                  <option :value="null"></option>
+                  <option value="published">{{ $t('blog.admin.views.blog-admin-view-posts.published') }}</option>
+                  <option value="draft">{{ $t('blog.admin.views.blog-admin-view-posts.draft') }}</option>
+                </select>
+              </div>
+            </label>
+          </div>
+
+          <piemeram-blog-shared-select-user
+            :label="$t('blog.admin.views.blog-admin-view-posts.author')"
+            :selected="selectedAuthor"
+            @selected="author => {
+              selectedAuthor = author
+              params.authorId = author.id
+            }"
+          >
+          </piemeram-blog-shared-select-user>
+
           <piemeram-blog-shared-categories
-            class="is-marginless"
             only="posts"
-            :postCategories="loadCategory"
-            :filtering="disabled && !sorting && !pageChanging"
-            @selectedCategories="(categories) => { selectedCategories = categories }"
-            @filter="filterPosts"
+            :selected="params.categories"
+            @selected="categories => params.categories = categories"
           >
           </piemeram-blog-shared-categories>
+
+          <a
+            @click="loadPosts"
+            class="button is-info"
+          >
+            {{ $t('blog.admin.views.blog-admin-view-posts.filter') }}
+          </a>
+
+          <a
+            @click="removeFilters"
+            class="button"
+          >
+            {{ $t('blog.admin.views.blog-admin-view-posts.removefilters') }}
+          </a>
         </div>
       </div>
 
       <div class="column">
-        <div class="scrollable ">
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label>{{ $t('blog.admin.views.blog-admin-view-posts.search') }}
+                <input
+                  :value="params.search"
+                  @input="search"
+                  type="text"
+                  class="input"
+                >
+              </label>
+            </div>
+          </div>
+          <div class="column is-2">
+            <label>&nbsp;
+              <div class="field">
+                <piemeram-blog-shared-excel
+                  url="blog/api/admin/post/excel"
+                  :params="params"
+                  class="is-pulled-right"
+                >
+                </piemeram-blog-shared-excel>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="scrollable">
           <table class="table is-striped is-narrow is-hoverable is-fullwidth">
             <thead>
               <tr>
-                <piemeram-blog-shared-sort
+                <piemeram-blog-shared-th
                   column="title"
                   :sort="params.sortBy"
                   :direction="params.sortDirection"
@@ -33,34 +111,37 @@
                   @changed="sort"
                 >
                   {{ $t('blog.admin.views.blog-admin-view-posts.posttitle') }}
-                </piemeram-blog-shared-sort>
-                <piemeram-blog-shared-sort
-                  column="categories"
+                </piemeram-blog-shared-th>
+                <piemeram-blog-shared-th
+                  column="categories_abc"
                   :sort="params.sortBy"
                   :direction="params.sortDirection"
+                  :filtered="filteredByCategories"
                   :disabled="sorting"
                   @changed="sort"
                 >
                   {{ $t('blog.admin.views.blog-admin-view-posts.categories') }}
-                </piemeram-blog-shared-sort>
-                <piemeram-blog-shared-sort
+                </piemeram-blog-shared-th>
+                <piemeram-blog-shared-th
                   column="authors.name"
                   :sort="params.sortBy"
                   :direction="params.sortDirection"
+                  :filtered="filteredByAuthor"
                   :disabled="sorting"
                   @changed="sort"
                 >
                   {{ $t('blog.admin.views.blog-admin-view-posts.author') }}
-                </piemeram-blog-shared-sort>
-                <piemeram-blog-shared-sort
+                </piemeram-blog-shared-th>
+                <piemeram-blog-shared-th
                   column="dates"
                   :sort="params.sortBy"
                   :direction="params.sortDirection"
+                  :filtered="filteredByDate"
                   :disabled="sorting"
                   @changed="sort"
                 >
                   {{ $t('blog.admin.views.blog-admin-view-posts.date') }}
-                </piemeram-blog-shared-sort>
+                </piemeram-blog-shared-th>
               </tr>
             </thead>
             <tbody>
@@ -76,14 +157,14 @@
                     $root.showView = 'admin-view-post'
                     $root.post = post
                   }">
-                    <b>{{ post.title }}</b>
+                    <b v-html="$options.filters.highlight(post.title, params.search)"></b>
                   </a>
 
                   <span v-if="!post.published_at">
                     - {{ $t('blog.admin.views.blog-admin-view-posts.draft') }}
                   </span>
 
-                  <div v-if="mouseover === post.id">
+                  <div v-show="mouseover === post.id">
                     <a @click="() => {
                       $root.activeSection = 'admin-view-posts'
                       $root.showView = 'admin-view-post'
@@ -107,33 +188,62 @@
                     v-for="(category, index) in post.categories"
                     :key="category.id"
                   >
-                    <a @click="loadCategory = [category.id]">
-                      {{ category.name }}</a><span v-if="post.categories.length - index !== 1">,</span>
+                    <a
+                      @click="() => {
+                        params.categories = [category.id]
+                        loadPosts()
+                      }"
+                      class="displayicon"
+                    >
+                      {{ category.name }}</a><i class="fa fa-filter fa-xs"></i><span v-if="post.categories.length - index !== 1">,</span>
                   </span>
                 </td>
 
-                <td>{{ post.author.name }}</td>
+                <td>
+                  <a
+                    @click="() => {
+                      selectedAuthor = post.author
+                      params.authorId = post.author.id
+                      loadPosts()
+                    }"
+                    class="hover visibleicon"
+                    :title="post.author.email_masked"
+                  >
+                    {{ post.author.name }}
+                  </a>
+                  <i class="fas fa-filter fa-xs"></i>
+                </td>
 
                 <td>
                   <div v-if="post.published_at">
                     {{ $t('blog.admin.views.blog-admin-view-posts.published') }}
                     <br>
-                    <span
-                      class="hover"
+                    <a
+                      @click="() => {
+                        params.from = params.to = post.published_at
+                        loadPosts()
+                      }"
+                      class="hover visibleicon"
                       :title="post.published_at"
                     >
                       {{ post.published_at | dateString }}
-                    </span>
+                    </a>
+                    <i class="fas fa-filter fa-xs"></i>
                   </div>
                   <div v-else>
                     {{ $t('blog.admin.views.blog-admin-view-posts.saved') }}
                     <br>
-                    <span
-                      class="hover"
+                    <a
+                      @click="() => {
+                        params.from = params.to = post.updated_at
+                        loadPosts()
+                      }"
+                      class="hover visibleicon"
                       :title="post.updated_at"
                     >
                       {{ post.updated_at | dateString }}
-                    </span>
+                    </a>
+                    <i class="fas fa-filter fa-xs"></i>
                   </div>
                 </td>
               </tr>
@@ -153,18 +263,25 @@
 </template>
 
 <script>
+  import PiemeramBlogSharedDatepicker from '../../shared/piemeram-blog-shared-datepicker.vue'
+  import PiemeramBlogSharedSelectUser from '../../shared/piemeram-blog-shared-select-user.vue'
   import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
   import PiemeramBlogSharedPaginate from '../../shared/piemeram-blog-shared-paginate.vue'
-  import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
+  import PiemeramBlogSharedExcel from '../../shared/piemeram-blog-shared-excel.vue'
+  import PiemeramBlogSharedTh from '../../shared/piemeram-blog-shared-th.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import SortHandler from '../../../mixins/SortHandler'
+  import debounce from 'lodash/debounce'
   import axios from 'axios'
 
   export default {
     components: {
+      PiemeramBlogSharedDatepicker,
+      PiemeramBlogSharedSelectUser,
       PiemeramBlogSharedCategories,
       PiemeramBlogSharedPaginate,
-      PiemeramBlogSharedSort
+      PiemeramBlogSharedExcel,
+      PiemeramBlogSharedTh
     },
     mixins: [
       AxiosErrorHandler,
@@ -173,9 +290,11 @@
     data: () => ({
       posts: [],
       mouseover: null,
-      selectedCategories: [],
-      loadCategory: null,
-      pageChanging: false
+      selectedAuthor: {},
+      pageChanging: false,
+      filteredByDate: false,
+      filteredByAuthor: false,
+      filteredByCategories: false
     }),
     created () {
       this.loadPosts()
@@ -191,10 +310,23 @@
         this.pageChanging = true
         this.loadPosts(page)
       },
-      filterPosts () {
-        this.params['categories'] = this.selectedCategories
+      removeFilters () {
+        this.params.categories = []
+
+        this.params.authorId = null
+        this.selectedAuthor = {}
+
+        this.params.from = null
+        this.params.to = null
+
+        this.params.status = null
+
         this.loadPosts()
       },
+      search: debounce(function (e) {
+        this.params.search = e.target.value
+        this.loadPosts()
+      }, 500),
       loadPosts (page = 1) {
         this.disabled = true
         this.params.page = page
@@ -208,6 +340,10 @@
 
             this.posts = response.data.posts
             this.params = response.data.params
+
+            this.filteredByCategories = this.params.categories.length
+            this.filteredByAuthor = this.params.authorId
+            this.filteredByDate = this.params.from || this.params.to
           })
           .catch(error => {
             this.pageChanging = false

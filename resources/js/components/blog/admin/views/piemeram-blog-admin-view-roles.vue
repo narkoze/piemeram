@@ -57,11 +57,21 @@
         {{ $t('blog.admin.views.blog-admin-view-roles.add') }}
       </a>
     </div>
+
+    <div class="is-overflow-hidden">
+      <piemeram-blog-shared-excel
+        url="blog/api/admin/role/excel"
+        :params="params"
+        class="is-pulled-right"
+      >
+      </piemeram-blog-shared-excel>
+    </div>
+
     <div class="scrollable">
       <table class="table is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
-            <piemeram-blog-shared-sort
+            <piemeram-blog-shared-th
               column="name"
               :sort="params.sortBy"
               :direction="params.sortDirection"
@@ -69,8 +79,8 @@
               @changed="sort"
             >
               {{ $t('blog.admin.views.blog-admin-view-roles.role') }}
-            </piemeram-blog-shared-sort>
-            <piemeram-blog-shared-sort
+            </piemeram-blog-shared-th>
+            <piemeram-blog-shared-th
               column="description"
               :sort="params.sortBy"
               :direction="params.sortDirection"
@@ -78,8 +88,8 @@
               @changed="sort"
             >
               {{ $t('blog.admin.views.blog-admin-view-roles.description') }}
-            </piemeram-blog-shared-sort>
-            <piemeram-blog-shared-sort
+            </piemeram-blog-shared-th>
+            <piemeram-blog-shared-th
               column="users_count"
               :sort="params.sortBy"
               :direction="params.sortDirection"
@@ -88,7 +98,7 @@
               class="has-text-right"
             >
               {{ $t('blog.admin.views.blog-admin-view-roles.usercount') }}
-            </piemeram-blog-shared-sort>
+            </piemeram-blog-shared-th>
           </tr>
         </thead>
         <tbody>
@@ -132,7 +142,8 @@
 
 <script>
   import PiemeramBlogSharedPaginate from '../../shared/piemeram-blog-shared-paginate.vue'
-  import PiemeramBlogSharedSort from '../../shared/piemeram-blog-shared-sort.vue'
+  import PiemeramBlogSharedExcel from '../../shared/piemeram-blog-shared-excel.vue'
+  import PiemeramBlogSharedTh from '../../shared/piemeram-blog-shared-th.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import SortHandler from '../../../mixins/SortHandler'
   import axios from 'axios'
@@ -140,7 +151,8 @@
   export default {
     components: {
       PiemeramBlogSharedPaginate,
-      PiemeramBlogSharedSort
+      PiemeramBlogSharedExcel,
+      PiemeramBlogSharedTh
     },
     mixins: [
       AxiosErrorHandler,

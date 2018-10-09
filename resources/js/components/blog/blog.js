@@ -12,6 +12,13 @@ window.Vue.filter('dateString', (value) => {
   return date.format('YYYY-MM-DD')
 })
 
+window.Vue.filter('highlight', function (text, search) {
+  if (!text || !search) return text
+
+  search = search.trim()
+  return text.replace(new RegExp(search, 'ig'), search => `<searchlight class="searchlight">${search}</searchlight>`)
+})
+
 window.blogBus = new window.Vue()
 
 const blog = new window.Vue({

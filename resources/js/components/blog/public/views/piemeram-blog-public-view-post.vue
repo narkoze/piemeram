@@ -23,7 +23,7 @@
               </a>
               <a
                 @click="copy($root.post.id)"
-                class="copy right"
+                class="copy is-pulled-right"
                 :title="$t('blog.public.views.blog-public-view-posts.copy')"
               >
                 <i class="fas fa-link"></i>
@@ -189,7 +189,7 @@
 
                       <span
                         v-if="mouseover === comment.id && ($root.auth && $root.auth.id === comment.author.id)"
-                        class="right"
+                        class="is-pulled-right"
                       >
                         <a
                           v-if="!disabled"

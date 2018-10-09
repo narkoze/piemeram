@@ -38,6 +38,11 @@ Route::group([
     Route::get('dashboard/comments', 'Api\Admin\DashboardController@comments');
     Route::get('dashboard/categories', 'Api\Admin\DashboardController@categories');
 
+    Route::get('category/excel', 'Api\Admin\CategoryController@excel');
+    Route::get('post/excel', 'Api\Admin\PostController@excel');
+    Route::get('user/excel', 'Api\Admin\UserController@excel');
+    Route::get('role/excel', 'Api\Admin\RoleController@excel');
+
     Route::resources([
         'dashboard' => 'Api\Admin\DashboardController',
         'category' => 'Api\Admin\CategoryController',

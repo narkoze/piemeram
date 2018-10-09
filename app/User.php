@@ -27,7 +27,11 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email',
+    ];
+
+    protected $appends = [
+        'email_masked',
     ];
 
     /**
@@ -77,5 +81,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new EmailVerificationNotification());
+    }
+
+    public function getEmailMaskedAttribute()
+    {
+        $parts = explode("@", $this->email);
+        $name = implode(array_slice($parts, 0, count($parts) -1), '@');
+        $len  = floor(strlen($name) / 2);
+
+        return substr($name, 0, $len) . str_repeat('*', $len) . "@" . end($parts);
     }
 }

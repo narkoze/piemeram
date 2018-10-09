@@ -17,11 +17,6 @@ class Post extends Model
         'content',
     ];
 
-    protected $casts = [
-        'published_at' => 'string',
-        'updated_at' => 'string',
-    ];
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

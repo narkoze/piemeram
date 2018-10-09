@@ -8,13 +8,33 @@
     <div class="columns is-desktop is-centered articles">
       <div class="column side">
         <div class="sticky">
-          <piemeram-blog-shared-categories
-            only="publishedPosts"
-            :filtering="disabled"
-            @selectedCategories="(categories) => { selectedCategories = categories }"
-            @filter="loadPosts"
-          >
-          </piemeram-blog-shared-categories>
+          <div  class="card">
+            <div class="card-content">
+              <piemeram-blog-shared-categories
+                only="publishedPosts"
+                :selected="params.categories"
+                @selected="categories => {
+                  params.categories = categories
+                  $root.categories = categories
+                }"
+              >
+              </piemeram-blog-shared-categories>
+
+              <a
+                @click="loadPosts"
+                class="button is-info"
+              >
+                {{ $t('blog.admin.views.blog-admin-view-posts.filter') }}
+              </a>
+
+              <a
+                @click="removeFilters"
+                class="button"
+              >
+                {{ $t('blog.admin.views.blog-admin-view-posts.removefilters') }}
+              </a>
+              </div>
+          </div>
         </div>
       </div>
 
@@ -162,7 +182,7 @@
     ],
     data: () => ({
       posts: [],
-      selectedCategories: []
+      params: {}
     }),
     created () {
       this.loadPosts()
@@ -177,16 +197,18 @@
       }
     },
     methods: {
+      removeFilters () {
+        this.params.categories = this.$root.categories = []
+        this.loadPosts()
+      },
       loadPosts () {
         this.disabled = true
         this.posts = []
 
-        let params = {}
-        if (this.$root.categories.length) params['categories'] = this.$root.categories
-        if (this.selectedCategories.length) params['categories'] = this.selectedCategories
+        if (this.$root.categories.length) this.params.categories = this.$root.categories
 
         axios
-          .get('blog/api/post', { params })
+          .get('blog/api/post', { params: this.params })
           .then(response => {
             this.disabled = false
 
@@ -195,6 +217,7 @@
             if (this.$root.anchor) {
               this.$nextTick(() => {
                 document.getElementById(this.$root.anchor).scrollIntoView()
+                this.$root.anchor = null
               })
             }
           })

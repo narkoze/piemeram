@@ -75,7 +75,7 @@
           <a
             v-if="post.id"
             @click="destroy"
-            :class="['button', 'is-danger', 'right', { 'is-loading': deleting }]"
+            :class="['button is-danger is-pulled-right', { 'is-loading': deleting }]"
             :disabled="disabled"
           >
             {{ $t('blog.admin.views.blog-admin-view-post.delete') }}
@@ -140,7 +140,7 @@
           :postCategories="post.categories"
           :actions="false"
           :disabled="disabled"
-          @selectedCategories="(categories) => { selectedCategories = categories }"
+          @selected="categories => { selectedCategories = categories }"
         >
         </piemeram-blog-shared-categories>
       </div>
@@ -307,25 +307,3 @@
     }
   }
 </script>
-
-<style>
-  .mce-tinymce.mce-container.mce-panel {
-    border-color: #dbdbdb;
-    border-radius: 4px;
-  }
-  .mce-tinymce.mce-container.mce-panel:hover {
-    border-color: #b5b5b5;
-  }
-  .mce-container {
-    border-radius: 4px;
-  }
-  .mce-container-body {
-    border-radius: 4px;
-  }
-  .mce-stack-layout-item {
-    border: none !important;
-  }
-  .mce-btn {
-    border: none !important;
-  }
-</style>

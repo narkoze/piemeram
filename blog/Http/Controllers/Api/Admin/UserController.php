@@ -2,73 +2,67 @@
 
 namespace Blog\Http\Controllers\Api\Admin;
 
+use Blog\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Blog\Services\Excel;
 use Piemeram\User;
 
 class UserController extends Controller
 {
-    protected $defaultParams = [
-        'sortBy' => 'name',
-        'sortDirection' => 'asc',
-    ];
-
-    public function index(Request $request)
+    public function index(UserRepository $userRepo, Request $request)
     {
-        $params = $request->all() + $this->defaultParams;
+        $params = $request->all() + $userRepo->params();
 
-        $users = $this->query($params)->paginate(15);
-
-        $users->setCollection($users->getCollection()
-            ->map(function ($user) {
-                $parts = explode("@", $user->email);
-                $name = implode(array_slice($parts, 0, count($parts) -1), '@');
-                $len  = floor(strlen($name) / 2);
-
-                $user->email = substr($name, 0, $len) . str_repeat('*', $len) . "@" . end($parts);
-                return $user;
-            }
-        ));
+        if ($request->all) {
+            $users = $userRepo->users($params)->get();
+        } else {
+            $users = $userRepo->users($params)->paginate(20);
+        }
 
         return response()->json(compact('users', 'params'));
     }
 
-    public function update(Request $request, User $user)
-    {
+    public function update(
+        UserRepository $userRepo,
+        Request $request,
+        User $user
+    ) {
         $user->blogRole()->associate($request->blogRole);
         $user->save();
 
-        $user = $this->query()
-            ->whereId($user->id)
-            ->firstOrFail();
+        $user = $userRepo->users()->whereId($user->id)->firstOrFail();
 
         return response()->json(compact('user', 'params'));
     }
 
-    protected function query($params = [])
+    public function excel(UserRepository $userRepo, Request $request)
     {
-        $query = User::select([
-            'users.id',
-            'users.name',
-            'email',
-            'blog_role_id',
-        ])
-            ->with('blogRole:id,name,description')
-            ->withCount('blogPosts')
-            ->withCount('blogComments');
+        $title = trans('blog/admin/views/blog-admin-view-users.title');
 
-        if (isset($params['sortBy']) and isset($params['sortDirection'])) {
-            if ($params['sortBy'] == 'blog_roles.name') {
-                $query->leftJoin('blog_roles', 'blog_roles.id', '=', 'users.blog_role_id');
-            }
+        $headings = [
+            trans('blog/admin/views/blog-admin-view-users.name') => null,
+            trans('blog/admin/views/blog-admin-view-users.email') => null,
+            trans('blog/admin/views/blog-admin-view-users.role') => null,
+            trans('blog/admin/views/blog-admin-view-users.posts') => [
+                'format' => 'number',
+            ],
+            trans('blog/admin/views/blog-admin-view-users.comments') => [
+                'format' => 'number',
+            ],
+        ];
 
-            $sortDirection  = strtolower($params['sortDirection'] == 'asc' ? 'asc' : 'desc');
-            if ($params['sortBy'] == 'name') {
-                $query->orderByRaw("unaccent(users.name) $sortDirection");
-            } else {
-                $query->orderBy($params['sortBy'], $sortDirection);
-            }
-        }
+        $data = $userRepo->users($request->all() + $userRepo->params())
+            ->get()
+            ->transform(function ($user) {
+                return [
+                    $user->name,
+                    $user->emailMasked,
+                    $user->blogRole->name ?? trans('blog/admin/views/blog-admin-view-users.user'),
+                    $user->blog_posts_count,
+                    $user->blog_comments_count,
+                ];
+            });
 
-        return $query;
+        return (new Excel($title, $headings, $data))->download("$title.xlsx");
     }
 }

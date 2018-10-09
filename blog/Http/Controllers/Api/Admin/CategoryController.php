@@ -2,16 +2,13 @@
 
 namespace Blog\Http\Controllers\Api\Admin;
 
+use Blog\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
+use Blog\Services\Excel;
 use Blog\Category;
 
 class CategoryController extends Controller
 {
-    protected $defaultParams = [
-        'sortBy' => 'name',
-        'sortDirection' => 'asc',
-    ];
-
     protected $rules = [
         'name' => [
             'required',
@@ -19,27 +16,11 @@ class CategoryController extends Controller
         ],
     ];
 
-    public function index(Request $request)
+    public function index(CategoryRepository $catRepo, Request $request)
     {
-        $params = $request->all() + $this->defaultParams;
+        $params = $request->all() + $catRepo->params();
 
-        $query = Category::select([
-            'blog_categories.id',
-            'name'
-        ])
-            ->selectRaw('
-                sum(case when blog_posts.published_at is not null then 1 else 0 end) as published_posts_count,
-                sum(case when blog_posts.id is not null and blog_posts.published_at is null then 1 else 0 end) as draft_posts_count,
-                sum(case when blog_posts.id is not null then 1 else 0 end) as total
-            ')
-            ->leftJoin('blog_category_post', 'blog_category_post.category_id', '=', 'blog_categories.id')
-            ->leftJoin('blog_posts', 'blog_posts.id', '=', 'blog_category_post.post_id')
-            ->groupBy([
-                'blog_categories.id',
-                'name',
-            ])->orderBy($params['sortBy'], $params['sortDirection']);
-
-        $categories = $query->paginate(9);
+        $categories = $catRepo->categories($params)->paginate(10);
 
         return response()->json(compact('categories', 'params'));
     }
@@ -93,5 +74,34 @@ class CategoryController extends Controller
         $category->delete();
 
         return response()->json();
+    }
+
+    public function excel(CategoryRepository $catRepo, Request $request)
+    {
+        $params = $request->all() + $catRepo->params();
+
+        $title = trans('blog/admin/views/blog-admin-view-categories.title');
+
+        $headings = [
+            trans('blog/admin/views/blog-admin-view-categories.category') => null,
+            trans('blog/admin/views/blog-admin-view-categories.posts') => [
+                'format' => 'number',
+            ],
+            trans('blog/admin/views/blog-admin-view-categories.drafts') => [
+                'format' => 'number',
+            ],
+        ];
+
+        $data = $catRepo->categories($params)
+            ->get()
+            ->transform(function ($category) {
+                return [
+                    $category->name,
+                    $category->published_posts_count,
+                    $category->draft_posts_count,
+                ];
+            });
+
+        return (new Excel($title, $headings, $data))->download("$title.xlsx");
     }
 }

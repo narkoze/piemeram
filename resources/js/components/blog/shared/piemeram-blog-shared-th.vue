@@ -18,6 +18,12 @@
         </i>
       </span>
     </a>
+
+    <i
+      v-if="filtered"
+      class="fas fa-filter fa-xs"
+    >
+    </i>
   </th>
 </template>
 
@@ -27,7 +33,8 @@
       'column',
       'sort',
       'direction',
-      'disabled'
+      'disabled',
+      'filtered',
     ]
   }
 </script>

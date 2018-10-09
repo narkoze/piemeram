@@ -12,4 +12,12 @@ return [
   'preview' => 'Preview',
   'categories' => 'Categories',
   'draft' => 'Draft',
+  'filter' => 'Filter',
+  'removefilters' => 'Remove filters',
+  'datefrom' => 'Date from',
+  'dateto' => 'Date to',
+  'search' => 'Search',
+  'status' => 'Status',
+  'published' => 'Published',
+  'draft' => 'Draft',
 ];
