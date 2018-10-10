@@ -9,6 +9,7 @@ class RoleRepository
     public function params(): array
     {
         return [
+            'search' => '',
             'sortBy' => 'name',
             'sortDirection' => 'asc',
         ];
@@ -25,6 +26,14 @@ class RoleRepository
         ])
             ->withCount('users')
             ->orderBy($params['sortBy'], $params['sortDirection']);
+
+        $search = trim($params['search']);
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->whereRaw("name ILIKE ?", "%$search%")
+                    ->orWhereRaw("description ILIKE ?", "%$search%");
+            });
+        }
 
         return $query;
     }

@@ -9,6 +9,7 @@ class CategoryRepository
     public function params(): array
     {
         return [
+            'search' => '',
             'sortBy' => 'name',
             'sortDirection' => 'asc',
         ];
@@ -33,6 +34,11 @@ class CategoryRepository
                 'blog_categories.id',
                 'name',
             ])->orderBy($params['sortBy'], $params['sortDirection']);
+
+        $search = trim($params['search']);
+        if ($search) {
+            $query->whereRaw("name ILIKE ?", "%$search%");
+        }
 
         return $query;
     }

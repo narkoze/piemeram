@@ -2,121 +2,154 @@
   <div>
     <h1 class="title">
       {{ $t('blog.admin.views.blog-admin-view-categories.title') }}
-      <i  v-if="categoriesLoading && !sorting && !pageChanging" class="fas fa-spinner fa-pulse"></i>
+      <i
+        v-if="categoriesLoading"
+        class="fas fa-spinner fa-pulse"
+      >
+      </i>
     </h1>
 
-    <div class="field">
-      <input
-        v-model="category.name"
-        type="text"
-        ref="name"
-        :class="['input', 'is-medium', { 'is-danger': errors.name }]"
-        :placeholder="$t('blog.admin.views.blog-admin-view-categories.name')"
-        :disabled="disabled"
-      >
-      <p v-if="errors.name" class="help is-danger">{{ errors.name.join() }}</p>
-    </div>
+    <div class="columns">
+      <div class="column is-3">
+        <div class="sticky is-marginless">
+          <div class="field">
+            <label>
+              {{ category.id ? $t('blog.admin.views.blog-admin-view-categories.editcategory') : $t('blog.admin.views.blog-admin-view-categories.newcategory') }}
+              <input
+                v-model="category.name"
+                type="text"
+                ref="name"
+                :class="['input', { 'is-danger': errors.name }]"
+                :placeholder="$t('blog.admin.views.blog-admin-view-categories.name')"
+                :disabled="disabled"
+              >
+            </label>
+            <p v-if="errors.name" class="help is-danger">{{ errors.name.join() }}</p>
+          </div>
 
-    <div class="field">
-      <a
-        v-if="category.id"
-        @click="edit"
-        :class="['button', 'is-info', { 'is-loading': disabled }]"
-        :disabled="disabled"
-      >
-        {{ $t('blog.admin.views.blog-admin-view-categories.edit') }}
-      </a>
-
-      <a
-        v-if="category.id"
-        @click="cancel"
-        class="button"
-        :disabled="disabled"
-      >
-        {{ $t('blog.admin.views.blog-admin-view-categories.canceledit') }}
-      </a>
-
-      <a
-        v-else
-        @click="add"
-        :class="['button', 'is-info', { 'is-loading': disabled }]"
-        :disabled="disabled"
-      >
-        {{ $t('blog.admin.views.blog-admin-view-categories.add') }}
-      </a>
-    </div>
-
-    <div class="is-overflow-hidden">
-      <piemeram-blog-shared-excel
-        url="blog/api/admin/category/excel"
-        :params="params"
-        class="is-pulled-right"
-      >
-      </piemeram-blog-shared-excel>
-    </div>
-
-    <div class="scrollable">
-      <table class="table is-striped is-narrow is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <piemeram-blog-shared-th
-              column="name"
-              :sort="params.sortBy"
-              :direction="params.sortDirection"
-              :disabled="sorting"
-              @changed="sort"
+          <div class="field">
+            <a
+              v-if="category.id"
+              @click="edit"
+              :class="['button', 'is-info', { 'is-loading': disabled }]"
+              :disabled="disabled"
             >
-              {{ $t('blog.admin.views.blog-admin-view-categories.category') }}
-            </piemeram-blog-shared-th>
-            <piemeram-blog-shared-th
-              column="total"
-              :sort="params.sortBy"
-              :direction="params.sortDirection"
-              :disabled="sorting"
-              @changed="sort"
-              class="has-text-right"
-            >
-              {{ $t('blog.admin.views.blog-admin-view-categories.postsdrafts') }}
-            </piemeram-blog-shared-th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="category in categories.data"
-            :key="category.id"
-            @mouseover="mouseover = category.id"
-            @mouseout="mouseover = null"
-          >
-            <td>
-              <a @click="(disabled || deleting) || setCategory(category)">
-                <b>{{ category.name }}</b>
-              </a>
+              {{ $t('blog.admin.views.blog-admin-view-categories.edit') }}
+            </a>
 
-              <div v-if="mouseover === category.id">
-                <a @click="(disabled || deleting) || setCategory(category)">
-                  <small>{{ $t('blog.admin.views.blog-admin-view-categories.edit') }}</small>
-                </a>
-                <span class="link-divider">|</span>
-                <a @click="(disabled || deleting) || destroyCategory(category)">
-                  <small>{{ $t('blog.admin.views.blog-admin-view-categories.delete') }}</small>
-                </a>
+            <a
+              v-if="category.id"
+              @click="cancel"
+              class="button"
+              :disabled="disabled"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-categories.canceledit') }}
+            </a>
+
+            <a
+              v-else
+              @click="add"
+              :class="['button', 'is-info', { 'is-loading': disabled }]"
+              :disabled="disabled"
+            >
+              {{ $t('blog.admin.views.blog-admin-view-categories.add') }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="columns is-marginless-bottom">
+          <div class="column">
+            <div class="field">
+              <label>{{ $t('blog.admin.views.blog-admin-view-categories.search') }}
+                <input
+                  :value="params.search"
+                  @input="search"
+                  type="text"
+                  class="input"
+                >
+              </label>
+            </div>
+          </div>
+          <div class="column is-2">
+            <label>&nbsp;
+              <div class="field">
+                <piemeram-blog-shared-excel
+                  url="blog/api/admin/category/excel"
+                  :params="params"
+                  class="is-pulled-right"
+                >
+                </piemeram-blog-shared-excel>
               </div>
-              <div v-else>&nbsp;</div>
-            </td>
-            <td class="has-text-right">
-              {{ category.published_posts_count }} / {{ category.draft_posts_count }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </label>
+          </div>
+        </div>
+
+        <div class="scrollable">
+          <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <piemeram-blog-shared-th
+                  column="name"
+                  :sort="params.sortBy"
+                  :direction="params.sortDirection"
+                  :disabled="sorting"
+                  @changed="sort"
+                >
+                  {{ $t('blog.admin.views.blog-admin-view-categories.category') }}
+                </piemeram-blog-shared-th>
+                <piemeram-blog-shared-th
+                  column="total"
+                  :sort="params.sortBy"
+                  :direction="params.sortDirection"
+                  :disabled="sorting"
+                  @changed="sort"
+                  class="has-text-right"
+                >
+                  {{ $t('blog.admin.views.blog-admin-view-categories.postsdrafts') }}
+                </piemeram-blog-shared-th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="category in categories.data"
+                :key="category.id"
+                @mouseover="mouseover = category.id"
+                @mouseout="mouseover = null"
+              >
+                <td>
+                  <a @click="(disabled || deleting) || setCategory(category)">
+                    <b v-html="$options.filters.highlight(category.name, params.search)"></b>
+                  </a>
+
+                  <div v-if="mouseover === category.id">
+                    <a @click="(disabled || deleting) || setCategory(category)">
+                      <small>{{ $t('blog.admin.views.blog-admin-view-categories.edit') }}</small>
+                    </a>
+                    <span class="link-divider">|</span>
+                    <a @click="(disabled || deleting) || destroyCategory(category)">
+                      <small>{{ $t('blog.admin.views.blog-admin-view-categories.delete') }}</small>
+                    </a>
+                  </div>
+                  <div v-else>&nbsp;</div>
+                </td>
+                <td class="has-text-right">
+                  {{ category.published_posts_count }} / {{ category.draft_posts_count }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <piemeram-blog-shared-paginate
+          :paginator="categories"
+          :changing="pageChanging"
+          @changed="setPage"
+        >
+        </piemeram-blog-shared-paginate>
+      </div>
     </div>
-    <br>
-    <piemeram-blog-shared-paginate
-      :paginator="categories"
-      :changing="pageChanging"
-      @changed="setPage"
-    >
-    </piemeram-blog-shared-paginate>
   </div>
 </template>
 
@@ -126,6 +159,7 @@
   import PiemeramBlogSharedTh from '../../shared/piemeram-blog-shared-th.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import SortHandler from '../../../mixins/SortHandler'
+  import debounce from 'lodash/debounce'
   import axios from 'axios'
 
   export default {
@@ -181,6 +215,10 @@
           })
           .catch(this.handleAxiosError)
       },
+      search: debounce(function (e) {
+        this.params.search = e.target.value
+        this.loadCategories()
+      }, 500),
       loadCategories (page = 1) {
         this.categoriesLoading = true
         this.params.page = page

@@ -100,7 +100,7 @@
       </div>
 
       <div class="column">
-        <div class="columns">
+        <div class="columns is-marginless-bottom">
           <div class="column">
             <div class="field">
               <label>{{ $t('blog.admin.views.blog-admin-view-posts.search') }}

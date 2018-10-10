@@ -15,4 +15,7 @@ return [
   'posts' => 'Posts',
   'drafts' => 'Drafts',
   'canceledit' => 'Cancel',
+  'newcategory' => 'Add new category',
+  'editcategory' => 'Edit category',
+  'search' => 'Search',
 ];

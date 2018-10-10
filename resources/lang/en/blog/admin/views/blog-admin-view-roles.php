@@ -14,4 +14,7 @@ return [
   'confirm' => 'Delete ":name"?',
   'usercount' => 'Users',
   'canceledit' => 'Cancel',
+  'newrole' => 'Add new role',
+  'editrole' => 'Edit role',
+  'search' => 'Search',
 ];

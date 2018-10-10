@@ -26,7 +26,7 @@ class RoleController extends Controller
         if ($request->all) {
             $roles = $query->get();
         } else {
-            $roles = $query->paginate(10);
+            $roles = $query->paginate(20);
         }
 
         return response()->json(compact('roles', 'params'));

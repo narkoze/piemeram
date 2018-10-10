@@ -15,4 +15,7 @@ return [
   'posts' => 'Ziņas',
   'drafts' => 'Melnraksti',
   'canceledit' => 'Atcelt',
+  'newcategory' => 'Pievienot jaunu kategoriju',
+  'editcategory' => 'Labot kategoriju',
+  'search' => 'Meklēt',
 ];

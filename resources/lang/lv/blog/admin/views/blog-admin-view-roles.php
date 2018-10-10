@@ -14,4 +14,7 @@ return [
   'confirm' => 'Dzēst ":name"?',
   'usercount' => 'Lietotāji',
   'canceledit' => 'Atcelt',
+  'newrole' => 'Pievienot jaunu lomu',
+  'editrole' => 'Labot lomu',
+  'search' => 'Meklēt',
 ];

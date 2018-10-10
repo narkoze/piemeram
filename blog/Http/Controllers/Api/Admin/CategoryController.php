@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
         $params = $request->all() + $catRepo->params();
 
-        $categories = $catRepo->categories($params)->paginate(10);
+        $categories = $catRepo->categories($params)->paginate(20);
 
         return response()->json(compact('categories', 'params'));
     }
