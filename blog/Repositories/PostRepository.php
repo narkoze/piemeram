@@ -58,7 +58,11 @@ class PostRepository
 
         $search = trim($params['search']);
         if ($search) {
-            $query->whereRaw("title ILIKE ?", "%$search%");
+            $query->where(function ($query) use ($search) {
+                $query->whereRaw("title ILIKE ?", "%$search%")
+                    ->orWhereRaw("content ILIKE ?", "%$search%");
+            });
+
         }
 
         switch ($params['status']) {

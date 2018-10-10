@@ -33,10 +33,7 @@ class UserRepository
 
         $search = trim($params['search']);
         if ($search) {
-            $query->where(function ($query) use ($search) {
-                $query->whereRaw("unaccent(users.name) ILIKE unaccent(?)", "%$search%")
-                ->orWhereRaw("unaccent(users.email) ILIKE unaccent(?)", "%$search%");
-            });
+            $query->whereRaw("unaccent(users.name) ILIKE unaccent(?)", "%$search%");
         }
 
         if ($params['sortBy'] == 'blog_roles.name') {

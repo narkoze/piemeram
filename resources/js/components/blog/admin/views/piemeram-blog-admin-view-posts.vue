@@ -28,12 +28,40 @@
 
           <div class="field">
             <label>{{ $t('blog.admin.views.blog-admin-view-posts.status') }}
-              <div class="select">
-                <select v-model="params.status">
-                  <option :value="null"></option>
-                  <option value="published">{{ $t('blog.admin.views.blog-admin-view-posts.published') }}</option>
-                  <option value="draft">{{ $t('blog.admin.views.blog-admin-view-posts.draft') }}</option>
-                </select>
+              <div
+                ref="dropdown"
+                :class="['dropdown', { 'is-active': dropdownStatusIsActive }]"
+              >
+                <div class="dropdown-trigger">
+                  <button
+                    @click="dropdownStatusIsActive = !dropdownStatusIsActive"
+                    class="button"
+                  >
+                    <span
+                      v-if="$te(`blog.admin.views.blog-admin-view-posts.${params.status}`) && !dropdownStatusIsActive"
+                    >
+                      {{ $t(`blog.admin.views.blog-admin-view-posts.${params.status}`) }}
+                    </span>
+                    <span class="icon">
+                      <i class="fas fa-angle-down fa-lg"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    <a
+                      v-for="status in [
+                        'published',
+                        'draft',
+                      ]"
+                      :key="status"
+                      :class="['dropdown-item', { 'is-active': params.status === status }]"
+                      @click="params.status === status ? params.status = null : params.status = status"
+                    >
+                      {{ $te(`blog.admin.views.blog-admin-view-posts.${status}`) ? $t(`blog.admin.views.blog-admin-view-posts.${status}`) : '' }}
+                    </a>
+                  </div>
+                </div>
               </div>
             </label>
           </div>
@@ -294,12 +322,20 @@
       pageChanging: false,
       filteredByDate: false,
       filteredByAuthor: false,
-      filteredByCategories: false
+      filteredByCategories: false,
+      dropdownStatusIsActive: false
     }),
     created () {
       this.loadPosts()
+
+      window.addEventListener('click', this.closeDropDowns)
     },
     methods: {
+      closeDropDowns (e) {
+        if (!this.$refs.dropdown.contains(e.target)) {
+          this.dropdownStatusIsActive = false
+        }
+      },
       sort (by) {
         this.sorting = true
 
@@ -352,6 +388,9 @@
             this.handleAxiosError(error)
           })
       }
+    },
+    beforeDestroy () {
+      window.removeEventListener('click', this.closeDropDowns)
     }
   }
 </script>
