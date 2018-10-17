@@ -23,7 +23,6 @@
       body {
         font-family:"Roboto";
         font-size: 14px;
-        line-height: 12.2px;
       }
       img.profile {
         width: 180px;
@@ -274,87 +273,6 @@
           @lang('about.index.passiveinfo')
           <br>
           @lang('about.index.workorganization')
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="6">
-          <h2>@lang('about.index.futureworkrequirements')</h2>
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.desiredworkingtime')</td>
-        <td colspan="5">
-          @lang('about.index.fulltime')
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.location')</td>
-        <td colspan="5">
-          Liepāja
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.canstartwork')</td>
-        <td colspan="5">
-          @lang('about.index.byagreement')
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.monthlysalary')</td>
-        <td colspan="5">
-          @lang('about.index.aboutsalary', ['euro' => '750.00'])
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="6">
-          <h2>@lang('about.index.drivinglicense')</h2>
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.category')</td>
-        <td colspan="5">
-          B ({{ $driving }} @lang('about.index.years'))
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="6">
-          <h2>@lang('about.index.addinfo')</h2>
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.personalcharacteristics')</td>
-        <td colspan="5">
-          @lang('about.index.aboutpersonalcharacteristics')
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.pluses')</td>
-        <td colspan="5">
-          @lang('about.index.aboutpluses')
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.flaws')</td>
-        <td colspan="5">
-          @lang('about.index.aboutflaws')
-        </td>
-      </tr>
-
-      <tr>
-        <td>@lang('about.index.interestshobbies')</td>
-        <td colspan="5">
-          @lang('about.index.aboutinterestshobbies')
         </td>
       </tr>
     </table>

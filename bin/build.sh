@@ -4,6 +4,8 @@ cd "$(dirname $0)/.."
 
 composer install
 
+php artisan vue-i18n:generate
+
 yarn
 yarn run dev
 
