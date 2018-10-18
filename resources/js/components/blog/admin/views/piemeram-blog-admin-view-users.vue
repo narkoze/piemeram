@@ -2,7 +2,11 @@
   <div>
     <h1 class="title">
       {{ $t('blog.admin.views.blog-admin-view-users.title') }}
-      <i v-if="usersLoading && !sorting && !pageChanging" class="fas fa-spinner fa-pulse"></i>
+      <i
+        v-if="usersLoading"
+        class="fas fa-spinner fa-pulse"
+      >
+      </i>
     </h1>
 
     <div class="is-overflow-hidden">
@@ -14,7 +18,7 @@
       </piemeram-blog-shared-excel>
     </div>
 
-    <div class="scrollable">
+    <div class="is-scrollable">
       <table class="table is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>

@@ -37,6 +37,12 @@
     >
       {{ $t('blog.admin.blog-admin-menu.categories') }}
     </a>
+    <a
+      @click="images"
+      :class="{ 'is-active': $root.activeSection === 'admin-view-images' }"
+    >
+      {{ $t('blog.admin.blog-admin-menu.images') }}
+    </a>
   </div>
 </template>
 

@@ -74,7 +74,7 @@
           </div>
           <div class="column is-2">
             <label>&nbsp;
-              <div class="field">
+              <div class="field is-clearfix">
                 <piemeram-blog-shared-excel
                   url="blog/api/admin/category/excel"
                   :params="params"
@@ -86,7 +86,7 @@
           </div>
         </div>
 
-        <div class="scrollable">
+        <div class="is-scrollable">
           <table class="table is-striped is-narrow is-hoverable is-fullwidth">
             <thead>
               <tr>

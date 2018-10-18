@@ -27,12 +27,11 @@
       downloadExcel () {
         this.disabled = true
 
-        axios({
-          method: 'get',
-          url: this.url,
-          responseType: 'blob',
-          params: this.params
-        })
+        axios
+          .get(this.url, {
+            params: this.params,
+            responseType: 'blob'
+          })
           .then(response => {
             this.disabled = false
 

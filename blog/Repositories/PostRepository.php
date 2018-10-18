@@ -79,7 +79,7 @@ class PostRepository
         }
 
         if ($params['to']) {
-            $to = Carbon::parse($params['from'])->toDateString();
+            $to = Carbon::parse($params['to'])->toDateString();
             $query->whereRaw('COALESCE(published_at::date, blog_posts.updated_at::date) <= ?', $to);
         }
 

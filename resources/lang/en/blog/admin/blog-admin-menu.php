@@ -10,4 +10,5 @@ return [
   'post' => 'New post',
   'categories' => 'Categories',
   'dashboard' => 'Dashboard',
+  'images' => 'Images',
 ];

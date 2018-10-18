@@ -6,7 +6,7 @@
     >
     </div>
 
-    <div class="modal-card">
+    <div :class="['modal-card', size]">
       <section class="modal-card-body">
         <slot></slot>
       </section>
@@ -19,3 +19,14 @@
     </button>
   </div>
 </template>
+
+<script>
+  export default {
+    props: {
+      size: {
+        type: String,
+        default: ''
+      }
+    }
+  }
+</script>

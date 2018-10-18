@@ -49,5 +49,6 @@ Route::group([
         'post' => 'Api\Admin\PostController',
         'user' => 'Api\Admin\UserController',
         'role' => 'Api\Admin\RoleController',
+        'image' => 'Api\Admin\ImageController',
     ]);
 });

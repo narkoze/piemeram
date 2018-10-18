@@ -19,6 +19,27 @@ window.Vue.filter('highlight', function (text, search) {
   return text.replace(new RegExp(search, 'ig'), search => `<searchlight class="searchlight">${search}</searchlight>`)
 })
 
+window.Vue.filter('filesize', function (size) {
+  if (!size) return null
+
+  let sizes = [
+    'bytes',
+    'KB',
+    'MB',
+  ]
+
+  let bytes = parseInt(Math.floor(Math.log(size) / Math.log(1024)))
+  if (!bytes) return `${size} ${sizes[bytes]}`
+
+  return (size / Math.pow(1024, bytes)).toFixed(1) + ` ${sizes[bytes]}`
+})
+
+window.Vue.filter('filename', function (name) {
+  if (!name) return ''
+
+  return name.replace(/\.[^/.]+$/, '')
+})
+
 window.blogBus = new window.Vue()
 
 const blog = new window.Vue({

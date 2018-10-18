@@ -2,6 +2,7 @@
 /.vscode
 /node_modules
 /public/fonts/vendor
+/public/images/vendor
 /public/mix-manifest.json
 /resources/js/vue-i18n-locales.generated.js
 /storage/*.key

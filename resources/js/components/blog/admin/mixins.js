@@ -46,6 +46,13 @@ export default {
         this.$root.showView = 'admin-view-categories'
         this.$root.activeSection = 'admin-view-categories'
       })
+    },
+    images () {
+      this.reset()
+      this.$nextTick(() => {
+        this.$root.showView = 'admin-view-images'
+        this.$root.activeSection = 'admin-view-images'
+      })
     }
   }
 }

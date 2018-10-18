@@ -10,4 +10,5 @@ return [
   'post' => 'Jauna ziņa',
   'categories' => 'Kategorijas',
   'dashboard' => 'Informācija',
+  'images' => 'Attēli',
 ];

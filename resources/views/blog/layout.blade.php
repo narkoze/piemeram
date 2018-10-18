@@ -18,6 +18,7 @@
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ mix('css/blog.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/font-awesome-animation.min.css') }}" />
   </head>
   <body class="has-navbar-fixed-top">
     <div class="notification"></div>
