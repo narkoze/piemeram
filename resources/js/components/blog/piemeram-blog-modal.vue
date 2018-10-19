@@ -6,7 +6,7 @@
     >
     </div>
 
-    <div :class="['modal-card', size]">
+    <div :class="['modal-content', size]">
       <section class="modal-card-body">
         <slot></slot>
       </section>
@@ -27,6 +27,12 @@
         type: String,
         default: ''
       }
+    },
+    mounted () {
+      document.getElementsByTagName('html')[0].classList.add('is-modal-active')
+    },
+    beforeDestroy () {
+      document.getElementsByTagName('html')[0].classList.remove('is-modal-active')
     }
   }
 </script>
