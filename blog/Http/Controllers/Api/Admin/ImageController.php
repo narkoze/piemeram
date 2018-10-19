@@ -41,21 +41,6 @@ class ImageController extends Controller
 
         $img = Img::make(storage_path("app/public/$image->filename"))->orientate();
 
-        $imgSize = getimagesize(storage_path("app/public/$image->filename"));
-        $image->width = $imgSize[0];
-        $image->height = $imgSize[1];
-
-        $type = null;
-        switch ($imgSize['mime']) {
-            case "image/gif": $type = 'GIF'; break;
-            case "image/jpeg": $type = 'JPEG'; break;
-            case "image/png": $type = 'PNG'; break;
-            case "image/bmp": $type = 'BMP'; break;
-        }
-        if ($type) {
-            $image->type = $type;
-        }
-
         $exif = $img->exif();
         if ($exif) {
             $model = [];
@@ -69,8 +54,11 @@ class ImageController extends Controller
                 $image->model = implode(" ", $model);
             }
         }
-        $image->save();
 
+        Storage::disk('public')->put(
+            "blog/original/$image->filename",
+            (string) $img->stream()
+        );
         Storage::disk('public')->put(
             "blog/medium/$image->filename",
             (string) $img->fit(640, 360)->stream()
@@ -81,7 +69,23 @@ class ImageController extends Controller
         );
         $img->destroy();
 
-        Storage::disk('public')->move($image->filename, "blog/original/$image->filename");
+        Storage::disk('public')->delete($image->filename);
+
+        $imgSize = getimagesize(storage_path("app/public/blog/original/$image->filename"));
+        $image->width = $imgSize[0];
+        $image->height = $imgSize[1];
+
+        $type = null;
+        switch ($imgSize['mime']) {
+            case "image/gif": $type = 'GIF'; break;
+            case "image/jpeg": $type = 'JPEG'; break;
+            case "image/png": $type = 'PNG'; break;
+            case "image/bmp": $type = 'BMP'; break;
+        }
+        if ($type) {
+            $image->type = $type;
+        }
+        $image->save();
 
         return response()->json($image->json());
     }
