@@ -116,7 +116,7 @@ html.is-modal-active {
 }
 
 .card-content.image-content {
-  padding: 0.5rem;
+  padding: 0;
 }
 
 .sticky {
@@ -233,12 +233,13 @@ aside.menu {
 
 @import "components/message";
 @import "components/modal";
-@media screen and (min-width: 769px), print {
-  .modal-content,
-  .modal-card {
-    margin: 0 auto;
-    max-height: calc(100vh - 70px);
-  }
+.modal-content,
+.modal-card {
+  margin: 0 20px;
+  max-height: calc(100vh - 118px);
+  overflow: auto;
+  position: relative;
+  width: 100%;
 }
 
 .modal.is-active {
@@ -312,11 +313,11 @@ $navbar-burger-color: red;
 @import "elements/icon";
 @import "elements/image";
 .image:hover {
-  -webkit-filter: brightness(85%);
-  -moz-filter: brightness(85%);
-  -o-filter: brightness(85%);
-  -ms-filter: brightness(85%);
-  filter: brightness(85%);
+  -webkit-filter: brightness(50%);
+  -moz-filter: brightness(50%);
+  -o-filter: brightness(50%);
+  -ms-filter: brightness(50%);
+  filter: brightness(50%);
 }
 
 .image.small {
@@ -791,4 +792,24 @@ a.anchor {
 
 .input-image {
   border: none;
+}
+
+.is-image-button {
+  position: absolute;
+  z-index: 1;
+  right: 4px;
+  top: 4px;
+}
+
+.is-image-success {
+  position: absolute;
+  z-index: 1;
+  left: 4px;
+  top: 4px;
+  pointer-events: none;
+}
+
+i.fas.fa-image-loader {
+  margin-top: 7px;
+  margin-right: 0;
 }

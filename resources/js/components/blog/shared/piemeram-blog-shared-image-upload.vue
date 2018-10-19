@@ -41,36 +41,36 @@
           :key="i"
           class="column is-one-quarter"
         >
-          <div
-            @mouseover="mouseover = i"
-            @mouseout="mouseover = null"
-            class="card"
-          >
+          <div class="card">
             <div class="card-content image-content">
-              <div style="height: 24px">
-                {{ parseInt(i) + 1 }}
+              <div>
 
                 <a
-                  v-if="!image.uploaded && image.uploading"
-                  @click="cancelUpload"
-                  :title="$t('blog.shared.blog-shared-image-upload.cancel')"
-                  class="has-text-danger is-pulled-right"
+                  v-if="!image.uploading"
+                  @click="removeImage(i)"
+                  :title="$t('blog.shared.blog-shared-image-upload.remove')"
+                  class="has-text-grey-light is-image-button"
                 >
-                  <i class="far fa-stop-circle fa-lg is-marginless"></i>
+                  <i
+                    v-if="image.src"
+                    class="far fa-times-circle fa-lg"
+                  >
+                  </i>
+                  <i v-else class="fas fa-spinner fa-pulse fa-lg fa-image-loader"></i>
                 </a>
 
                 <a
-                  v-if="!image.uploading && mouseover === i"
-                  @click="removeImage(i)"
-                  :title="$t('blog.shared.blog-shared-image-upload.remove')"
-                  class="has-text-danger is-pulled-right"
+                  v-if="image.uploading && !image.uploaded"
+                  @click="cancelUpload"
+                  :title="$t('blog.shared.blog-shared-image-upload.cancel')"
+                  class="has-text-danger is-image-button"
                 >
-                  <i class="fas fa-times fa-lg is-marginless"></i>
+                  <i class="far fa-stop-circle fa-lg"></i>
                 </a>
 
                 <i
-                  v-if="image.uploaded && mouseover !== i"
-                  class="fas fa-check has-text-primary is-pulled-right"
+                  v-if="image.uploaded"
+                  class="fas fa-check has-text-primary is-image-success fa-lg is-marginless"
                 >
                 </i>
               </div>
@@ -81,7 +81,7 @@
                 class="image zoom-in"
               >
 
-              <p v-if="image.image.size > 5242880" class="help is-danger is-marginless">
+              <p v-if="image.src && image.image.size > 5242880" class="help is-danger is-marginless">
                 {{ $t('blog.shared.blog-shared-image-upload.istoolarge') }}
               </p>
 
@@ -149,6 +149,7 @@
   import AxiosErrorHandler from '../../mixins/AxiosErrorHandler'
   import PiemeramBlogModal from '../piemeram-blog-modal.vue'
   import axios from 'axios'
+  import exif from 'exif-js'
 
   export default {
     components: {
@@ -162,7 +163,6 @@
       images: [],
       imagePreviewIndex: 0,
       showPhotoswipe: false,
-      mouseover: null,
       isOver: false,
       cancel: null,
       w: null
@@ -193,12 +193,9 @@
           if (!file.size) return
           if (!file.type.match('image.*')) return
 
-          let src = URL.createObjectURL(file)
-
           let image = {
             name: this.$options.filters.filename(file.name),
             image: file,
-            src: src,
             progressValue: 0,
             progressLoaded: null,
             uploading: false,
@@ -207,17 +204,34 @@
             errors: {}
           }
 
+          this.$set(image, 'src', null)
           this.$set(image, 'width', 0)
           this.$set(image, 'height', 0)
 
           this.images.push(image)
 
-          let img = new Image()
-          img.onload = () => {
-            image.width = img.width
-            image.height = img.height
+          let reader = new FileReader()
+          reader.onloadend = () => {
+            let img = new Image()
+            img.onload = () => {
+              let orientation = null
+              exif.getData(img, () => {
+                orientation = exif.getAllTags(img).Orientation
+              })
+              if (orientation > 4 && orientation < 9) {
+                let imgFixed = this.fixImgOrientation(img, img.width, img.height, orientation)
+                image.src = imgFixed.src
+                image.width = imgFixed.width
+                image.height = imgFixed.height
+              } else {
+                image.src = img.src
+                image.width = img.width
+                image.height = img.height
+              }
+            }
+            img.src = reader.result
           }
-          img.src = src
+          reader.readAsDataURL(file)
         })
       },
       removeImage (i) {
@@ -285,6 +299,30 @@
       },
       dragLeave () {
         this.isOver = false
+      },
+      fixImgOrientation (image, width, height, orientation) {
+        let canvas = document.createElement('canvas')
+        canvas.width = image.height
+        canvas.height = image.width
+
+        let ctx = canvas.getContext('2d')
+        switch (orientation) {
+          case 2: ctx.transform(-1, 0, 0, 1, image.width, 0); break
+          case 3: ctx.transform(-1, 0, 0, -1, image.width, image.height); break
+          case 4: ctx.transform(1, 0, 0, -1, 0, image.height); break
+          case 5: ctx.transform(0, 1, 1, 0, 0, 0); break
+          case 6: ctx.transform(0, 1, -1, 0, image.height, 0); break
+          case 7: ctx.transform(0, -1, -1, 0, image.height, image.width); break
+          case 8: ctx.transform(0, -1, 1, 0, 0, image.width); break
+          default: ctx.transform(1, 0, 0, 1, 0, 0)
+        }
+        ctx.drawImage(image, 0, 0, image.width, image.height)
+
+        return {
+          src: canvas.toDataURL('image/jpeg', 0.1),
+          width: canvas.width,
+          height: canvas.height
+        }
       }
     },
     beforeDestroy () {
