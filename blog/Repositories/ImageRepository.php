@@ -24,8 +24,8 @@ class ImageRepository
         $params = $params + $this->params();
 
         $query = Image::select([
-            'id',
-            'name',
+            'blog_images.id',
+            'blog_images.name',
             'filename',
             'author_id',
             'size',
@@ -33,12 +33,11 @@ class ImageRepository
             'width',
             'height',
             'model',
-            'updated_at',
-            'created_at',
+            'blog_images.updated_at',
+            'blog_images.created_at',
         ])->with([
             'author:id,name,email',
-        ])
-        ->orderBy($params['sortBy'], $params['sortDirection']);
+        ]);
 
         $search = trim($params['search']);
         if ($search) {
@@ -58,6 +57,12 @@ class ImageRepository
             $to = Carbon::parse($params['to'])->toDateString();
             $query->whereRaw('updated_at::date <= ?', $to);
         }
+
+        if ($params['sortBy'] == 'authors.name') {
+            $query->leftJoin('users as authors', 'authors.id', '=', 'blog_images.author_id');
+        }
+
+        $query->orderBy($params['sortBy'], $params['sortDirection']);
 
         return $query;
     }
