@@ -10,6 +10,7 @@
     >
       <input
         type="file"
+        accept="image/*"
         title=" "
         multiple
         @change="addImages"
@@ -243,9 +244,6 @@
         const CancelToken = axios.CancelToken
         axios
           .post('blog/api/admin/image', data, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
             cancelToken: new CancelToken(cancel => {
               this.cancel = cancel
             }),
