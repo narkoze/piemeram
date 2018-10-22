@@ -145,17 +145,27 @@
         </piemeram-blog-shared-categories>
       </div>
     </div>
+
+    <piemeram-blog-admin-view-image-select-modal
+      v-if="showImages"
+      @close="showImages = false"
+    >
+
+    </piemeram-blog-admin-view-image-select-modal>
   </div>
 </template>
 
 <script>
+  import PiemeramBlogAdminViewImageSelectModal from './piemeram-blog-admin-view-image-select-modal.vue'
   import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
+  import PiemeramBlogModal from '../../piemeram-blog-modal.vue'
   import axios from 'axios'
   import tinymce from 'tinymce/tinymce'
   import 'tinymce/themes/modern/theme'
   import 'tinymce/plugins/lists'
   import 'tinymce/plugins/link'
+  import 'tinymce/plugins/colorpicker'
   import 'tinymce/plugins/textcolor'
   import 'tinymce/plugins/pagebreak'
   import 'tinymce/plugins/table'
@@ -163,7 +173,9 @@
 
   export default {
     components: {
-      PiemeramBlogSharedCategories
+      PiemeramBlogAdminViewImageSelectModal,
+      PiemeramBlogSharedCategories,
+      PiemeramBlogModal
     },
     mixins: [
       AxiosErrorHandler,
@@ -175,7 +187,8 @@
       saving: false,
       deleting: false,
       editorLoading: false,
-      selectedCategories: []
+      selectedCategories: [],
+      showImages: false
     }),
     created () {
       this.post = this.$root.post || {
@@ -238,13 +251,16 @@
           .catch(error => {
             this.saving = false
             this.publishing = false
+
+            tinymce.activeEditor.setMode('design')
+
             this.handleAxiosError(error)
           })
       },
       destroy () {
         this.disabled = this.deleting = true
 
-        if (!confirm(window.i18n.t('blog.admin.views.blog-admin-view-post.confirm', { title: this.post.title }))) {
+        if (!confirm(this.$t('blog.admin.views.blog-admin-view-post.confirm', { title: this.post.title }))) {
           this.disabled = this.deleting = false
           return
         }
@@ -259,16 +275,15 @@
           .catch(this.handleAxiosError)
       },
       initTinymce () {
-        let self = this
-        self.editorLoading = true
+        this.editorLoading = true
 
         tinymce.init({
           selector: '#editor',
-          language: self.$i18n.locale,
+          language: this.$i18n.locale,
           readonly: true,
           skin_url: '/css/tinymce/skins/lightgray',
-          plugins: 'lists link textcolor pagebreak table paste',
-          toolbar: 'formatselect | bold italic underline | bullist numlist | forecolor indent blockquote | alignleft aligncenter alignright | link pagebreak | table | undo redo',
+          plugins: 'lists link textcolor colorpicker pagebreak table paste',
+          toolbar: 'formatselect | bold italic underline | bullist numlist | forecolor indent blockquote | alignleft aligncenter alignright | image link pagebreak | table | undo redo',
           table_default_attributes: {
             border: '0',
             class: 'table is-striped is-narrow is-hoverable is-fullwidth'
@@ -280,22 +295,26 @@
           menubar: false,
           branding: false,
           paste_as_text: true,
-          setup: function () {
-            this.on('init', () => {
-              self.editorLoading = false
+          setup: editor => {
+            editor.on('init', () => {
+              this.editorLoading = false
             })
-          },
-          init_instance_callback: function (editor) {
-            this.on('KeyUp', (e) => {
-              self.post.content = editor.getContent()
-            })
-            this.on('Change', (e) => {
-              if (editor.getContent() !== this.value) {
-                self.post.content = editor.getContent()
+            editor.addButton('image', {
+              title: this.$t('blog.admin.views.blog-admin-view-post.addimages'),
+              icon: 'image',
+              onclick: () => {
+                this.showImages = true
               }
             })
-            this.on('init', (e) => {
-              editor.setContent(self.post.content)
+          },
+          init_instance_callback: editor => {
+            editor.on('KeyUp', () => {
+              this.post.content = editor.getContent()
+            })
+            editor.on('Change', () => {
+              if (editor.getContent() !== editor.value) {
+                this.post.content = editor.getContent()
+              }
             })
           }
         })

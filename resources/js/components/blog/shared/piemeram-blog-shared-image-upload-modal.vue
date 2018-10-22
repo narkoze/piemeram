@@ -1,127 +1,138 @@
 <template>
-  <div>
-    <h1 class="title is-3">
-      {{ $t('blog.shared.blog-shared-image-upload.title') }}
-    </h1>
-
+  <div class="modal is-active">
     <div
-      ref="droparea"
-      class="droparea"
+      @click="$emit('close')"
+      class="modal-background"
     >
-      <input
-        type="file"
-        accept="image/*"
-        title=" "
-        multiple
-        @change="addImages"
-      />
-
-      <div
-        v-if="isOver"
-        class="text hover"
-      >
-        <i class="fas fa-arrow-down fa-lg faa-falling animated is-block"></i>
-        <i class="fas fa-people-carry fa-3x faa-horizontal animated is-block"></i>
-        {{ $t('blog.shared.blog-shared-image-upload.drophere') }}
-      </div>
-      <div
-        v-else
-        class="text"
-      >
-        {{ $t('blog.shared.blog-shared-image-upload.dropimageshere') }}
-      </div>
     </div>
 
-    <div v-if="images.length">
-      <br>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">
+          {{ $t('blog.shared.blog-shared-image-upload-modal.title') }}
+        </p>
+      </header>
 
-      <div class="columns is-tablet is-multiline">
+      <section class="modal-card-body">
+        <div :class="['card card-square-input card-square-droparea', {
+          'card-square-droparea-hover': isOver
+        }]">
+          <div class="card-content card-content-square-input">
+            <div
+              ref="droparea"
+              class="droparea"
+            >
+              <input
+                type="file"
+                accept="image/*"
+                title=" "
+                multiple
+                @change="addImages"
+              />
+
+              <div
+                v-if="isOver"
+                class="icon-square"
+              >
+                <i class="fas fa-arrow-down fa-lg faa-falling animated is-block"></i>
+                <i class="fas fa-people-carry fa-3x faa-horizontal animated is-block"></i>
+                {{ $t('blog.shared.blog-shared-image-upload-modal.drophere') }}
+              </div>
+              <div
+                v-else
+                class="icon-square"
+              >
+                <i class="fas fa-plus fa-3x"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div
           v-for="(image, i) in images"
           :key="i"
-          class="column is-one-quarter"
+          :class="['card card-square-input', {
+            'is-error': image.src && image.image.size > 5242880
+          }]"
         >
-          <div class="card">
-            <div class="card-content image-content">
-              <div>
-
-                <a
-                  v-if="!image.uploading"
-                  @click="removeImage(i)"
-                  :title="$t('blog.shared.blog-shared-image-upload.remove')"
-                  class="has-text-grey-light is-image-button"
-                >
-                  <i
-                    v-if="image.src"
-                    class="far fa-times-circle fa-lg"
-                  >
-                  </i>
-                  <i v-else class="fas fa-spinner fa-pulse fa-lg fa-image-loader"></i>
-                </a>
-
-                <a
-                  v-if="image.uploading && !image.uploaded"
-                  @click="cancelUpload"
-                  :title="$t('blog.shared.blog-shared-image-upload.cancel')"
-                  class="has-text-danger is-image-button"
-                >
-                  <i class="far fa-stop-circle fa-lg"></i>
-                </a>
-
-                <i
-                  v-if="image.uploaded"
-                  class="fas fa-check has-text-primary is-image-success fa-lg is-marginless"
-                >
-                </i>
-              </div>
-
-              <img
-                @click="imagePreviewIndex = i; showPhotoswipe = true"
-                :src="image.src"
-                class="image zoom-in"
+          <div class="card-content card-content-square-input">
+            <div class="card-square-actions">
+              <a
+                v-if="!image.uploading"
+                @click="removeImage(i)"
+                :title="$t('blog.shared.blog-shared-image-upload-modal.remove')"
               >
+                <i class="fas fa-times fa-lg is-marginless"></i>
+              </a>
 
-              <p v-if="image.src && image.image.size > 5242880" class="help is-danger is-marginless">
-                {{ $t('blog.shared.blog-shared-image-upload.istoolarge') }}
-              </p>
-
-              <progress
-                v-if="(image.uploading || image.progressValue === 100) && !image.errors.hasOwnProperty('name')"
-                :value="image.progressValue"
-                :text="image.progressValue === 100 ? '100%' : image.progressLoaded"
-                max="100"
-                :class="['progress has-value', {
-                  'is-primary': !image.errors.hasOwnProperty('name'),
-                  'is-danger': image.errors.hasOwnProperty('name')
-                }]"
+              <a
+                v-if="image.uploading && !image.uploaded"
+                @click="cancelUpload"
+                :title="$t('blog.shared.blog-shared-image-upload-modal.cancel')"
               >
-              </progress>
+                <i class="fas fa-times fa-lg is-marginless"></i>
+              </a>
             </div>
-            <footer class="card-footer card-footer-image">
-              <input
-                v-model="image.name"
-                :ref="`input${i}`"
-                :class="['input', {
-                  'input-image': image.name && !image.errors.hasOwnProperty('name'),
-                  'is-danger': !image.name || image.errors.hasOwnProperty('name')
-                }]"
-                :disabled="image.disabled || image.uploaded"
-              >
-              <p v-if="image.errors.name" class="help is-danger is-marginless">{{ image.errors.name.join() }}</p>
-            </footer>
+
+            <div
+              v-if="image.uploaded"
+              class="card-square-success"
+            >
+              <div class="triangle"></div>
+              <i class="fas fa-check is-marginless"></i>
+            </div>
+
+            <img
+              v-if="image.src"
+              @click="imagePreviewIndex = i; showPhotoswipe = true"
+              :src="image.src"
+              class="image image-square-input zoom-in"
+            >
+
+            <div
+              v-else
+              class="image-square-loading"
+            >
+              <i class="fas fa-spinner fa-pulse"></i>
+            </div>
+
+            <div
+              v-if="image.src && image.image.size > 5242880"
+              class="card-square-error"
+            >
+              {{ $t('blog.shared.blog-shared-image-upload-modal.istoolarge') }}
+            </div>
+
+            <progress
+              v-if="image.uploading"
+              :value="image.progressValue"
+              max="100"
+              class="progress has-value"
+            >
+            </progress>
           </div>
+          <footer class="card-footer">
+            <input
+              v-model="image.name"
+              :ref="`input${i}`"
+              :class="['input', {
+                'input-image': image.name && !image.errors.hasOwnProperty('name'),
+                'is-danger': !image.name || image.errors.hasOwnProperty('name')
+              }]"
+              :disabled="image.disabled || image.uploaded"
+            >
+            <p v-if="image.errors.name" class="help is-danger is-marginless">{{ image.errors.name.join() }}</p>
+          </footer>
         </div>
-      </div>
+      </section>
 
-      <br>
-
-      <div class="field">
+      <footer class="modal-card-foot">
         <a
           v-if="cancel"
           @click="cancelUpload"
           class="button is-danger"
         >
-          {{ $t('blog.shared.blog-shared-image-upload.cancel') }}
+          {{ $t('blog.shared.blog-shared-image-upload-modal.cancel') }}
         </a>
 
         <a
@@ -129,32 +140,36 @@
           @click="upload"
           class="button is-info"
         >
-          {{ $t('blog.shared.blog-shared-image-upload.upload') }}
+          {{ $t('blog.shared.blog-shared-image-upload-modal.upload') }}
         </a>
-      </div>
+      </footer>
+
+      <piemeram-blog-shared-photoswipe
+        v-if="showPhotoswipe"
+        :items="imagesPreview"
+        :i="imagePreviewIndex"
+        @close="showPhotoswipe = false"
+      >
+      </piemeram-blog-shared-photoswipe>
     </div>
 
-    <piemeram-blog-shared-photoswipe
-      v-if="showPhotoswipe"
-      :items="imagesPreview"
-      :i="imagePreviewIndex"
-      @close="showPhotoswipe = false"
+    <button
+      @click="$emit('close')"
+      class="modal-close is-large"
     >
-    </piemeram-blog-shared-photoswipe>
+    </button>
   </div>
 </template>
 
 <script>
   import PiemeramBlogSharedPhotoswipe from './piemeram-blog-shared-photoswipe.vue'
   import AxiosErrorHandler from '../../mixins/AxiosErrorHandler'
-  import PiemeramBlogModal from '../piemeram-blog-modal.vue'
   import axios from 'axios'
   import exif from 'exif-js'
 
   export default {
     components: {
-      PiemeramBlogSharedPhotoswipe,
-      PiemeramBlogModal
+      PiemeramBlogSharedPhotoswipe
     },
     mixins: [
       AxiosErrorHandler,
@@ -165,13 +180,20 @@
       showPhotoswipe: false,
       isOver: false,
       cancel: null,
-      w: null
+      uploadInLoop: false
     }),
     mounted () {
       let droparea = this.$refs.droparea
       droparea.addEventListener('dragover', this.dragOver)
       droparea.addEventListener('dragleave', this.dragLeave)
       droparea.addEventListener('drop', this.dragLeave)
+
+      document.getElementsByTagName('html')[0].classList.add('is-modal-active')
+    },
+    watch: {
+      uploadInLoop (bool) {
+        if (!bool) window.notify(this.$t('blog.shared.blog-shared-image-upload-modal.uploadfinished'), 'is-primary')
+      }
     },
     computed: {
       imagesPreview () {
@@ -197,7 +219,6 @@
             name: this.$options.filters.filename(file.name),
             image: file,
             progressValue: 0,
-            progressLoaded: null,
             uploading: false,
             uploaded: false,
             disabled: false,
@@ -244,7 +265,12 @@
           if (!f.name || f.name.length > 255 || f.image.size > 5242880) return
           if (!f.uploaded) image = f
         })
-        if (!image) return
+        if (!image) {
+          this.uploadInLoop = false
+          return
+        }
+
+        this.uploadInLoop = true
 
         this.cancel = null
         image.disabled = image.uploading = true
@@ -263,7 +289,6 @@
             }),
             onUploadProgress: progress => {
               image.progressValue = parseInt(Math.round((progress.loaded * 100) / progress.total))
-              image.progressLoaded = `${this.$options.filters.filesize(progress.loaded)} / ${this.$options.filters.filesize(progress.total)}`
             }
           })
           .then(response => {
@@ -276,9 +301,12 @@
           })
           .catch(error => {
             this.cancel = null
+
             image.disabled = image.uploading = false
 
             if (!axios.isCancel(error)) {
+              this.uploadInLoop = false
+
               if (error.response.status === 422) {
                 image.errors = error.response.data.errors
               } else {
@@ -327,6 +355,8 @@
     },
     beforeDestroy () {
       if (this.cancel) this.cancelUpload()
+
+      document.getElementsByTagName('html')[0].classList.remove('is-modal-active')
     }
   }
 </script>

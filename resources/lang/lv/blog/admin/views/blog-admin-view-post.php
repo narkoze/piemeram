@@ -26,4 +26,5 @@ return [
   'categories' => [
     'title' => 'Kategorijas',
   ],
+  'addimages' => 'Pievienot attēlus',
 ];

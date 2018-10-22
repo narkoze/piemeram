@@ -22,7 +22,13 @@ class ImageController extends Controller
     {
         $params = $request->all() + $imageRepo->params();
 
-        $images = $imageRepo->images($params)->paginate(10);
+        $query = $imageRepo->images($params);
+
+        if ($request->limit) {
+            $images = $query->get();
+        } else {
+            $images = $query->paginate(10);
+        }
 
         return response()->json(compact('images', 'params'));
     }

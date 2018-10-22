@@ -7,6 +7,7 @@
 
     <piemeram-blog-modal
       v-if="$root.showModals.includes('login')"
+      size="small"
       @close="$root.showModals.splice('login', 1)"
     >
       <piemeram-blog-login></piemeram-blog-login>

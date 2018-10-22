@@ -6,4 +6,5 @@ return [
   'zoom' => 'Pietuvināt / Attālināt',
   'previous' => 'Iepriekšējais (bulta pa kreisi)',
   'next' => 'Nākošais (bulta pa labi)',
+  'error' => 'Neizdevās attēlot',
 ];

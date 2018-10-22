@@ -13,6 +13,7 @@ class ImageRepository
             'from' => null,
             'to' => null,
             'authorId' => null,
+            'limit' => null,
             'search' => '',
             'sortBy' => 'updated_at',
             'sortDirection' => 'desc',
@@ -63,6 +64,10 @@ class ImageRepository
         }
 
         $query->orderBy($params['sortBy'], $params['sortDirection']);
+
+        if ($params['limit']) {
+            $query->limit($params['limit']);
+        }
 
         return $query;
     }

@@ -59,7 +59,8 @@
         options: {
           index: this.i,
           history: false,
-          closeOnScroll: false
+          closeOnScroll: false,
+          errorMsg: `<div class="pswp__error-msg">${this.$t('blog.shared.blog-shared-photoswipe.error')}</div>`
         },
         gallery: null
       }

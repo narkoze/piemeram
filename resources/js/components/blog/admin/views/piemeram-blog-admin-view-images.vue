@@ -125,8 +125,9 @@
                     @click="showImage(image)"
                   >
                     <img
-                      class="image small"
                       :src="image.small"
+                      class="image small"
+                      draggable="false"
                     >
                     <b v-html="$options.filters.highlight(image.name, params.search)"></b>
                   </a>
@@ -175,13 +176,12 @@
       </div>
     </div>
 
-    <piemeram-blog-modal
+    <piemeram-blog-shared-image-upload-modal
       v-if="showImageUpload"
-      size="medium"
       @close="closeImageUpload"
+      @uploaded="imagesWasUploaded = true"
     >
-      <piemeram-blog-shared-image-upload @uploaded="imagesWasUploaded = true"></piemeram-blog-shared-image-upload>
-    </piemeram-blog-modal>
+    </piemeram-blog-shared-image-upload-modal>
 
     <piemeram-blog-modal
       v-if="showImageModal"
@@ -199,7 +199,7 @@
 </template>
 
 <script>
-  import PiemeramBlogSharedImageUpload from '../../shared/piemeram-blog-shared-image-upload.vue'
+  import PiemeramBlogSharedImageUploadModal from '../../shared/piemeram-blog-shared-image-upload-modal.vue'
   import PiemeramBlogSharedSelectUser from '../../shared/piemeram-blog-shared-select-user.vue'
   import PiemeramBlogSharedDatepicker from '../../shared/piemeram-blog-shared-datepicker.vue'
   import PiemeramBlogSharedPaginate from '../../shared/piemeram-blog-shared-paginate.vue'
@@ -213,7 +213,7 @@
 
   export default {
     components: {
-      PiemeramBlogSharedImageUpload,
+      PiemeramBlogSharedImageUploadModal,
       PiemeramBlogSharedSelectUser,
       PiemeramBlogSharedDatepicker,
       PiemeramBlogSharedPaginate,

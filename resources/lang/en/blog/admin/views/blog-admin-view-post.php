@@ -26,4 +26,5 @@ return [
   'categories' => [
     'title' => 'Categories',
   ],
+  'addimages' => 'Add images'
 ];

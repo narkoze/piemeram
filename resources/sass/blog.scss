@@ -94,10 +94,6 @@ html.is-modal-active {
   display: flex;
 }
 
-.card-footer-image {
-  display: block;
-}
-
 .card-content-categories {
   border: 1px solid #dbdbdb;
   &:hover {
@@ -246,8 +242,12 @@ aside.menu {
   align-items: start;
 }
 
-.modal-content {
+.modal-content,
+.modal-card {
   top: 52px;
+  &.small {
+    width: 640px;
+  }
   &.medium {
     width: 840px;
   }
@@ -312,14 +312,6 @@ $navbar-burger-color: red;
 @import "elements/form";
 @import "elements/icon";
 @import "elements/image";
-.image:hover {
-  -webkit-filter: brightness(50%);
-  -moz-filter: brightness(50%);
-  -o-filter: brightness(50%);
-  -ms-filter: brightness(50%);
-  filter: brightness(50%);
-}
-
 .image.small {
   float: left;
   padding-right: 8px;
@@ -330,6 +322,15 @@ $navbar-burger-color: red;
 
 .image.zoom-in {
   cursor: zoom-in;
+}
+
+.help-image {
+  position: absolute;
+  z-index: 1;
+  bottom: 37px;
+  text-align: center;
+  width: 100%;
+  background: white;
 }
 
 @import "elements/notification";
@@ -356,43 +357,39 @@ $navbar-burger-color: red;
 
 @import "elements/progress";
 .progress {
-  -moz-appearance: none;
   -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+
   border: none;
-  border-radius: 0;
   display: block;
-  height: 1rem;
+  height: 26px;
   overflow: hidden;
   padding: 0;
-  width: 100%;
+  width: 209px;
+  margin-left: 4px;
+  border-radius: 4px;
 }
+progress[value]::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.7);
+}
+progress[value]::-webkit-progress-value {
+  background: rgba(0, 209, 178, 0.7);
+}
+
 progress.has-value {
-  position: relative;
+  position: absolute;
+  z-index: 1;
+  bottom: 41px;
 }
 
 progress.has-value:after {
-  content: attr(text);
+  content: attr(value)'%';
   position: absolute;
-  top: 0;
-  left: 50%;
+  top: 5px;
+  left: 52%;
   transform: translateX(-50%);
-  font-size: calc(1rem / 1.5);
   line-height: 1rem;
-}
-
-progress.has-value.is-small:after {
-  font-size: calc(0.75rem / 1.5);
-  line-height: 0.75rem;
-}
-
-progress.has-value.is-medium:after {
-  font-size: calc(1.25rem / 1.5);
-  line-height: 1.25rem;
-}
-
-progress.has-value.is-large:after {
-  font-size: calc(1.5rem / 1.5);
-  line-height: 1.5rem;
 }
 
 @import "elements/table";
@@ -750,42 +747,6 @@ a.anchor {
   display: block;
 }
 
-.droparea {
-  width: 100%;
-  position: relative;
-  display: table;
-
-  .text {
-    text-align: center;
-    height: 120px;
-    border: 2px dashed;
-    border-color: $cyan;
-    pointer-events: none;
-    vertical-align: middle;
-    display: table-cell;
-
-    &.hover {
-      border-color: $black;
-    }
-  }
-
-  input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    cursor: pointer;
-  }
-
-  &:hover > .text {
-    border-color: $black;
-  }
-}
-
 .pointer {
   cursor: pointer;
 }
@@ -794,22 +755,183 @@ a.anchor {
   border: none;
 }
 
-.is-image-button {
-  position: absolute;
-  z-index: 1;
-  right: 4px;
-  top: 4px;
+.card-square {
+  width: 217px;
+  height: 217px;
+  display: inline-block;
+  overflow: hidden;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+
+  -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+          box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+
+  &.is-selected {
+    -webkit-box-shadow: 0 0 4px 4px rgba(0, 209, 178, 1);
+            box-shadow: 0 0 4px 4px rgba(0, 209, 178, 1);
+  }
+
+  &:hover {
+    -webkit-box-shadow: 0 0 5px 5px rgba(0, 209, 178, 1);
+            box-shadow: 0 0 5px 5px rgba(0, 209, 178, 1);
+  }
+
+  .card-content-square {
+    padding: 0;
+  }
+
+  .image-square {
+    width: 217px;
+    height: 220px;
+    object-fit: cover;
+    cursor: pointer;
+  }
 }
 
-.is-image-success {
-  position: absolute;
-  z-index: 1;
-  left: 4px;
-  top: 4px;
-  pointer-events: none;
+.card-square-input {
+  width: 217px;
+  height: 257px;
+  display: inline-block;
+  overflow: hidden;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+
+  -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+          box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+
+  &.is-error {
+    -webkit-box-shadow: 0 0 3px 3px rgba(255, 56, 96, 1);
+            box-shadow: 0 0 3px 3px rgba(255, 56, 96, 1);
+  }
+
+  .card-content-square-input {
+    padding: 0;
+  }
+
+  .image-square-input {
+    width: 217px;
+    height: 220px;
+    object-fit: cover;
+
+    transition: transform .5s;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .image-square-loading {
+    height: 220px;
+    text-align: center;
+    display: table;
+    width: 100%;
+
+    i {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .droparea {
+    width: 100%;
+    display: table;
+    color: $cyan;
+
+    input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .icon-square {
+      height: 257px;
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      pointer-events: none;
+    }
+  }
+
+  &:hover > .card-content-square-input > .droparea {
+    color: $black;
+  }
 }
 
-i.fas.fa-image-loader {
-  margin-top: 7px;
-  margin-right: 0;
+.card-square-droparea-hover {
+  & > .card-content-square-input > .droparea {
+    color: $black;
+  }
+  border: 2px dashed $black !important;
+}
+
+.card-square-droparea {
+  border: 2px dashed $cyan;
+
+  &:hover {
+    border: 2px dashed $black;
+  }
+}
+
+.card-square-actions {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  background: rgba(255, 255, 255, .7);
+  margin: 4px;
+  width: 26px;
+  height: 26px;
+  border-radius: 10%;
+  text-align: center;
+  display: table;
+
+  a {
+    color: $grey-dark;
+    display: table-cell;
+    vertical-align: middle;
+    padding-top: 2px;
+
+    &:hover > i {
+      color: $black;
+    }
+  }
+}
+
+.card-square-success {
+  position: absolute;
+  z-index: 1;
+
+  .triangle {
+    border-left: 60px solid rgba(0, 209, 178, .95);
+    border-bottom: 60px solid transparent;
+  }
+  i.fas {
+    top: 11px;
+    left: 7px;
+    position: absolute;
+    color: rgba(255, 255, 255, .7);
+  }
+}
+
+.card-square-error {
+  position: absolute;
+  z-index: 1;
+  height: 26px;
+  bottom: 41px;
+  width: 210px;
+  margin-left: 4px;
+  border-radius: 4px;
+  background: white;
+  text-align: center;
+  background: rgba(255, 255, 255, .7);
+  color: $danger;
+  font-weight: 500;
 }
