@@ -54,7 +54,7 @@
             </div>
 
             <div class="content article-body is-clearfix">
-              <div v-html="$root.post.content"></div>
+              <v-runtime-template :template="`<div>${postContent}</div>`"></v-runtime-template>
             </div>
 
             <div class="article additional">
@@ -215,16 +215,30 @@
           </div>
         </div>
       </div>
+
+      <piemeram-blog-shared-photoswipe
+        v-if="showPhotoswipe"
+        :items="images"
+        :i="imageIndex"
+        @close="showPhotoswipe = false"
+      >
+      </piemeram-blog-shared-photoswipe>
     </section>
   </transition>
 </template>
 
 <script>
+  import PiemeramBlogSharedPhotoswipe from '../../shared/piemeram-blog-shared-photoswipe.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
+  import VRuntimeTemplate from 'v-runtime-template'
   import mixins from './mixins'
   import axios from 'axios'
 
   export default {
+    components: {
+      PiemeramBlogSharedPhotoswipe,
+      VRuntimeTemplate
+    },
     mixins: [
       AxiosErrorHandler,
       mixins,
@@ -234,7 +248,10 @@
       commentsLoading: false,
       comment: {},
       commentComment: null,
-      mouseover: null
+      mouseover: null,
+      images: [],
+      imageIndex: 0,
+      showPhotoswipe: false
     }),
     created () {
       this.loadComments()
@@ -242,7 +259,35 @@
     mounted () {
       if (this.$root.anchor) document.getElementById(this.$root.anchor).scrollIntoView()
     },
+    computed: {
+      postContent () {
+        let dom = new DOMParser()
+        let document = dom.parseFromString(this.$root.post.content, 'text/html')
+        let images = Array.from(document.getElementsByTagName('img'))
+        images.forEach((image, i) => {
+          this.images.push({
+            title: image.getAttribute('data-title'),
+            src: image.getAttribute('data-original-src'),
+            w: image.getAttribute('data-width'),
+            h: image.getAttribute('data-height')
+          })
+          image.setAttribute('v-on:click', `previewImages(${i})`)
+          image.classList.add('zoom-in')
+
+          let imgContainer = document.createElement('span')
+          imgContainer.classList.add('image-container')
+          image.insertAdjacentElement('beforebegin', imgContainer)
+          imgContainer.appendChild(image)
+        })
+
+        return document.body.innerHTML
+      }
+    },
     methods: {
+      previewImages (i) {
+        this.imageIndex = i
+        this.showPhotoswipe = true
+      },
       focusCommment () {
         this.$refs.comment.focus()
       },

@@ -320,7 +320,7 @@ $navbar-burger-color: red;
   width: 70px;
 }
 
-.image.zoom-in {
+.zoom-in {
   cursor: zoom-in;
 }
 
@@ -762,20 +762,14 @@ a.anchor {
   overflow: hidden;
 
   margin-top: 5px;
-  margin-bottom: 5px;
-  margin-right: 10px;
+  margin-right: 11px;
 
   -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
           box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
 
   &.is-selected {
-    -webkit-box-shadow: 0 0 4px 4px rgba(0, 209, 178, 1);
-            box-shadow: 0 0 4px 4px rgba(0, 209, 178, 1);
-  }
-
-  &:hover {
-    -webkit-box-shadow: 0 0 5px 5px rgba(0, 209, 178, 1);
-            box-shadow: 0 0 5px 5px rgba(0, 209, 178, 1);
+    -webkit-box-shadow: 0 0 0 5px rgba(0, 209, 178, 1);
+            box-shadow: 0 0 0 5px rgba(0, 209, 178, 1);
   }
 
   .card-content-square {
@@ -934,4 +928,18 @@ a.anchor {
   background: rgba(255, 255, 255, .7);
   color: $danger;
   font-weight: 500;
+}
+
+.image-container {
+  display: inline-block;
+  overflow: hidden;
+
+  img.zoom-in {
+    cursor: zoom-in;
+
+    transition: transform .5s;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }

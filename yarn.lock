@@ -8158,6 +8158,10 @@ uws@~9.14.0:
   version "9.14.0"
   resolved "https://registry.yarnpkg.com/uws/-/uws-9.14.0.tgz#fac8386befc33a7a3705cbd58dc47b430ca4dd95"
 
+v-runtime-template@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/v-runtime-template/-/v-runtime-template-1.5.2.tgz#1260a329980ae8a37ffcc6c73bdab5858393b5f8"
+
 vali-date@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/vali-date/-/vali-date-1.0.0.tgz#1b904a59609fb328ef078138420934f6b86709a6"

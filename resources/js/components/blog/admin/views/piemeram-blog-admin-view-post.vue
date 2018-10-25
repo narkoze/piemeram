@@ -149,8 +149,11 @@
     <piemeram-blog-admin-view-image-select-modal
       v-if="showImages"
       @close="showImages = false"
+      @selected="images => {
+        showImages = false
+        insertImages(images)
+      }"
     >
-
     </piemeram-blog-admin-view-image-select-modal>
   </div>
 </template>
@@ -191,11 +194,7 @@
       showImages: false
     }),
     created () {
-      this.post = this.$root.post || {
-        title: null,
-        content: null,
-        categories: []
-      }
+      this.post = this.$root.post
 
       window.blogBus.$on('localeChanged', () => {
         tinymce.remove()
@@ -292,6 +291,7 @@
           pagebreak_split_block: true,
           pagebreak_separator: '<!-- pagebreak -->',
           content_css: '/css/tinymce.css',
+          height: 500,
           menubar: false,
           branding: false,
           paste_as_text: true,
@@ -317,6 +317,20 @@
               }
             })
           }
+        })
+      },
+      insertImages (images) {
+        images.forEach(image => {
+          tinymce.activeEditor.insertContent(`
+            <img
+              class="image"
+              src="${image.medium}"
+              data-title="${image.name}"
+              data-original-src="${image.original}"
+              data-width="${image.width}"
+              data-height="${image.height}"
+            >
+          `)
         })
       }
     },

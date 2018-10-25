@@ -39,6 +39,7 @@
     "sass-loader": "^7.1.0",
     "semantic-ui-sass": "^2.2.11",
     "tinymce": "^4.8.2",
+    "v-runtime-template": "^1.5.2",
     "vue": "^2.5.2",
     "vue-i18n": "^8.0.0",
     "vue-multiselect": "^2.1.3",

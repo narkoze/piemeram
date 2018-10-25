@@ -11,11 +11,13 @@
 
     <div class="columns">
       <div class="column">
-        <img
-          @click="showPhotoswipe = true"
-          :src="image.medium"
-          class="image zoom-in"
-        >
+        <div class="image-container">
+          <img
+            @click="showPhotoswipe = true"
+            :src="image.medium"
+            class="image zoom-in"
+          >
+        </div>
       </div>
 
       <div class="column is-4">
@@ -126,7 +128,7 @@
       AxiosErrorHandler,
     ],
     props: [
-      'image'
+      'image',
     ],
     data: function () {
       return {

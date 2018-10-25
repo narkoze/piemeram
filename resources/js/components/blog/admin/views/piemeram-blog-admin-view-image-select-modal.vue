@@ -19,25 +19,35 @@
       </header>
 
       <section class="modal-card-body">
+        <div class="field">
+          <a
+            @click="showImageUpload = true"
+            class="button is-primary"
+          >
+            <i class="fas fa-plus"></i>
+            {{ $t('blog.admin.views.blog-admin-view-images.upload') }}
+          </a>
+        </div>
+
         <div
           v-for="(image, i) in images"
           :key="i"
           :class="['card card-square', {
-            'is-selected': selectedImages.includes(image.id)
+            'is-selected': selectedImages.filter(img => img.id === image.id).length > 0
           }]"
         >
           <div class="card-content card-content-square">
             <div
-              v-if="selectedImages.includes(image.id)"
+              v-if="selectedImages.filter(img => img.id === image.id).length > 0"
               class="card-square-actions"
             >
-              <a @click="toggleSelect(image.id)">
+              <a @click="toggleSelect(image)">
                 <i class="far fa-check-square fa-lg is-marginless"></i>
               </a>
             </div>
 
             <img
-              @click="toggleSelect(image.id)"
+              @click="toggleSelect(image)"
               :src="image.medium"
               class="image image-square"
               draggable="false"
@@ -48,6 +58,7 @@
 
       <footer class="modal-card-foot">
         <a
+          @click="$emit('selected', selectedImages)"
           class="button is-info"
         >
           {{ $t('blog.admin.views.blog-admin-view-image-select-modal.insert') }}
@@ -60,10 +71,18 @@
       class="modal-close is-large"
     >
     </button>
+
+    <piemeram-blog-shared-image-upload-modal
+      v-if="showImageUpload"
+      @close="closeImageUpload"
+      @uploaded="imagesWasUploaded = true"
+    >
+    </piemeram-blog-shared-image-upload-modal>
   </div>
 </template>
 
 <script>
+  import PiemeramBlogSharedImageUploadModal from '../../shared/piemeram-blog-shared-image-upload-modal.vue'
   import PiemeramBlogSharedPhotoswipe from '../../shared/piemeram-blog-shared-photoswipe.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
   import PiemeramBlogModal from '../../piemeram-blog-modal.vue'
@@ -71,6 +90,7 @@
 
   export default {
     components: {
+      PiemeramBlogSharedImageUploadModal,
       PiemeramBlogSharedPhotoswipe,
       PiemeramBlogModal
     },
@@ -83,7 +103,8 @@
       params: {
         limit: 32
       },
-      showImageUpload: false
+      showImageUpload: false,
+      imagesWasUploaded: false
     }),
     created () {
       this.loadImages()
@@ -102,11 +123,19 @@
           })
           .catch(this.handleAxiosError)
       },
-      toggleSelect (imageId) {
-        if (this.selectedImages.includes(imageId)) {
-          this.selectedImages.splice(this.selectedImages.indexOf(imageId), 1)
+      toggleSelect (image) {
+        if (this.selectedImages.filter(img => img.id === image.id).length > 0) {
+          this.selectedImages = this.selectedImages.filter(img => img.id !== image.id)
         } else {
-          this.selectedImages.push(imageId)
+          this.selectedImages.push(image)
+        }
+      },
+      closeImageUpload () {
+        this.showImageUpload = false
+
+        if (this.imagesWasUploaded) {
+          this.imagesWasUploaded = false
+          this.loadImages()
         }
       }
     }

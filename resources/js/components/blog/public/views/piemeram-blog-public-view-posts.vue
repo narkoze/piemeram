@@ -93,7 +93,7 @@
             </div>
 
             <div class="content article-body is-clearfix">
-              <div v-html="pagebrake(post.content)"></div>
+              <v-runtime-template :template="`<div>${getContent(post)}</div>`"></v-runtime-template>
             </div>
 
             <div
@@ -169,12 +169,14 @@
 <script>
   import PiemeramBlogSharedCategories from '../../shared/piemeram-blog-shared-categories.vue'
   import AxiosErrorHandler from '../../../mixins/AxiosErrorHandler'
+  import VRuntimeTemplate from 'v-runtime-template'
   import mixins from './mixins'
   import axios from 'axios'
 
   export default {
     components: {
-      PiemeramBlogSharedCategories
+      PiemeramBlogSharedCategories,
+      VRuntimeTemplate
     },
     mixins: [
       AxiosErrorHandler,
@@ -227,6 +229,29 @@
       pagebrake: (postContent) => postContent.split('<!-- pagebreak -->')[0],
       scrolltop () {
         document.querySelector('.has-navbar-fixed-top').scrollIntoView({ behavior: 'smooth', block: 'start' })
+      },
+      showPostById (postId) {
+        let post = this.posts.filter(post => post.id === postId)[0]
+
+        this.$root.post = post
+        this.$root.showView = 'public-view-post'
+        this.$root.anchor = `post-${post.id}`
+      },
+      getContent (post) {
+        let dom = new DOMParser()
+        let document = dom.parseFromString(this.pagebrake(post.content), 'text/html')
+        let images = Array.from(document.getElementsByTagName('img'))
+        images.forEach((image, i) => {
+          image.setAttribute('v-on:click', `showPostById(${post.id})`)
+          image.classList.add('pointer')
+
+          let imgContainer = document.createElement('span')
+          imgContainer.classList.add('image-container')
+          image.insertAdjacentElement('beforebegin', imgContainer)
+          imgContainer.appendChild(image)
+        })
+
+        return document.body.innerHTML
       }
     },
     beforeDestroy () {
