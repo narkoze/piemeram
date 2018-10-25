@@ -275,6 +275,7 @@
           image.classList.add('zoom-in')
 
           let imgContainer = document.createElement('span')
+          imgContainer.style.cssText = image.style.cssText
           imgContainer.classList.add('image-container')
           image.insertAdjacentElement('beforebegin', imgContainer)
           imgContainer.appendChild(image)
