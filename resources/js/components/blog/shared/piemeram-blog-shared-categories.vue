@@ -72,7 +72,7 @@
         if (this.only) params['only'] = this.only
 
         axios
-          .get('blog/api/category', { params })
+          .get('blogv1/api/category', { params })
           .then(response => {
             this.disabled = false
             this.categories = response.data

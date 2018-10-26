@@ -283,7 +283,7 @@
 
         const CancelToken = axios.CancelToken
         axios
-          .post('blog/api/admin/image', data, {
+          .post('blogv1/api/admin/image', data, {
             cancelToken: new CancelToken(cancel => {
               this.cancel = cancel
             }),

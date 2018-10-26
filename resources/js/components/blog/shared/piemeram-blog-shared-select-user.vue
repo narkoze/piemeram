@@ -69,7 +69,7 @@
         if (search) params.search = search
 
         axios
-          .get('blog/api/admin/user', { params })
+          .get('blogv1/api/admin/user', { params })
           .then(response => {
             this.disabled = false
             this.users = response.data.users

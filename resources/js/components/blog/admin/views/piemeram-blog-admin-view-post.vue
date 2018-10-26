@@ -222,8 +222,8 @@
 
         let method = this.post.id ? 'put' : 'post'
         let route = this.post.id
-          ? `blog/api/admin/post/${this.post.id}`
-          : 'blog/api/admin/post'
+          ? `blogv1/api/admin/post/${this.post.id}`
+          : 'blogv1/api/admin/post'
 
         axios[method](route, {
           ...this.post,
@@ -265,7 +265,7 @@
         }
 
         axios
-          .delete(`blog/api/admin/post/${this.post.id}`)
+          .delete(`blogv1/api/admin/post/${this.post.id}`)
           .then(() => {
             this.$root.showView = 'admin-view-posts'
 

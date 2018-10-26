@@ -88,7 +88,7 @@
             <label>&nbsp;
               <div class="field is-clearfix">
                 <piemeram-blog-shared-excel
-                  url="blog/api/admin/role/excel"
+                  url="blogv1/api/admin/role/excel"
                   :params="params"
                   class="is-pulled-right"
                 >
@@ -228,7 +228,7 @@
         this.params.page = page
 
         axios
-          .get('blog/api/admin/role', { params: this.params })
+          .get('blogv1/api/admin/role', { params: this.params })
           .then(response => {
             this.rolesLoading = false
             this.pageChanging = false
@@ -253,7 +253,7 @@
         this.errors = {}
 
         axios
-          .post('blog/api/admin/role', this.role)
+          .post('blogv1/api/admin/role', this.role)
           .then(response => {
             this.disabled = false
             this.role = {}
@@ -277,7 +277,7 @@
         this.disabled = true
 
         axios
-          .put(`blog/api/admin/role/${this.role.id}`, this.role)
+          .put(`blogv1/api/admin/role/${this.role.id}`, this.role)
           .then(response => {
             this.disabled = false
             this.role = {}
@@ -302,7 +302,7 @@
         this.rolesLoading = true
 
         axios
-          .delete(`blog/api/admin/role/${role.id}`)
+          .delete(`blogv1/api/admin/role/${role.id}`)
           .then(() => {
             this.deleting = false
             this.role = {}

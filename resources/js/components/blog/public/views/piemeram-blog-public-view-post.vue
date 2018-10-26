@@ -297,7 +297,7 @@
         this.errors = {}
 
         axios
-          .post(`blog/api/post/${this.$root.post.id}/comment`, this.comment)
+          .post(`blogv1/api/post/${this.$root.post.id}/comment`, this.comment)
           .then(() => {
             this.disabled = false
 
@@ -309,7 +309,7 @@
         this.commentsLoading = true
 
         axios
-          .get(`blog/api/post/${this.$root.post.id}/comment`)
+          .get(`blogv1/api/post/${this.$root.post.id}/comment`)
           .then(response => {
             this.commentsLoading = false
             this.comment = {}
@@ -330,7 +330,7 @@
         this.disabled = true
 
         axios
-          .put(`blog/api/post/${this.$root.post.id}/comment/${this.comment.id}`, this.comment)
+          .put(`blogv1/api/post/${this.$root.post.id}/comment/${this.comment.id}`, this.comment)
           .then(response => {
             this.disabled = false
             this.comment = {}
@@ -356,7 +356,7 @@
         }
 
         axios
-          .delete(`blog/api/post/${this.$root.post.id}/comment/${comment.id}`)
+          .delete(`blogv1/api/post/${this.$root.post.id}/comment/${comment.id}`)
           .then(() => {
             this.disabled = false
             this.loadComments()

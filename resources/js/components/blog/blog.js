@@ -72,7 +72,7 @@ const blog = new window.Vue({
     if (window.post) {
       this.post = window.post
       this.showView = 'public-view-post'
-      window.history.replaceState({}, null, '/blog')
+      window.history.replaceState({}, null, '/blogv1')
     }
   }
 })

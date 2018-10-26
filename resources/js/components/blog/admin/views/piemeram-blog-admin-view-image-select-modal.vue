@@ -114,7 +114,7 @@
         this.disabled = true
 
         axios
-          .get('blog/api/admin/image', { params: this.params })
+          .get('blogv1/api/admin/image', { params: this.params })
           .then(response => {
             this.disabled = false
 

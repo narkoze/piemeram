@@ -171,7 +171,7 @@
         this.posts = []
 
         axios
-          .get('blog/api/post', { params: this.params })
+          .get('blogv1/api/post', { params: this.params })
           .then(response => {
             this.disabled = false
 

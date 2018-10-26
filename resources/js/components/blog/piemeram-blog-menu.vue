@@ -4,7 +4,7 @@
     <div class="navbar-brand">
       <a
         class="navbar-item"
-        href="/blog"
+        href="/blogv1"
       >
         <b>{{ $t('blog.blog-menu.title') }}</b>
       </a>

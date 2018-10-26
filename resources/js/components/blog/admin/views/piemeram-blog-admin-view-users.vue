@@ -11,7 +11,7 @@
 
     <div class="is-overflow-hidden">
       <piemeram-blog-shared-excel
-        url="blog/api/admin/user/excel"
+        url="blogv1/api/admin/user/excel"
         :params="params"
         class="is-pulled-right"
       >
@@ -174,7 +174,7 @@
         this.params.page = page
 
         axios
-          .get('blog/api/admin/user', { params: this.params })
+          .get('blogv1/api/admin/user', { params: this.params })
           .then(response => {
             this.usersLoading = false
             this.pageChanging = false
@@ -200,7 +200,7 @@
         this.rolesLoading = true
 
         axios
-          .get('blog/api/admin/role', { params: {
+          .get('blogv1/api/admin/role', { params: {
             all: true
           }})
           .then(response => {
@@ -217,7 +217,7 @@
         user.blog_role_changing = true
 
         axios
-          .put(`blog/api/admin/user/${user.id}`, {
+          .put(`blogv1/api/admin/user/${user.id}`, {
             blogRole: user.blog_role_id
           })
           .then(response => {

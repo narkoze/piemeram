@@ -167,7 +167,7 @@
         this.disabled = true
 
         axios
-          .get('blog/api/admin/dashboard')
+          .get('blogv1/api/admin/dashboard')
           .then(response => {
             this.disabled = false
 
@@ -198,7 +198,7 @@
         this.createChart('users', 'bar')
 
         axios
-          .get('blog/api/admin/dashboard/users')
+          .get('blogv1/api/admin/dashboard/users')
           .then(response => {
             this.chart.isLoading = false
 
@@ -234,7 +234,7 @@
         this.createChart('posts', 'line')
 
         axios
-          .get('blog/api/admin/dashboard/posts')
+          .get('blogv1/api/admin/dashboard/posts')
           .then(response => {
             this.chart.isLoading = false
 
@@ -285,7 +285,7 @@
         this.createChart('comments', 'pie')
 
         axios
-          .get('blog/api/admin/dashboard/comments')
+          .get('blogv1/api/admin/dashboard/comments')
           .then(response => {
             this.chart.isLoading = false
 
@@ -315,7 +315,7 @@
         this.createChart('categories', 'horizontalBar')
 
         axios
-          .get('blog/api/admin/dashboard/categories')
+          .get('blogv1/api/admin/dashboard/categories')
           .then(response => {
             this.chart.isLoading = false
 

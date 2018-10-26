@@ -117,7 +117,7 @@
             <label>&nbsp;
               <div class="field is-clearfix">
                 <piemeram-blog-shared-excel
-                  url="blog/api/admin/post/excel"
+                  url="blogv1/api/admin/post/excel"
                   :params="params"
                   class="is-pulled-right"
                 >
@@ -368,7 +368,7 @@
         this.params.page = page
 
         axios
-          .get('blog/api/admin/post', { params: this.params })
+          .get('blogv1/api/admin/post', { params: this.params })
           .then(response => {
             this.pageChanging = false
             this.disabled = false

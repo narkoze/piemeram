@@ -271,7 +271,7 @@
         this.params.page = page
 
         axios
-          .get('blog/api/admin/image', { params: this.params })
+          .get('blogv1/api/admin/image', { params: this.params })
           .then(response => {
             this.pageChanging = false
             this.disabled = false

@@ -76,7 +76,7 @@
             <label>&nbsp;
               <div class="field is-clearfix">
                 <piemeram-blog-shared-excel
-                  url="blog/api/admin/category/excel"
+                  url="blogv1/api/admin/category/excel"
                   :params="params"
                   class="is-pulled-right"
                 >
@@ -205,7 +205,7 @@
         this.errors = {}
 
         axios
-          .post('blog/api/admin/category', this.category)
+          .post('blogv1/api/admin/category', this.category)
           .then(response => {
             this.disabled = false
             this.category = {}
@@ -224,7 +224,7 @@
         this.params.page = page
 
         axios
-          .get('blog/api/admin/category', { params: this.params })
+          .get('blogv1/api/admin/category', { params: this.params })
           .then(response => {
             this.categoriesLoading = false
             this.pageChanging = false
@@ -251,7 +251,7 @@
         this.disabled = true
 
         axios
-          .put(`blog/api/admin/category/${this.category.id}`, this.category)
+          .put(`blogv1/api/admin/category/${this.category.id}`, this.category)
           .then(response => {
             this.disabled = false
             this.category = {}
@@ -276,7 +276,7 @@
         this.categoriesLoading = true
 
         axios
-          .delete(`blog/api/admin/category/${category.id}`)
+          .delete(`blogv1/api/admin/category/${category.id}`)
           .then(() => {
             this.deleting = false
             this.categoriesLoading = false

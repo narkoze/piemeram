@@ -142,7 +142,7 @@
         this.disabled = true
 
         axios
-          .put(`blog/api/admin/image/${this.image.id}`, {
+          .put(`blogv1/api/admin/image/${this.image.id}`, {
             name: this.name
           })
           .then(response => {
@@ -163,7 +163,7 @@
         }
 
         axios
-          .delete(`blog/api/admin/image/${this.image.id}`)
+          .delete(`blogv1/api/admin/image/${this.image.id}`)
           .then(() => {
             this.$emit('deleted')
 
