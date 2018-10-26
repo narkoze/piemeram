@@ -5,40 +5,8 @@
 
 <template>
   <transition appear name="fade">
-    <div class="columns is-desktop is-centered articles">
-      <div class="column side">
-        <div class="sticky">
-          <div  class="card">
-            <div class="card-content">
-              <piemeram-blog-shared-categories
-                only="publishedPosts"
-                :selected="params.categories"
-                @selected="categories => {
-                  params.categories = categories
-                  $root.categories = categories
-                }"
-              >
-              </piemeram-blog-shared-categories>
-
-              <a
-                @click="loadPosts"
-                class="button is-info"
-              >
-                {{ $t('blog.admin.views.blog-admin-view-posts.filter') }}
-              </a>
-
-              <a
-                @click="removeFilters"
-                class="button"
-              >
-                {{ $t('blog.admin.views.blog-admin-view-posts.removefilters') }}
-              </a>
-              </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="column main">
+    <section class="articles">
+      <div class="column is-8 is-offset-2">
         <div
           v-if="disabled"
           class="card article"
@@ -53,7 +21,6 @@
             </div>
           </div>
         </div>
-
         <div
           v-for="post in posts"
           :key="post.id"
@@ -154,15 +121,15 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <i
-        @click="scrolltop"
-        ref="scrolltop"
-        class="fas fa-arrow-alt-circle-up scrolltop"
-      >
-      </i>
-    </div>
+        <i
+          @click="scrolltop"
+          ref="scrolltop"
+          class="fas fa-arrow-alt-circle-up scrolltop"
+        >
+        </i>
+      </div>
+    </section>
   </transition>
 </template>
 
@@ -199,15 +166,9 @@
       }
     },
     methods: {
-      removeFilters () {
-        this.params.categories = this.$root.categories = []
-        this.loadPosts()
-      },
       loadPosts () {
         this.disabled = true
         this.posts = []
-
-        if (this.$root.categories.length) this.params.categories = this.$root.categories
 
         axios
           .get('blog/api/post', { params: this.params })

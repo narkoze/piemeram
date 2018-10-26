@@ -53,8 +53,7 @@ const blog = new window.Vue({
     showModals: [],
     anchor: null,
     activeSection: null,
-    post: {},
-    categories: []
+    post: {}
   }),
   el: '#blog',
   components: {

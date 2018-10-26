@@ -1,34 +1,34 @@
 <template>
   <div class="card field card-categories">
     <label>
-        {{ $t('blog.admin.views.blog-admin-view-post.categories.title') }}
-        <i
-          v-if="disabled"
-          class="fas fa-spinner fa-pulse"
-        >
-        </i>
+      {{ $t('blog.admin.views.blog-admin-view-post.categories.title') }}
+      <i
+        v-if="disabled"
+        class="fas fa-spinner fa-pulse"
+      >
+      </i>
 
       <div class="card-content-categories is-paddingless">
-      <div class="content">
-        <div class="select is-multiple select-is-fullwidth">
-          <select
-            v-model="selectedCategories"
-            class="select-is-fullwidth"
-            :size="categories.length"
-            :disabled="disabled"
-            multiple
-          >
-            <option
-              v-for="category in categories"
-              :key="category.id"
-              :value="category.id"
+        <div class="content">
+          <div class="select is-multiple select-is-fullwidth">
+            <select
+              v-model="selectedCategories"
+              class="select-is-fullwidth"
+              :size="categories.length"
+              :disabled="disabled"
+              multiple
             >
-              {{ category.name }}
-            </option>
-          </select>
+              <option
+                v-for="category in categories"
+                :key="category.id"
+                :value="category.id"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
     </label>
   </div>
 </template>
@@ -76,12 +76,6 @@
           .then(response => {
             this.disabled = false
             this.categories = response.data
-
-            if (this.$root.categories.length && this.$root.show.side === 'public') {
-              this.$nextTick(() => {
-                this.selectedCategories = this.$root.categories
-              })
-            }
 
             if (this.postCategories) {
               this.selectedCategories = this.postCategories.map(({ id }) => id)

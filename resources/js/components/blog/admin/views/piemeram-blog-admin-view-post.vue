@@ -14,7 +14,7 @@
     </h1>
 
     <div class="columns">
-      <div class="column">
+      <div class="column editor">
         <div class="field">
           <input
             v-model="post.title"
@@ -321,9 +321,11 @@
       },
       insertImages (images) {
         images.forEach(image => {
+          let maxWidth = image.width > 727 ? 727 : image.width
           tinymce.activeEditor.insertContent(`
             <img
               class="image"
+              width="${maxWidth}"
               src="${image.medium}"
               data-title="${image.name}"
               data-original-src="${image.original}"
