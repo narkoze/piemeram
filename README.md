@@ -3,6 +3,6 @@
 
 ## Projects
 ### Blog
-[Site](https://www.piemeram.lv/blog)
+[Site](https://www.piemeram.lv/blogv1)
 #### Features
   *
