@@ -5,15 +5,15 @@
   <div class="ui items">
     <div class="item">
       <a
-        href="{{ route('blog') }}"
+        href="https://blog.piemeram.lv"
         class="image"
         target="_blank"
       >
-        <img src="{{ asset('img/project/blog.jpg') }}">
+        <img src="{{ asset('img/project/blog.png') }}">
       </a>
       <div class="content">
         <a
-          href="{{ route('blog') }}"
+          href="https://blog.piemeram.lv"
           class="header"
           target="_blank"
         >
