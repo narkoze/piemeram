@@ -37,7 +37,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
-        $this->mapBlogRoutes();
     }
 
     /**
@@ -67,20 +66,5 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
-    }
-
-    /**
-     * Define the "blog" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapBlogRoutes()
-    {
-        Route::prefix('blogv1')
-            ->middleware('web')
-            ->namespace('Blog\Http\Controllers')
-            ->group(base_path('routes/blog.php'));
     }
 }

@@ -34,33 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_masked',
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function blogRole()
-    {
-        return $this->belongsTo(\Blog\Role::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function blogPosts()
-    {
-        return $this->hasMany(\Blog\Post::class, 'author_id')
-            ->whereNotNull('published_at');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function blogComments()
-    {
-        return $this->hasMany(\Blog\Comment::class, 'author_id')
-            ->whereHas('post', function ($query) {
-                $query->whereNotNull('published_at');
-            });
-    }
 
     /**
      * Send the password reset notification.

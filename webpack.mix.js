@@ -37,23 +37,6 @@ mix.js('node_modules/semantic-ui-sass/semantic-ui.js', 'public/js/app.js')
 mix.js('resources/js/app.js', 'public/js/app.js')
 
 /**
- * Blog
- */
-mix.sass('resources/sass/blog.scss', 'public/css', {
-  includePaths: [
-    'node_modules/bulma/sass',
-    'node_modules/@fortawesome/fontawesome-free/scss',
-    'node_modules/flag-icon-css/sass'
-  ]
-})
-mix.sass('resources/sass/tinymce.scss', 'public/css', 'tinymce')
-
-mix.copyDirectory('node_modules/tinymce/skins', 'public/css/tinymce/skins')
-
-mix.js('resources/js/components/blog/blog.js', 'public/js/components/blog/blog.js')
-mix.js('resources/js/components/blog/langs/lv.js', 'public/js/components/blog/langs/lv.js')
-
-/**
  * Shared
  */
 mix.js('resources/js/vue.js', 'public/js/vue.js')
