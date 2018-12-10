@@ -6,7 +6,7 @@
     Piemeram
   </a>
 
-  <a
+  {{-- <a
     class="
       item
       @if (isset($tab) and $tab == 'home')
@@ -16,7 +16,7 @@
     href="{{ route('home') }}"
   >
     @lang('menu.home')
-  </a>
+  </a> --}}
 
   <a
     class="
