@@ -52,5 +52,6 @@ return [
     'activeinfo' => 'Actively use Visual Studio Code, Postico',
     'passiveinfo' => 'Passive work with AD, O365 administration, Windows Sysprep, OS cloning',
     'workorganization' => 'Use Trello, Slack, Thunderbird /Outlook for work organization',
+    'indorse' => 'Indorse.io profile',
   ],
 ];

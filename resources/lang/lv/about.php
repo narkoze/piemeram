@@ -52,5 +52,6 @@ return [
     'activeinfo' => 'Aktīvi izmantoju Visual Studio Code, Postico',
     'passiveinfo' => 'Pasīvi darbojos ar AD, O365 administrēšanu, Windows Sysprep, OS klonēšanu',
     'workorganization' => 'Darba organizācijai izmantoju Trello, Slack, Thunderbird /Outlook',
+    'indorse' => 'Indorse.io profils',
   ],
 ];
