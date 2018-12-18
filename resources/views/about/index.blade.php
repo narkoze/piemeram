@@ -84,6 +84,19 @@
                     width="14"
                   >
                 </a>
+
+                <a
+                  href="http://indorse.io/narkoze"
+                  title="@lang('about.index.indorse')"
+                  target="_blank"
+                >
+                  <img
+                    class="social"
+                    src="{{ asset('img/indorse.jpg') }}"
+                    width="14"
+                  >
+                </a>
+
                 <a
                   href="http://www.cv.lv/CVC/5800602.html"
                   title="@lang('about.index.cv')"
