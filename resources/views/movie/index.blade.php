@@ -309,6 +309,7 @@
                       <a
                         href="{{ $movie->imdb }}"
                         target="_blank"
+                        data-tooltip="Open IMDB link in a new tab"
                       >
                         @if ($search)
                           {!! preg_replace("/($search)/i", "<u class='highlight'>$0</u>", $movie->name) !!}
