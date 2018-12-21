@@ -4,6 +4,7 @@ namespace Piemeram\Providers;
 
 use Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::defaultView('pagination::semantic-ui');
+
         Blade::if('verified', function ($bool = true) {
             $authenticated = auth()->check();
             $verified = auth()->user()->hasVerifiedEmail();

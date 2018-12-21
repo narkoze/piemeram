@@ -25,7 +25,7 @@ return [
     'companydata' => 'Company data',
     'companydescription' => [
       '0' => 'Manufacture of electricity distribution and control apparatus',
-      '1' => 'An international company with over 100 employees',
+      '1' => 'Document management and business process reengineering service company',
     ],
     'dataentryoperator' => 'Data entry operator',
     'responsabilitiestasks' => 'Responsibilities /tasks',

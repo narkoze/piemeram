@@ -21,6 +21,16 @@ mix.sass('resources/sass/app.scss', 'public/css', {
   ]
 })
 
+mix.sass('resources/sass/movie.scss', 'public/css', {
+  includePaths: [
+    'node_modules/semantic-ui-sass/scss',
+  ]
+})
+mix.js('node_modules/semantic-ui-sass/semantic-ui.js', 'public/js/movie.js')
+mix.combine([
+  './node_modules/jquery/dist/jquery.min.js',
+], 'public/js/movie-libs.js')
+
 mix.copy('resources/css/font-awesome-animation.min.css', 'public/css/font-awesome-animation.min.css')
 
 mix.combine([

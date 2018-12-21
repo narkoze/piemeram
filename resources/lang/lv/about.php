@@ -25,7 +25,7 @@ return [
     'companydata' => 'Uzņēmuma dati',
     'companydescription' => [
       '0' => 'Elektroenerģijas sadales un kontroles iekārtu ražošana',
-      '1' => 'Starptautisks uzņēmums, virs 100 darbinieki',
+      '1' => 'Dokumentu vadības un biznesa procesu reinženieringa pakalpojumu uzņēmums',
     ],
     'dataentryoperator' => 'Datu ievades operators',
     'responsabilitiestasks' => 'Pienākumi /uzdevumi',

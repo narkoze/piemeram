@@ -8009,9 +8009,9 @@ selfsigned@^1.9.1:
     node-forge "0.7.1"
 
 semantic-ui-sass@^2.2.11:
-  version "2.2.11"
-  resolved "https://registry.yarnpkg.com/semantic-ui-sass/-/semantic-ui-sass-2.2.11.tgz#f77677cfc6ebe874f0da29e2787b64facccd1f4b"
-  integrity sha512-HCROD3MYXc6ljpudCRJP9mcCwMF35HMV5+xCwS6fktl671FUl7pEW9JPEf4oAR2rGmbyz1JBqsEEbkruuzWx6g==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/semantic-ui-sass/-/semantic-ui-sass-2.3.1.tgz#1d283fab14a9ebb4a6277b2c9acb5affe51c0a27"
+  integrity sha512-iNM2viANlpGzkSkOy11R+Ar7mhInXc2wwkoxON86FcabF+dBdvDMzPXSDGbhTVitHZFoBrK/QCKaZtvpfKQ4ag==
 
 semver-regex@^1.0.0:
   version "1.0.0"

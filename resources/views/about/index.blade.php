@@ -2,7 +2,7 @@
 @section('content')
   <h1>@lang('about.index.title')</h1>
 
-  <div class="ui piled segment">
+  <div class="ui raised segment">
     <div class="ui items">
       <h2>Edgars Vanags</h2>
 
@@ -115,7 +115,6 @@
       </div>
     </div>
 
-
     <h3>@lang('about.index.workexperience')</h3>
 
     <div class="ui grid">
@@ -123,7 +122,10 @@
         <b>2016/06 @lang('about.index.tilltoday')</b>
       </div>
       <div class="four wide column">
-        <a href="http://company.lursoft.lv/en/ae-partner/52103031051">
+        <a
+          href="http://www.aepartner.lv"
+          target="_blank"
+        >
           "SIA AE Partner"
         </a>
       </div>
@@ -150,15 +152,16 @@
       </div>
     </div>
 
-    <h6></h6>
-
     <div class="ui grid">
       <div class="five wide column">
         <b>2008/12 - 2015/08</b>
       </div>
       <div class="four wide column">
-        <a href="https://company.lursoft.lv/baltik-it/40003999164">
-          "SIA BALTIK IT"
+        <a
+          href="http://www.baltikit.lv"
+          target="_blank"
+        >
+          "SIA Baltik It"
         </a>
       </div>
       <div class="seven wide column">
@@ -183,7 +186,6 @@
         @lang('about.index.companydescription.1')
       </div>
     </div>
-
 
     <h3>@lang('about.index.languageknowledge')</h3>
 
@@ -223,7 +225,6 @@
       <div class="three wide column">@lang('about.index.a2')</div>
     </div>
 
-
     <h3>@lang('about.index.computerknowledge')</h3>
 
     <div class="ui grid">
@@ -234,8 +235,6 @@
         CSS/SASS (Zurb Foundation, Semantic UI), C#, AHK, ZPL2
       </div>
     </div>
-
-    <h6></h6>
 
     <div class="ui grid">
       <div class="five wide column">
@@ -250,8 +249,6 @@
         Windows 7/10
       </div>
     </div>
-
-    <h6></h6>
 
     <div class="ui grid">
       <div class="five wide column">
@@ -269,13 +266,15 @@
     </div>
 
     <br><br>
-
-    <a
-      class="ui button red"
-      href="{{ route('about', ['pdf' => 'show']) }}"
-      target="pdf"
-    >
-      @lang('system.openaspdf')
-    </a>
   </div>
+
+  <a
+    class="ui button red"
+    href="{{ route('about', ['pdf' => 'show']) }}"
+    target="pdf"
+  >
+    @lang('system.openaspdf')
+  </a>
+
+  <br><br><br>
 @endsection

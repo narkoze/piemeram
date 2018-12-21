@@ -22,7 +22,7 @@
       }
       body {
         font-family:"Roboto";
-        font-size: 14px;
+        font-size: 13.7px;
       }
       img.profile {
         width: 180px;
@@ -79,6 +79,7 @@
           <img
             class="profile"
             src="file://{{ public_path('img/profile.jpg') }}"
+            style="margin-top: 34px;"
           >
         </td>
         <td>
@@ -140,6 +141,15 @@
 
                 <br>
 
+                <a href="https://indorse.io/narkoze">
+                  <img
+                    src="file://{{ public_path('img/indorse.jpg') }}"
+                    width="14"
+                  > indorse.io/narkoze
+                </a>
+
+                <br>
+
                 <a href="http://www.cv.lv/CVC/5800602.html">
                   <img
                     src="file://{{ public_path('img/cv.jpg') }}"
@@ -182,7 +192,7 @@
           class="height"
           colspan="2"
         >
-          "SIA BALTIK IT"
+          "SIA Baltik It"
         </th>
         <th
           class="height"

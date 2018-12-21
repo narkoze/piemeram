@@ -2,69 +2,84 @@
 @section('content')
   <h1>@lang('project.index.title')</h1>
 
-  <div class="ui items">
-    <div class="item">
+  <div class="ui cards">
+    <div class="card">
       <a
-        href="https://blog.piemeram.lv"
         class="image"
+        href="{{ route('movie') }}"
         target="_blank"
       >
-        <img src="{{ asset('img/project/blog.png') }}">
+        <img src="{{ asset('img/project/movie.jpg') }}">
       </a>
+
       <div class="content">
-        <a
-          href="https://blog.piemeram.lv"
-          class="header"
-          target="_blank"
-        >
-          @lang('project.index.blog.title')
-        </a>
+        <div class="header">
+          <a
+            class="image"
+            href="{{ route('movie') }}"
+            target="_blank"
+          >
+            @lang('project.index.movie.title')
+          </a>
+        </div>
+
         <div class="meta">
-          <span>
-            @lang('project.index.blog.description')
-          </span>
+          @lang('project.index.movie.description')
         </div>
-        <div class="description">
-          <p>
-            @lang('project.index.blog.conclusion')
-          </p>
-        </div>
-        <div class="extra">
-          @lang('project.index.blog.extra')
-        </div>
+      </div>
+
+      <div class="extra content">
+        <span>
+          @lang('project.index.movie.extra')
+        </span>
+        <span class="right floated">
+          2018-12-21
+        </span>
       </div>
     </div>
 
-    {{-- <div class="item">
+    <div class="card">
       <a
-        href="{{ asset('img/project/tm.jpg') }}"
         class="image"
+        href="https://blog.piemeram.lv"
         target="_blank"
       >
-        <img src="{{ asset('img/project/tm.jpg') }}">
+        <img src="{{ asset('img/project/blog.jpg') }}">
       </a>
+
       <div class="content">
-        <a
-          href="piemeram.lv/TM2/TM2.application"
-          class="header"
-          target="_blank"
-        >
-          @lang('project.index.tm.title')
-        </a>
+        <div class="header">
+          <a
+            class="image"
+            href="https://blog.piemeram.lv"
+            target="_blank"
+          >
+            @lang('project.index.blog.title')
+          </a>
+        </div>
+
         <div class="meta">
-          <span>
-            @lang('project.index.tm.description')
-          </span>
+          @lang('project.index.blog.description')
         </div>
+
         <div class="description">
-          <p>
-            @lang('project.index.tm.conclusion')
-          </p>
-        </div>
-        <div class="extra">
-          @lang('project.index.tm.extra')
+          <a
+            href="https://github.com/narkoze/blog"
+            target="_blank"
+          >
+            <i class="grey large fitted github square icon"></i>
+          </a>
         </div>
       </div>
-    </div> --}}
+
+      <div class="extra content">
+        <span>
+          @lang('project.index.blog.extra')
+        </span>
+        <span class="right floated">
+          2018-12-20
+        </span>
+      </div>
+    </div>
   </div>
 @endsection
