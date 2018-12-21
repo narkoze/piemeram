@@ -218,6 +218,18 @@
           </form>
 
           <div class="ui segment paddingless">
+            <div
+              data-tooltip="Download as Excel"
+              data-position="right center"
+            >
+              <a
+                href="{{ route('movie.excel') }}?{{ http_build_query($params) }}"
+                class="ui large green right corner label"
+              >
+                <i class="file excel outline icon"></i>
+              </a>
+            </div>
+
             <table class="ui selectable celled table">
               <thead>
                 <tr>
@@ -341,7 +353,7 @@
                     @endif
                   </th>
 
-                  <th class="nowrap">
+                  <th class="nowrap fixed-8em">
                     <a
                       href="{{ route('movie') }}?{{ http_build_query([
                         'sortBy' => 'votes',

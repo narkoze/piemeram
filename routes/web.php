@@ -15,6 +15,7 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('project', 'ProjectController@index')->name('project');
 Route::get('movie', 'MovieController@index')->name('movie');
+Route::get('movie/excel', 'MovieController@excel')->name('movie.excel');
 Route::get('about', 'AboutController@index')->name('about');
 
 Route::post('locale/{locale}', 'LocaleController@setLocale')->name('setLocale');

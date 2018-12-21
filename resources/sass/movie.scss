@@ -52,18 +52,19 @@ body {
 
 .ui.table {
   border: none;
+  margin-top: 0;
 }
 
-.ui[class*="right ribbon"].label {
-  left: calc(100% + 1rem);
-  top: 0.3rem;
-  background: #009000;
-  border-color: #006000;
-  color: white;
+th.fixed-8em {
+  width: 8em;
 }
 
 .ui.pointing.label {
   margin-top: 0;
+}
+
+.ui.corner.label .icon {
+    pointer-events: none;
 }
 
 .float-right {
