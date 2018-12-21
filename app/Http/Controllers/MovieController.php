@@ -14,6 +14,8 @@ class MovieController extends Controller
             'genre' => null,
             'year' => null,
             'rating' => null,
+            'sortBy' => 'votes',
+            'sortDirection' => 'desc',
         ];
     }
 
@@ -44,6 +46,8 @@ class MovieController extends Controller
         if ($params['rating']) {
             $query->whereRaw("ROUND(rating) = ?", $params['rating']);
         }
+
+        $query->orderBy($params['sortBy'], $params['sortDirection']);
 
         $movies = $query->paginate(100);
 

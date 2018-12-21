@@ -222,7 +222,18 @@
               <thead>
                 <tr>
                   <th class="nowrap">
-                    Name
+                    <a
+                      href="{{ route('movie') }}?{{ http_build_query([
+                        'sortBy' => 'name',
+                        'sortDirection' => $params['sortBy'] == 'name' ? ($params['sortDirection'] == 'desc' ? 'asc' : 'desc') : 'asc',
+                        'page' => 1,
+                      ] + $params) }}"
+                    >
+                      Name
+                      @if ($params['sortBy'] == 'name')
+                        <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                      @endif
+                    </a>
                     @if ($search)
                       <a
                         href="{{ route('movie') }}?{{ http_build_query([
@@ -241,7 +252,18 @@
                   </th>
 
                   <th class="nowrap">
-                    Genres
+                    <a
+                      href="{{ route('movie') }}?{{ http_build_query([
+                        'sortBy' => 'genres',
+                        'sortDirection' => $params['sortBy'] == 'genres' ? ($params['sortDirection'] == 'desc' ? 'asc' : 'desc') : 'asc',
+                        'page' => 1,
+                      ] + $params) }}"
+                    >
+                      Genres
+                      @if ($params['sortBy'] == 'genres')
+                        <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                      @endif
+                    </a>
                     @if ($params['genre'])
                       <a
                         href="{{ route('movie') }}?{{ http_build_query([
@@ -260,7 +282,18 @@
                   </th>
 
                   <th class="nowrap">
-                    Year
+                    <a
+                      href="{{ route('movie') }}?{{ http_build_query([
+                        'sortBy' => 'year',
+                        'sortDirection' => $params['sortBy'] == 'year' ? ($params['sortDirection'] == 'desc' ? 'asc' : 'desc') : 'asc',
+                        'page' => 1,
+                      ] + $params) }}"
+                    >
+                      Year
+                      @if ($params['sortBy'] == 'year')
+                        <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                      @endif
+                    </a>
                     @if ($params['year'])
                       <a
                         href="{{ route('movie') }}?{{ http_build_query([
@@ -279,7 +312,18 @@
                   </th>
 
                   <th class="nowrap">
-                    Rating
+                    <a
+                      href="{{ route('movie') }}?{{ http_build_query([
+                        'sortBy' => 'rating',
+                        'sortDirection' => $params['sortBy'] == 'rating' ? ($params['sortDirection'] == 'desc' ? 'asc' : 'desc') : 'asc',
+                        'page' => 1,
+                      ] + $params) }}"
+                    >
+                      Rating
+                      @if ($params['sortBy'] == 'rating')
+                        <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                      @endif
+                    </a>
                     @if ($params['rating'])
                       <a
                         href="{{ route('movie') }}?{{ http_build_query([
@@ -298,7 +342,18 @@
                   </th>
 
                   <th class="nowrap">
-                    Votes
+                    <a
+                      href="{{ route('movie') }}?{{ http_build_query([
+                        'sortBy' => 'votes',
+                        'sortDirection' => $params['sortBy'] == 'votes' ? ($params['sortDirection'] == 'desc' ? 'asc' : 'desc') : 'asc',
+                        'page' => 1,
+                      ] + $params) }}"
+                    >
+                      Votes
+                      @if ($params['sortBy'] == 'votes')
+                        <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                      @endif
+                    </a>
                   </th>
                 </tr>
               </thead>
