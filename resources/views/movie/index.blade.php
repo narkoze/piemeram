@@ -460,11 +460,41 @@
               </tbody>
             </table>
           </div>
-          {{ $movies->appends($params)->links() }}
 
-          <span class="ui pointing basic label float-right">
-            Total: {{ $movies->total() }}
-          </span>
+          <div class="ui compact floating menu">
+            <div class="ui simple dropdown item">
+              Per page {{ $params['perPage'] }}
+              <i class="dropdown icon"></i>
+
+              <div class="top menu">
+                @php
+                  $perPages[] = 'All';
+                @endphp
+
+                @foreach ($perPages as $perPage)
+                  @unless ($params['perPage'] == $perPage)
+                    <a
+                      href="{{ route('movie') }}?{{ http_build_query([
+                        'perPage' => $perPage,
+                        'page' => 1,
+                      ] + $params) }}"
+                      class="item"
+                    >
+                      {{ $perPage }}
+                    </a>
+                  @endunless
+                @endforeach
+              </div>
+            </div>
+          </div>
+
+          @if ($movies instanceof Illuminate\Pagination\LengthAwarePaginator)
+            {{ $movies->appends($params)->links() }}
+
+            <span class="ui pointing basic label float-right">
+              Total: {{ $movies->total() }}
+            </span>
+          @endif
         </div>
       </div>
     </div>

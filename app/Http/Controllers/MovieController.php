@@ -15,9 +15,17 @@ class MovieController extends Controller
     {
         $params = $request->all() + $this->params();
 
-        $movies = $this->movies($params)->paginate(100);
+        $query = $this->movies($params);
+        $perPages = $this->perPages();
+        if ($params['perPage'] and
+            in_array($params['perPage'], $perPages)
+        ) {
+            $movies = $query->paginate($params['perPage']);
+        } else {
+            $movies = $query->get();
+        }
 
-        return view('movie.index', compact('movies', 'params'));
+        return view('movie.index', compact('movies', 'params', 'perPages'));
     }
 
     public function excel(Request $request)
@@ -83,7 +91,13 @@ class MovieController extends Controller
             'search' => '',
             'sortBy' => 'votes',
             'sortDirection' => 'desc',
+            'perPage' => '10'
         ];
+    }
+
+    protected function perPages(): array
+    {
+        return [10, 25, 50, 100, 250, 500, 100];
     }
 
     protected function movies($params = [])

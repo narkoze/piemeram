@@ -86,3 +86,11 @@ th.fixed-8em {
 .highlight {
   background-color: yellow;
 }
+
+.ui.simple.dropdown:hover > .menu {
+  overflow: visible;
+  width: auto;
+  height: auto;
+  top: -253px !important;
+  opacity: 1;
+}
