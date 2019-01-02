@@ -11,12 +11,13 @@ https://piemeram.lv
 ## Projects
 
 #### # Table
-> https://piemeram.lv/movie
+> https://piemeram.lv/project/movie
 >
 > - Filters
 > - Search
 > - Sort
 > - Paginator
+> - Bulk actions
 > - Export to Excel keeping parameters
 
 #### # Blog
