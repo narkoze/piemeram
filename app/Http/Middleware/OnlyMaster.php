@@ -5,7 +5,7 @@ namespace Piemeram\Http\Middleware;
 use Illuminate\Support\Facades\Route;
 use Closure;
 
-class MasterOnly
+class OnlyMaster
 {
     public function handle($request, Closure $next)
     {

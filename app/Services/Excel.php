@@ -164,7 +164,24 @@ class Excel implements
 
                     $column = $autofilter->getColumn($column);
                     $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_FILTER);
-                    $column->createRule()->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, $rules['equal']);
+                    if (is_array($rules['equal'])) {
+                        foreach ($rules['equal'] as $equal) {
+                            $column->createRule()->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, $equal);
+                        }
+                    }
+                    if (is_string($rules['equal'])) {
+                        $column->createRule()->setRule(Rule::AUTOFILTER_COLUMN_RULE_EQUAL, $rules['equal']);
+                    }
+
+                    break;
+                case 'notEqual':
+                    if (!$rules['notEqual']) { break; }
+
+                    $column = $autofilter->getColumn($column);
+                    $column->setFilterType(Column::AUTOFILTER_FILTERTYPE_CUSTOMFILTER);
+                    $column->createRule()
+                        ->setRule(Rule::AUTOFILTER_COLUMN_RULE_NOTEQUAL, $rules['notEqual'])
+                        ->setRuleType(Rule::AUTOFILTER_RULETYPE_CUSTOMFILTER);
 
                     break;
                 case 'betweenDates':

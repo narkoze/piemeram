@@ -160,6 +160,7 @@
           <form
             action="{{ route('movie') }}"
             id="form"
+            class="field"
           >
             <input
               value="{{ $params['genre'] }}"
@@ -176,46 +177,128 @@
               type="hidden"
               name="rating"
             >
+            <input
+              value="{{ $params['onlySelected'] }}"
+              type="hidden"
+              name="onlySelected"
+            >
+            <input
+              value="{{ $params['checked'] }}"
+              type="hidden"
+              name="checked"
+            >
+            <input
+              value="{{ $params['unchecked'] }}"
+              type="hidden"
+              name="unchecked"
+            >
+            <input
+              value="{{ $params['sortBy'] }}"
+              type="hidden"
+              name="sortBy"
+            >
+            <input
+              value="{{ $params['sortDirection'] }}"
+              type="hidden"
+              name="sortDirection"
+            >
 
-            <div class="field">
-              <label>&nbsp;</label>
+            <label>&nbsp;</label>
 
-              <div class="ui fluid left icon right labeled action input">
-                <i class="search icon"></i>
+            <div class="ui fluid left icon right labeled action input">
+              <i class="search icon"></i>
 
-                @php
-                  $search = trim($params['search']);
-                @endphp
+              @php
+                $search = trim($params['search']);
+              @endphp
 
-                <input
-                  value="{{ $search }}"
-                  type="text"
-                  id="search"
-                  name="search"
-                  placeholder="Press enter to search"
+              <input
+                value="{{ $search }}"
+                type="text"
+                id="search"
+                name="search"
+                placeholder="Press enter to search"
+              >
+
+              @if ($search)
+                <a
+                  href="{{ route('movie') }}?{{ http_build_query([
+                    'search' => '',
+                    'page' => 1,
+                  ] + $params) }}"
+                  class="ui button"
                 >
+                  <i class="fitted times icon"></i>
+                </a>
+              @else
+                <button
+                  type="submit"
+                  class="ui button"
+                >
+                  Search
+                </button>
+              @endif
+            </div>
+          </form>
 
-                @if ($search)
+          @php
+            $checkedRows = array_filter(explode(',', $params['checked']));
+            $uncheckedRows = array_filter(explode(',', $params['unchecked']));
+          @endphp
+
+          @if ($params['checked'] or $params['unchecked'])
+            <div class="ui dropdown bulk">
+              <div class="text">
+                  Selected:
+                  @if ($params['checked'] == 'all')
+                    @php
+                      $count = $movies instanceof Illuminate\Pagination\LengthAwarePaginator
+                        ? $movies->total()
+                        : $movies->count();
+                    @endphp
+                    {{ $count - ($params['onlySelected'] ? 0 : count($uncheckedRows)) }}
+                  @else
+                   {{ count($checkedRows) }}
+                  @endif
+              </div>
+              <i class="dropdown icon"></i>
+
+              <div class="menu">
+                <a
+                  href="{{ route('movie') }}?{{ http_build_query([
+                    'checked' => '',
+                    'unchecked' => '',
+                    'onlySelected' => false,
+                  ] + $params) }}"
+                  class="item"
+                >
+                  Deselect all
+                </a>
+
+                @if ($params['onlySelected'])
                   <a
                     href="{{ route('movie') }}?{{ http_build_query([
-                      'search' => '',
+                      'onlySelected' => false,
                       'page' => 1,
                     ] + $params) }}"
-                    class="ui button"
+                    class="item"
                   >
-                    <i class="fitted times icon"></i>
+                    Show all
                   </a>
                 @else
-                  <button
-                    type="submit"
-                    class="ui button"
+                  <a
+                    href="{{ route('movie') }}?{{ http_build_query([
+                      'onlySelected' => true,
+                      'page' => 1,
+                    ] + $params) }}"
+                    class="item"
                   >
-                    Search
-                  </button>
+                    Show selected only
+                  </a>
                 @endif
               </div>
             </div>
-          </form>
+          @endif
 
           <div class="ui segment paddingless">
             <div
@@ -233,6 +316,26 @@
             <table class="ui selectable celled table">
               <thead>
                 <tr>
+                  <th>
+                    <div class="ui fitted read-only checkbox">
+                      <input
+                        type="checkbox"
+                        @if ($params['checked'] == 'all' or $params['onlySelected'])
+                          checked
+                        @endif
+                      >
+                      <label
+                        onclick="location = '{{ route('movie') }}?{{ http_build_query([
+                          'checked' => ($params['checked'] == 'all' or $params['onlySelected']) ? '' : 'all',
+                          'unchecked' => null,
+                          'onlySelected' => false,
+                        ] + $params) }}'"
+                      >
+                      </label>
+                    </div>
+                    <div class="field">
+                  </th>
+
                   <th class="nowrap">
                     <a
                       href="{{ route('movie') }}?{{ http_build_query([
@@ -373,6 +476,48 @@
                 @foreach ($movies as $movie)
                   <tr>
                     <td>
+                      <div class="ui fitted read-only checkbox">
+                        <input
+                          type="checkbox"
+                          @if (
+                            in_array($movie->id, $checkedRows) or
+                            ($params['checked'] == 'all' and !in_array($movie->id, $uncheckedRows))
+                          )
+                            checked
+                          @endif
+                        >
+                        <label
+                          @if ($params['checked'] == 'all')
+                            onclick="location = '{{ route('movie') }}?{{ urldecode(http_build_query([
+                              'unchecked' => call_user_func(function () use ($uncheckedRows, $movie) {
+                                if (in_array($movie->id, $uncheckedRows)) {
+                                  $uncheckedRows = array_diff($uncheckedRows, [$movie->id]);
+                                } else {
+                                  $uncheckedRows[] = $movie->id;
+                                }
+                                return implode(',', $uncheckedRows);
+                              }),
+                              'onlySelected' => $params['checked'] ? $params['onlySelected'] : false
+                            ] + $params)) }}'"
+                          @else
+                            onclick="location = '{{ route('movie') }}?{{ urldecode(http_build_query([
+                              'checked' => call_user_func(function () use ($checkedRows, $movie) {
+                                if (in_array($movie->id, $checkedRows)) {
+                                  $checkedRows = array_diff($checkedRows, [$movie->id]);
+                                } else {
+                                  $checkedRows[] = $movie->id;
+                                }
+                                return implode(',', $checkedRows);
+                              }),
+                              'onlySelected' => count($checkedRows) > 1 ? $params['onlySelected'] : false
+                            ] + $params)) }}'"
+                          @endif
+                        >
+                        </label>
+                      </div>
+                    </td>
+
+                    <td>
                       <a
                         href="{{ $movie->imdb }}"
                         target="_blank"
@@ -461,40 +606,47 @@
             </table>
           </div>
 
-          <div class="ui compact floating menu">
-            <div class="ui simple dropdown item">
-              Per page {{ $params['perPage'] }}
-              <i class="dropdown icon"></i>
-
-              <div class="top menu">
-                @php
-                  $perPages[] = 'All';
-                @endphp
-
-                @foreach ($perPages as $perPage)
-                  @unless ($params['perPage'] == $perPage)
-                    <a
-                      href="{{ route('movie') }}?{{ http_build_query([
-                        'perPage' => $perPage,
-                        'page' => 1,
-                      ] + $params) }}"
-                      class="item"
-                    >
-                      {{ $perPage }}
-                    </a>
-                  @endunless
-                @endforeach
-              </div>
-            </div>
-          </div>
-
           @if ($movies instanceof Illuminate\Pagination\LengthAwarePaginator)
             {{ $movies->appends($params)->links() }}
 
-            <span class="ui pointing basic label float-right">
-              Total: {{ $movies->total() }}
-            </span>
+            @if ($movies->lastPage() > 1)
+              <div class="ui compact floating menu">
+                <div class="ui simple dropdown item">
+                  Per page {{ $params['perPage'] }}
+                  <i class="dropdown icon"></i>
+
+                  <div class="top menu">
+                    @php
+                      $perPages[] = 'All';
+                    @endphp
+
+                    @foreach ($perPages as $perPage)
+                      @unless ($params['perPage'] == $perPage)
+                        <a
+                          href="{{ route('movie') }}?{{ http_build_query([
+                            'perPage' => $perPage,
+                            'page' => 1,
+                          ] + $params) }}"
+                          class="item"
+                        >
+                          {{ $perPage }}
+                        </a>
+                      @endunless
+                    @endforeach
+                  </div>
+                </div>
+              </div>
+            @endif
           @endif
+
+          <span class="ui pointing basic label float-right">
+            Total:
+            @if ($movies instanceof Illuminate\Pagination\LengthAwarePaginator)
+              {{ $movies->total() }}
+            @else
+              {{ $movies->count() }}
+            @endif
+          </span>
         </div>
       </div>
     </div>
@@ -503,6 +655,8 @@
     <script src="{{ mix('js/movie.js') }}"></script>
     <script>
       $('.ui.star.rating').rating('disable')
+      $('.ui.checkbox').checkbox()
+      $('.ui.dropdown.bulk').dropdown()
 
       $('.ui.search.dropdown.genre').dropdown({
         allowAdditions: true,

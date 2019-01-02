@@ -68,8 +68,8 @@ class MovieController extends Controller
 
         $data = $this->movies()
             ->get()
-            ->transform(function ($movie) {
-                return [
+            ->transform(function ($movie) use ($params) {
+                $data = [
                     $movie->name,
                     $movie->genres,
                     $movie->year,
@@ -77,7 +77,50 @@ class MovieController extends Controller
                     round($movie->rating),
                     $movie->votes,
                 ];
+
+                if ($params['onlySelected']) {
+                    $data[] = $movie->id;
+                }
+
+                return $data;
             });
+
+        if ($params['onlySelected']) {
+            $ids = [];
+            if ($params['checked'] and
+                strcasecmp('All', trim($params['checked']))
+            ) {
+                foreach (collect(explode(',', $params['checked']))
+                    ->filter(function ($id) {
+                        return (int) $id > 0;
+                    })
+                as $id) {
+                    $ids[] = $id;
+                }
+            }
+            if ($params['unchecked']) {
+                foreach ($data->pluck(6) as $id) {
+                    if (in_array(
+                        $id,
+                        collect(explode(',', $params['unchecked']))
+                            ->filter(function ($id) {
+                                return (int) $id > 0;
+                            })->toArray()
+                    )) {
+                        continue;
+                    }
+
+                    $ids[] = $id;
+                }
+            }
+
+            $headings['Id'] = [
+                'format' => 'number',
+                'filter' => [
+                    'equal' => $ids,
+                ],
+            ];
+        }
 
         return (new Excel("Movies.xlsx", $headings, $data))->download("Movies.xlsx");
     }
@@ -85,19 +128,22 @@ class MovieController extends Controller
     protected function params(): array
     {
         return [
-            'genre' => null,
-            'year' => null,
-            'rating' => null,
-            'search' => '',
-            'sortBy' => 'votes',
             'sortDirection' => 'desc',
-            'perPage' => '10'
+            'onlySelected' => false,
+            'sortBy' => 'votes',
+            'unchecked' => '',
+            'perPage' => '10',
+            'rating' => null,
+            'checked' => '',
+            'search' => '',
+            'year' => null,
+            'genre' => '',
         ];
     }
 
     protected function perPages(): array
     {
-        return [10, 25, 50, 100, 250, 500, 100];
+        return [10, 25, 50, 100, 250, 500, 1000];
     }
 
     protected function movies($params = [])
@@ -123,6 +169,29 @@ class MovieController extends Controller
 
         if ($params['rating']) {
             $query->whereRaw("ROUND(rating) = ?", $params['rating']);
+        }
+
+        if ($params['onlySelected']) {
+            if ($params['checked'] and
+                strcasecmp('All', trim($params['checked']))
+            ) {
+                $query->whereIn(
+                    'id',
+                    collect(explode(',', $params['checked']))
+                        ->filter(function ($id) {
+                            return (int) $id > 0;
+                        })
+                );
+            }
+            if ($params['unchecked']) {
+                $query->whereNotIn(
+                    'id',
+                    collect(explode(',', $params['unchecked']))
+                        ->filter(function ($id) {
+                            return (int) $id > 0;
+                        })
+                );
+            }
         }
 
         $query->orderBy($params['sortBy'], $params['sortDirection']);
