@@ -29,6 +29,7 @@ mix.sass('resources/sass/movie.scss', 'public/css', {
 mix.js('node_modules/semantic-ui-sass/semantic-ui.js', 'public/js/movie.js')
 mix.combine([
   './node_modules/jquery/dist/jquery.min.js',
+  './node_modules/jquery-ujs/src/rails.js',
 ], 'public/js/movie-libs.js')
 
 mix.copy('resources/css/font-awesome-animation.min.css', 'public/css/font-awesome-animation.min.css')

@@ -1,7 +1,8 @@
 <?php
 
-namespace Piemeram\Http\Controllers;
+namespace Piemeram\Http\Controllers\Project;
 
+use Piemeram\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Piemeram\Services\Excel;
 use Piemeram\Movie;
@@ -9,11 +10,14 @@ use Piemeram\Movie;
 class MovieController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
-        $params = $request->all() + $this->params();
+        $params = $this->params($request->all());
 
         $query = $this->movies($params);
         $perPages = $this->perPages();
@@ -25,12 +29,107 @@ class MovieController extends Controller
             $movies = $query->get();
         }
 
-        return view('movie.index', compact('movies', 'params', 'perPages'));
+        $genres = $this->genres();
+
+        return view(
+            'project.movie.index',
+            compact(
+                'movies',
+                'params',
+                'perPages',
+                'genres'
+            )
+        );
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        $genres = $this->genres();
+
+        return view('project.movie.create', compact('movie', 'genres'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Movie $movie
+     * @return \Illuminate\View\View
+     */
+    public function edit(Movie $movie)
+    {
+        $genres = $this->genres();
+
+        return view('project.movie.edit', compact('movie', 'genres'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
+    {
+        $request->validate($this->rules([
+            'name' => 'unique:movies,name',
+        ]));
+
+        $movie = Movie::create($request->all());
+
+        return redirect()
+            ->action('Project\MovieController@edit', $movie)
+            ->with('notification', 'Movie successfully added');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  Movie $movie
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Movie $movie)
+    {
+        $request->validate($this->rules([
+            'name' => "unique:movies,name,{$movie->id}",
+        ]));
+
+        $movie->update($request->all());
+
+        return redirect()
+            ->action('Project\MovieController@edit', $movie)
+            ->with('notification', 'Movie successfully updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Movie $movie
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Movie $movie)
+    {
+        $movie->delete();
+
+        return redirect()
+            ->action('Project\MovieController@index')
+            ->with('notification', 'Movie successfully deleted');
+    }
+
+    /**
+     * Export as .xlsx
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Piemeram\Services\Excel
+     */
     public function excel(Request $request)
     {
-        $params = $request->all() + $this->params();
+        $params = $this->params($request->all());
 
         $headings = [
             'Name' => [
@@ -125,9 +224,101 @@ class MovieController extends Controller
         return (new Excel("Movies.xlsx", $headings, $data))->download("Movies.xlsx");
     }
 
-    protected function params(): array
+    /**
+     * List of rules
+     *
+     * @param  Array $addRules
+     * @return Array
+     */
+    protected function rules($addRules): array
+    {
+        $rules = [
+            'name' => [
+                'required',
+                'max:255',
+            ],
+            'genres' => [
+                'required',
+            ],
+            'year' => [
+                'numeric',
+                'min:1850',
+                'max:' . now()->year,
+            ],
+            'rating' => [
+                'numeric',
+                'min:0',
+            ],
+            'votes' => [
+                'numeric',
+                'min:0',
+            ],
+            'imdb' => [
+                'required',
+                'max:255',
+            ],
+        ];
+
+        foreach ($addRules as $key => $rule) {
+            $rules[$key][] = $rule;
+        }
+
+        return $rules;
+    }
+
+    /**
+     * List of genres
+     *
+     * @return Array
+     */
+    protected function genres(): array
     {
         return [
+            "Action",
+            "Adult",
+            "Adventure",
+            "Animation",
+            "Biography",
+            "Comedy",
+            "Crime",
+            "Documentary",
+            "Drama",
+            "Family",
+            "Fantasy",
+            "History",
+            "Horror",
+            "Mystery",
+            "Music",
+            "Musical",
+            "Romance",
+            "Sci-Fi",
+            "Short",
+            "Sport",
+            "Thriller",
+            "War",
+            "Western",
+        ];
+    }
+
+    /**
+     * List of items per page
+     *
+     * @return Array
+     */
+    protected function perPages(): array
+    {
+        return [10, 25, 50, 100, 250, 500, 1000];
+    }
+
+    /**
+     * Query parameters
+     *
+     * @param  Array $params
+     * @return Array
+     */
+    protected function params($params): array
+    {
+        return $params + [
             'sortDirection' => 'desc',
             'onlySelected' => false,
             'sortBy' => 'votes',
@@ -141,14 +332,15 @@ class MovieController extends Controller
         ];
     }
 
-    protected function perPages(): array
-    {
-        return [10, 25, 50, 100, 250, 500, 1000];
-    }
-
+    /**
+     * Query builder
+     *
+     * @param  Array $params
+     * @return Illuminate\Database\Query\Builder
+     */
     protected function movies($params = [])
     {
-        $params = $params + $this->params();
+        $params = $this->params($params);
 
         $query = Movie::select([
             'movies.*'

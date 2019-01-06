@@ -1,11 +1,11 @@
 @import 'globals/variables';
 @import 'globals/reset';
 @import 'globals/site';
-// @import 'collections/breadcrumb';
+@import 'collections/breadcrumb';
 @import 'collections/form';
 @import 'collections/grid';
 @import 'collections/menu';
-// @import 'collections/message';
+@import 'collections/message';
 @import 'collections/table';
 @import 'elements/button';
 @import 'elements/container';
@@ -55,10 +55,6 @@ body {
   margin-top: 0;
 }
 
-th.fixed-8em {
-  width: 8em;
-}
-
 .ui.pointing.label {
   margin-top: 0;
 }
@@ -93,4 +89,24 @@ th.fixed-8em {
   height: auto;
   top: -253px !important;
   opacity: 1;
+}
+
+.ui.red {
+  color: #B03060;
+}
+.ui.black {
+  color: #000000;
+}
+
+.ui.breadcrumb {
+  margin-top: 14px;
+  margin-bottom: 24px;
+}
+
+.ui.star.rating .icon {
+  width: .7em;
+  height: auto;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.15);
+  text-shadow: none;
 }

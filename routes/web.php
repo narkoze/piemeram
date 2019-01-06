@@ -23,7 +23,7 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')
 Route::group([
     'prefix' => 'project',
 ], function () {
-    Route::get('', 'ProjectController@index')->name('project');
-    Route::get('movie', 'MovieController@index')->name('movie');
-    Route::get('movie/excel', 'MovieController@excel')->name('movie.excel');
+    Route::get('', 'Project\ProjectController@index')->name('project');
+    Route::get('movie/excel', 'Project\MovieController@excel')->name('movie.excel');
+    Route::resource('movie', 'Project\MovieController');
 });

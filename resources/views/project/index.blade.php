@@ -6,7 +6,7 @@
     <div class="card">
       <a
         class="image"
-        href="{{ route('movie') }}"
+        href="{{ route('movie.index') }}"
         target="_blank"
       >
         <img src="{{ asset('img/project/movie.jpg') }}">
@@ -16,7 +16,7 @@
         <div class="header">
           <a
             class="image"
-            href="{{ route('movie') }}"
+            href="{{ route('movie.index') }}"
             target="_blank"
           >
             @lang('project.index.movie.title')
