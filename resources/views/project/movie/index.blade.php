@@ -526,7 +526,7 @@
                 <td>{{ number_format($movie->votes) }}</td>
 
                 <td>
-                  <div class="ui dropdown bulk">
+                  <div class="ui dropdown row">
                     <i class="bars icon"></i>
                     <div class="menu">
                       <a
@@ -673,7 +673,8 @@
   <script>
     $('.ui.star.rating').rating('disable')
     $('.ui.checkbox').checkbox()
-    $('.ui.dropdown.button.fluid.bulk').dropdown()
+    $('.ui.dropdown.row').dropdown()
+    $('.ui.dropdown.bulk').dropdown()
 
     $('.ui.search.dropdown.genre').dropdown({
       allowAdditions: true,
