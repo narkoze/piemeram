@@ -267,7 +267,7 @@
                 >
                   Name
                   @if ($params['sortBy'] == 'name')
-                    <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                    <i class="fitted angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
                   @endif
                 </a>
                 @if ($search)
@@ -297,7 +297,7 @@
                 >
                   Genres
                   @if ($params['sortBy'] == 'genres')
-                    <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                    <i class="fitted angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
                   @endif
                 </a>
                 @if ($params['genre'])
@@ -327,7 +327,7 @@
                 >
                   Year
                   @if ($params['sortBy'] == 'year')
-                    <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                    <i class="fitted angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
                   @endif
                 </a>
                 @if ($params['year'])
@@ -357,7 +357,7 @@
                 >
                   Rating
                   @if ($params['sortBy'] == 'rating')
-                    <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                    <i class="fitted angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
                   @endif
                 </a>
                 @if ($params['rating'])
@@ -387,7 +387,7 @@
                 >
                   Votes
                   @if ($params['sortBy'] == 'votes')
-                    <i class="angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
+                    <i class="fitted angle icon {{ $params['sortDirection'] == 'asc' ? 'up' : 'down' }}"></i>
                   @endif
                 </a>
               </th>
