@@ -13,6 +13,7 @@ https://piemeram.lv
 #### # Table
 > https://piemeram.lv/project/movie
 >
+> - CRUD
 > - Filters
 > - Search
 > - Sort
