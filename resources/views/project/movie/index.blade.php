@@ -257,7 +257,7 @@
                 <div class="field">
               </th>
 
-              <th class="nowrap">
+              <th class="nowrap fullwidth">
                 <a
                   href="{{ route('movie.index') }}?{{ http_build_query([
                     'sortBy' => 'name',
@@ -449,6 +449,14 @@
                         {{ $movie->name }}
                       @endif
                     </b>
+                  </a>
+                  <br>
+                  <a
+                    href="{{ $movie->imdb }}"
+                    target="_blank"
+                    class="ui black"
+                  >
+                    <small>{{ $movie->imdb }}</small>
                   </a>
                 </td>
 
