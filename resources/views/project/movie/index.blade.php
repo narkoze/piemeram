@@ -622,17 +622,18 @@
           @endunless
         ">
           <div class="text">
-            Selected:
-            @if ($params['checked'] == 'all')
-              @php
+            @php
+              if ($params['checked'] == 'all') {
                 $count = $movies instanceof Illuminate\Pagination\LengthAwarePaginator
                   ? $movies->total()
                   : $movies->count();
-              @endphp
-              {{ $count - ($params['onlySelected'] ? 0 : count($uncheckedRows)) }}
-            @else
-              {{ count($checkedRows) }}
-            @endif
+
+                $selected = $count - ($params['onlySelected'] ? 0 : count($uncheckedRows));
+              } else {
+                $selected = count($checkedRows);
+              }
+            @endphp
+            Selected: {{ $selected }}
           </div>
 
           <div class="menu">
@@ -668,6 +669,15 @@
                 Show selected only
               </a>
             @endif
+
+            <a
+              href="{{ route('movie.destroy.multiple') }}?{{ http_build_query($params) }}"
+              class="item"
+              data-confirm="Delete {{ $selected }} movies?"
+              data-method="delete"
+            >
+              <span class="ui red">Delete selected</span>
+            </a>
           </div>
 
           <i class="dropdown icon"></i>

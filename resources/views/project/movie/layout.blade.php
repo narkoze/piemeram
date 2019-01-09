@@ -15,13 +15,13 @@
   <body>
     <div class="ui container">
       @if (session('notification'))
-        <div class="ui green icon message">
-          <i class="check icon"></i>
+      <div class="ui icon message {{ session('notification')[0] == 'success' ? 'green' : 'red' }}">
+          <i class="icon {{ session('notification')[0] == 'success' ? 'check' : 'times' }}"></i>
           <i class="close icon"></i>
 
           <div class="content">
             <div class="header">
-              {{ session('notification') }}
+              {{ session('notification')[1] }}
             </div>
           </div>
         </div>

@@ -83,7 +83,10 @@ class MovieController extends Controller
 
         return redirect()
             ->action('Project\MovieController@edit', $movie)
-            ->with('notification', 'Movie successfully added');
+            ->with('notification', [
+                'success',
+                'Movie successfully added',
+            ]);
     }
 
     /**
@@ -103,7 +106,10 @@ class MovieController extends Controller
 
         return redirect()
             ->action('Project\MovieController@edit', $movie)
-            ->with('notification', 'Movie successfully updated');
+            ->with('notification', [
+                'success',
+                'Movie successfully updated',
+            ]);
     }
 
     /**
@@ -118,7 +124,50 @@ class MovieController extends Controller
 
         return redirect()
             ->action('Project\MovieController@index')
-            ->with('notification', 'Movie successfully deleted');
+            ->with('notification', [
+                'success',
+                'Movie successfully deleted',
+            ]);
+    }
+
+    /**
+     * Remove the specified resources from storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroyMultiple(Request $request)
+    {
+        $params = $this->params($request->all());
+
+        $ids = [];
+        if ($params['checked'] and
+            strcasecmp('All', trim($params['checked']))
+        ) {
+            $ids = $this->getIds($params['checked']);
+        }
+        if ($params['unchecked']) {
+            $ids = $this->getIds($params['unchecked']);
+        }
+
+        $idCount = count($ids);
+        if ($idCount > 5) {
+            return redirect()
+            ->back()
+            ->with('notification', [
+                'error',
+                'You can not delete more than 5 movies in one go',
+            ]);
+        }
+
+        Movie::destroy($ids);
+
+        return redirect()
+            ->action('Project\MovieController@index')
+            ->with('notification', [
+                'success',
+                "{$idCount} Movies successfully deleted",
+            ]);
     }
 
     /**
@@ -189,26 +238,15 @@ class MovieController extends Controller
             if ($params['checked'] and
                 strcasecmp('All', trim($params['checked']))
             ) {
-                foreach (collect(explode(',', $params['checked']))
-                    ->filter(function ($id) {
-                        return (int) $id > 0;
-                    })
-                as $id) {
+                foreach ($this->getIds($params['checked']) as $id) {
                     $ids[] = $id;
                 }
             }
             if ($params['unchecked']) {
                 foreach ($data->pluck(6) as $id) {
-                    if (in_array(
-                        $id,
-                        collect(explode(',', $params['unchecked']))
-                            ->filter(function ($id) {
-                                return (int) $id > 0;
-                            })->toArray()
-                    )) {
+                    if (in_array($id, $this->getIds($params['unchecked']))) {
                         continue;
                     }
-
                     $ids[] = $id;
                 }
             }
@@ -221,7 +259,7 @@ class MovieController extends Controller
             ];
         }
 
-        return (new Excel("Movies.xlsx", $headings, $data))->download("Movies.xlsx");
+        return (new Excel('Movies.xlsx', $headings, $data))->download('Movies.xlsx');
     }
 
     /**
@@ -274,29 +312,29 @@ class MovieController extends Controller
     protected function genres(): array
     {
         return [
-            "Action",
-            "Adult",
-            "Adventure",
-            "Animation",
-            "Biography",
-            "Comedy",
-            "Crime",
-            "Documentary",
-            "Drama",
-            "Family",
-            "Fantasy",
-            "History",
-            "Horror",
-            "Mystery",
-            "Music",
-            "Musical",
-            "Romance",
-            "Sci-Fi",
-            "Short",
-            "Sport",
-            "Thriller",
-            "War",
-            "Western",
+            'Action',
+            'Adult',
+            'Adventure',
+            'Animation',
+            'Biography',
+            'Comedy',
+            'Crime',
+            'Documentary',
+            'Drama',
+            'Family',
+            'Fantasy',
+            'History',
+            'Horror',
+            'Mystery',
+            'Music',
+            'Musical',
+            'Romance',
+            'Sci-Fi',
+            'Short',
+            'Sport',
+            'Thriller',
+            'War',
+            'Western',
         ];
     }
 
@@ -348,11 +386,11 @@ class MovieController extends Controller
 
         $search = trim($params['search']);
         if ($search) {
-            $query->whereRaw("name ILIKE ?", "%$search%");
+            $query->whereRaw('name ILIKE ?', "%$search%");
         }
 
         if ($params['genre']) {
-            $query->whereRaw("genres ILIKE ?", "%{$params['genre']}%");
+            $query->whereRaw('genres ILIKE ?', "%{$params['genre']}%");
         }
 
         if ($params['year']) {
@@ -360,34 +398,37 @@ class MovieController extends Controller
         }
 
         if ($params['rating']) {
-            $query->whereRaw("ROUND(rating) = ?", $params['rating']);
+            $query->whereRaw('ROUND(rating) = ?', $params['rating']);
         }
 
         if ($params['onlySelected']) {
             if ($params['checked'] and
                 strcasecmp('All', trim($params['checked']))
             ) {
-                $query->whereIn(
-                    'id',
-                    collect(explode(',', $params['checked']))
-                        ->filter(function ($id) {
-                            return (int) $id > 0;
-                        })
-                );
+                $query->whereIn('id', $this->getIds($params['checked']));
             }
             if ($params['unchecked']) {
-                $query->whereNotIn(
-                    'id',
-                    collect(explode(',', $params['unchecked']))
-                        ->filter(function ($id) {
-                            return (int) $id > 0;
-                        })
-                );
+                $query->whereNotIn('id', $this->getIds($params['unchecked']));
             }
         }
 
         $query->orderBy($params['sortBy'], $params['sortDirection']);
 
         return $query;
+    }
+
+    /**
+     * Returns an array of id strings
+     *
+     * @param  String $string
+     * @return Array
+     */
+    protected function getIds($string) : array
+    {
+        return collect(explode(',', $string))
+            ->filter(function ($part) {
+                return (int) $part > 0;
+            })
+            ->toArray();
     }
 }
