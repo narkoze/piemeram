@@ -147,10 +147,15 @@ class MovieController extends Controller
             $ids = $this->getIds($params['checked']);
         }
         if ($params['unchecked']) {
-            $ids = $this->getIds($params['unchecked']);
+            $ids = $this->movies($params)
+                ->get()
+                ->except($this->getIds($params['unchecked']))
+                ->pluck('id')
+                ->toArray();
         }
 
         $idCount = count($ids);
+
         if ($idCount > 5) {
             return redirect()
             ->back()
