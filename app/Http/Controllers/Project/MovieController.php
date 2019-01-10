@@ -273,7 +273,7 @@ class MovieController extends Controller
      * @param  Array $addRules
      * @return Array
      */
-    protected function rules($addRules): array
+    protected function rules(array $addRules): array
     {
         $rules = [
             'name' => [
@@ -359,7 +359,7 @@ class MovieController extends Controller
      * @param  Array $params
      * @return Array
      */
-    protected function params($params): array
+    protected function params(array $params): array
     {
         return $params + [
             'sortDirection' => 'desc',
@@ -428,7 +428,7 @@ class MovieController extends Controller
      * @param  String $string
      * @return Array
      */
-    protected function getIds($string) : array
+    protected function getIds(string $string) : array
     {
         return collect(explode(',', $string))
             ->filter(function ($part) {
