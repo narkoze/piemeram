@@ -3,6 +3,11 @@
 return [
   'index' => [
     'title' => 'Projekti',
+    'chat' => [
+      'title' => 'Čats',
+      'description' => 'Vienas Lapas Lietojumprogramma',
+      'extra' => 'Laravel, Vue.js, Foundation',
+    ],
     'blog' => [
       'title' => 'Emuārs',
       'description' => 'Divvalodīga Vienas Lapas Lietojumprogramma',

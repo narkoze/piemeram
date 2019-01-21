@@ -6,6 +6,50 @@
     <div class="card">
       <a
         class="image"
+        href="https://chat.piemeram.lv"
+        target="_blank"
+      >
+        <img src="{{ asset('img/project/chat.jpg') }}">
+      </a>
+
+      <div class="content">
+        <div class="header">
+          <a
+            class="image"
+            href="https://chat.piemeram.lv"
+            target="_blank"
+          >
+            @lang('project.index.chat.title')
+          </a>
+        </div>
+
+        <div class="meta">
+          @lang('project.index.chat.description')
+        </div>
+
+        <div class="description">
+          <a
+            href="https://github.com/narkoze/chat"
+            target="_blank"
+          >
+            <i class="grey large fitted github square icon"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="extra content">
+        <span>
+          @lang('project.index.chat.extra')
+        </span>
+        <span class="right floated">
+          In progress
+        </span>
+      </div>
+    </div>
+
+    <div class="card">
+      <a
+        class="image"
         href="{{ route('movie.index') }}"
         target="_blank"
       >

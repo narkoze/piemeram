@@ -25,3 +25,8 @@ https://piemeram.lv
 > https://blog.piemeram.lv
 >
 > * [README](https://github.com/narkoze/blog/blob/master/README.md)
+
+#### # Chat
+> https://chat.piemeram.lv
+>
+> * [README](https://github.com/narkoze/chat/blob/master/README.md)
