@@ -19,8 +19,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.4.0",
-    "node-sass": "^4.11.0"
+    "eslint-plugin-vue": "^4.4.0"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -30,6 +29,7 @@
     "jquery-ujs": "^1.2.2",
     "laravel-mix": "^1.5.1",
     "moment": "^2.22.2",
+    "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "semantic-ui-sass": "^2.2.11",
     "vue": "^2.5.2",
