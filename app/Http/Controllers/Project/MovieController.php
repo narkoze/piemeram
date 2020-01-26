@@ -9,6 +9,9 @@ use Piemeram\Movie;
 
 class MovieController extends Controller
 {
+
+    public function show(Movie $movie) {}
+
     /**
      * Display a listing of the resource.
      *
