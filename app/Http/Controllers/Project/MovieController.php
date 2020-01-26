@@ -4,7 +4,7 @@ namespace Piemeram\Http\Controllers\Project;
 
 use Piemeram\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Piemeram\Services\Excel;
+// use Piemeram\Services\Excel;
 use Piemeram\Movie;
 
 class MovieController extends Controller
@@ -267,7 +267,7 @@ class MovieController extends Controller
             ];
         }
 
-        return (new Excel('Movies.xlsx', $headings, $data))->download('Movies.xlsx');
+        // return (new Excel('Movies.xlsx', $headings, $data))->download('Movies.xlsx');
     }
 
     /**

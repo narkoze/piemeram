@@ -2,7 +2,7 @@
 
 namespace Piemeram\Services;
 
-// use Maatwebsite\Excel\Concerns\RegistersEventListeners;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -28,7 +28,7 @@ class Excel implements
     WithMapping
 {
     use
-        // RegistersEventListeners,
+        RegistersEventListeners,
         Exportable;
 
     protected $title;
