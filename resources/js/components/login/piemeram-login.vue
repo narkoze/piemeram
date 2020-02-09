@@ -87,8 +87,8 @@
       PiemeramForgotpassword
     },
     data: () => ({
-      email: null,
-      password: null,
+      email: 'demo@piemeram.lv',
+      password: 'demons',
       disabled: false,
       showRegister: false,
       showForgotPassword: false,

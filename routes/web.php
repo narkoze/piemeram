@@ -24,7 +24,12 @@ Route::group([
     'prefix' => 'project',
 ], function () {
     Route::get('', 'Project\ProjectController@index')->name('project');
-    Route::get('movie/excel', 'Project\MovieController@excel')->name('movie.excel');
-    Route::delete('movie/multiple', 'Project\MovieController@destroyMultiple')->name('movie.destroy.multiple');
-    Route::resource('movie', 'Project\MovieController');
+
+    Route::group([
+        'middleware' => 'auth',
+    ], function () {
+        Route::get('movie/excel', 'Project\MovieController@excel')->name('movie.excel');
+        Route::delete('movie/multiple', 'Project\MovieController@destroyMultiple')->name('movie.destroy.multiple');
+        Route::resource('movie', 'Project\MovieController');
+    });
 });

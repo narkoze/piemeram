@@ -49,9 +49,15 @@
 
     <div class="card">
       <a
-        class="image"
-        href="{{ route('movie.index') }}"
-        target="_blank"
+        @auth
+          class="image"
+          href="{{ route('movie.index') }}"
+          target="_blank"
+        @endauth
+
+        @guest
+          title="@lang('system.login_required')"
+        @endguest
       >
         <img src="{{ asset('img/project/movie.jpg') }}">
       </a>
@@ -59,9 +65,15 @@
       <div class="content">
         <div class="header">
           <a
-            class="image"
-            href="{{ route('movie.index') }}"
-            target="_blank"
+            @auth
+              class="image"
+              href="{{ route('movie.index') }}"
+              target="_blank"
+            @endauth
+
+            @guest
+              title="@lang('system.login_required')"
+            @endguest
           >
             @lang('project.index.movie.title')
           </a>
